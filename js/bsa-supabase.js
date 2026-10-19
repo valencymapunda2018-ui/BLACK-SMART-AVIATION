@@ -1,9 +1,7 @@
-
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-// Replace these two placeholders with your BSA project details.
-const SUPABASE_URL = "YOUR_BSA_PROJECT_URL";
-const SUPABASE_PUBLISHABLE_KEY = "YOUR_BSA_PUBLISHABLE_KEY";
+const SUPABASE_URL = "sb_publishable_56RB5RZKBaiblerCP8lrtw_SMCVssXY";
+const SUPABASE_PUBLISHABLE_KEY = " https://wunzifvjumxoeftwudpi.supabase.co/rest/v1/";
 
 export const supabase = createClient(
   SUPABASE_URL,
