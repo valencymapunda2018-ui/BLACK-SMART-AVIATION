@@ -1,0 +1,672 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#071D35">
+  <title>BSA Admin Dashboard</title>
+  <style>
+    :root {
+      --navy: #071D35;
+      --red: #E3262E;
+      --gold: #D4AF37;
+      --light: #f3f6fa;
+      --white: #fff;
+      --text: #18283b;
+      --muted: #64748b;
+      --border: #dce3ec;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--light);
+      color: var(--text);
+    }
+
+    header {
+      background: var(--navy);
+      color: white;
+      padding: 22px max(20px, calc((100% - 1100px)/2));
+      border-bottom: 4px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    header h1 { margin: 0 0 6px; font-size: 22px; }
+    header p { margin: 0; color: #d9e3ef; font-size: 13px; }
+
+    main {
+      max-width: 1100px;
+      margin: 28px auto;
+      padding: 0 18px 40px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 22px;
+      box-shadow: 0 5px 20px #071d350a;
+    }
+
+    h2 { color: var(--navy); margin-top: 0; font-size: 21px; }
+    .muted { color: var(--muted); font-size: 14px; line-height: 1.6; }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin: 15px 0 7px;
+      font-size: 14px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: white;
+      color: var(--text);
+      font: inherit;
+    }
+
+    textarea { min-height: 125px; resize: vertical; }
+    input:focus, select:focus, textarea:focus {
+      outline: 2px solid #d4af3770;
+      border-color: var(--gold);
+    }
+
+    button, .link-button {
+      display: inline-block;
+      border: 0;
+      border-radius: 8px;
+      padding: 12px 17px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .primary { background: var(--navy); color: white; }
+    .gold { background: var(--gold); color: var(--navy); }
+    .danger { background: #fde8e8; color: #a4161a; }
+    .secondary { background: #e8edf4; color: var(--navy); }
+    button:disabled { opacity: .55; cursor: wait; }
+
+    .actions {
+      display: flex;
+      gap: 9px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 18px;
+    }
+
+    .notice {
+      padding: 13px 15px;
+      border-radius: 8px;
+      background: #edf3f9;
+      margin: 15px 0;
+      overflow-wrap: anywhere;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .notice.error { background: #fde8e8; color: #941b1b; }
+    .notice.success { background: #e5f7eb; color: #166534; }
+
+    .hidden { display: none !important; }
+
+    .content-item {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      margin-top: 12px;
+      min-width: 0;
+    }
+
+    .content-item h3 { margin: 0 0 8px; color: var(--navy); }
+    .content-item p { overflow-wrap: anywhere; }
+    .tag {
+      display: inline-block;
+      background: #eef2f7;
+      border-radius: 30px;
+      padding: 5px 9px;
+      font-size: 12px;
+      margin: 0 5px 5px 0;
+    }
+
+    .thumbs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .thumbs img {
+      width: 90px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+    }
+
+    .top-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    @media (max-width: 650px) {
+      .grid { grid-template-columns: 1fr; }
+      .card { padding: 18px; }
+      header { padding: 18px; }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div>
+    <h1>BLACK SMART AVIATION</h1>
+    <p>Content Management · Admin Dashboard</p>
+  </div>
+  <div class="top-actions">
+    <a class="link-button gold"
+       href="https://black-smart-aviation.vercel.app/"
+       target="_blank" rel="noopener">View Website ↗</a>
+    <button id="logoutBtn" class="secondary hidden">Sign out</button>
+  </div>
+</header>
+
+<main>
+  <div id="notice" class="notice" role="status" aria-live="polite">
+    Checking connection…
+  </div>
+
+  <section id="loginPanel" class="card hidden">
+    <h2>Admin Login</h2>
+    <p class="muted">Sign in using the administrator account created in Supabase Authentication.</p>
+
+    <form id="loginForm">
+      <label for="email">Admin email</label>
+      <input id="email" type="email" autocomplete="username"
+             required placeholder="Enter your admin email">
+
+      <label for="password">Password</label>
+      <input id="password" type="password"
+             autocomplete="current-password" required>
+
+      <div class="actions">
+        <button class="primary" type="submit">Sign in</button>
+      </div>
+    </form>
+  </section>
+
+  <section id="dashboard" class="hidden">
+    <div class="card">
+      <h2 id="formHeading">Add New Content</h2>
+      <p class="muted">
+        Create aviation articles, stories, job opportunities, scholarships
+        and other website content. Select Draft to keep content unpublished.
+      </p>
+
+      <form id="contentForm">
+        <input type="hidden" id="contentId">
+
+        <div class="grid">
+          <div>
+            <label for="title">Title *</label>
+            <input id="title" maxlength="180" required
+                   placeholder="e.g. Aviation Training Opportunities">
+          </div>
+
+          <div>
+            <label for="slug">Page slug *</label>
+            <input id="slug" maxlength="180" required
+                   pattern="[a-z0-9-]+"
+                   placeholder="aviation-training-opportunities">
+          </div>
+
+          <div>
+            <label for="category">Category *</label>
+            <select id="category" required>
+              <option value="aviation">Learn Aviation</option>
+              <option value="galley">Aviation Galley</option>
+              <option value="jobs">Jobs & Opportunities</option>
+              <option value="scholarships">Scholarships & Training</option>
+              <option value="stories">Our Stories</option>
+              <option value="community">Community</option>
+              <option value="general">General News</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="status">Publication status *</label>
+            <select id="status" required>
+              <option value="draft">Draft — not public</option>
+              <option value="published">Published — public</option>
+            </select>
+          </div>
+        </div>
+
+        <label for="summary">Short description</label>
+        <textarea id="summary" maxlength="1000"
+          placeholder="A short introduction for visitors"></textarea>
+
+        <label for="body">Full content</label>
+        <textarea id="body" style="min-height:200px"
+          placeholder="Write the full article or announcement here"></textarea>
+
+        <label for="images">Upload images</label>
+        <input id="images" type="file" accept="image/jpeg,image/png,image/webp"
+               multiple>
+        <p class="muted">
+          JPG, PNG or WebP. Maximum 5 MB per image.
+          Images are added to the existing images when editing.
+        </p>
+
+        <div id="existingImages" class="thumbs"></div>
+
+        <div class="actions">
+          <button id="saveBtn" class="primary" type="submit">Save content</button>
+          <button id="resetBtn" class="secondary" type="button">Clear form</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Manage Content</h2>
+      <p class="muted">Edit, publish, unpublish or delete your content.</p>
+
+      <div class="grid">
+        <div>
+          <label for="filterCategory">Filter by category</label>
+          <select id="filterCategory">
+            <option value="">All categories</option>
+            <option value="aviation">Learn Aviation</option>
+            <option value="galley">Aviation Galley</option>
+            <option value="jobs">Jobs & Opportunities</option>
+            <option value="scholarships">Scholarships & Training</option>
+            <option value="stories">Our Stories</option>
+            <option value="community">Community</option>
+            <option value="general">General News</option>
+          </select>
+        </div>
+        <div>
+          <label for="filterStatus">Filter by status</label>
+          <select id="filterStatus">
+            <option value="">All statuses</option>
+            <option value="draft">Draft</option>
+            <option value="published">Published</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="refreshBtn" type="button" class="secondary">Refresh list</button>
+      </div>
+      <div id="contentList"></div>
+    </div>
+  </section>
+</main>
+
+<script type="module">
+  import { supabase } from "./js/bsa-supabase.js";
+
+  // UI check only. Database RLS remains the actual security boundary.
+  const ADMIN_ID = "3fbb6256-57ee-4945-b568-998798a5f657";
+  const BUCKET = "bsa-images";
+
+  const $ = id => document.getElementById(id);
+  let currentImages = [];
+  let busy = false;
+
+  function message(text, type = "") {
+    const el = $("notice");
+    el.textContent = text;
+    el.className = "notice" + (type ? " " + type : "");
+  }
+
+  function escapeHTML(value = "") {
+    return String(value).replace(/[&<>"']/g, char => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    })[char]);
+  }
+
+  function makeSlug(value) {
+    return value.toLowerCase()
+      .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+
+  function setBusy(value) {
+    busy = value;
+    $("saveBtn").disabled = value;
+    $("saveBtn").textContent = value ? "Saving…" : "Save content";
+  }
+
+  async function checkAdmin() {
+    const { data: { session }, error } = await supabase.auth.getSession();
+
+    if (error) throw error;
+
+    if (!session) {
+      $("loginPanel").classList.remove("hidden");
+      $("dashboard").classList.add("hidden");
+      $("logoutBtn").classList.add("hidden");
+      message("Please sign in with your BSA administrator account.");
+      return false;
+    }
+
+    if (session.user.id !== ADMIN_ID) {
+      await supabase.auth.signOut();
+      $("loginPanel").classList.remove("hidden");
+      $("dashboard").classList.add("hidden");
+      message("Access denied: this account is not the designated BSA administrator.", "error");
+      return false;
+    }
+
+    $("loginPanel").classList.add("hidden");
+    $("dashboard").classList.remove("hidden");
+    $("logoutBtn").classList.remove("hidden");
+    message("Signed in. Your administrator account is verified.", "success");
+    await loadContent();
+    return true;
+  }
+
+  $("loginForm").addEventListener("submit", async event => {
+    event.preventDefault();
+    message("Signing in…");
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email: $("email").value.trim(),
+      password: $("password").value
+    });
+
+    if (error) {
+      message("Login failed: " + error.message, "error");
+      return;
+    }
+
+    try {
+      await checkAdmin();
+    } catch (err) {
+      message("Could not verify account: " + err.message, "error");
+    }
+  });
+
+  $("logoutBtn").addEventListener("click", async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      message("Sign out failed: " + error.message, "error");
+      return;
+    }
+    $("dashboard").classList.add("hidden");
+    $("logoutBtn").classList.add("hidden");
+    $("loginPanel").classList.remove("hidden");
+    message("You have signed out.");
+  });
+
+  $("title").addEventListener("input", () => {
+    if (!$("contentId").value || !$("slug").dataset.edited) {
+      $("slug").value = makeSlug($("title").value);
+    }
+  });
+
+  $("slug").addEventListener("input", () => {
+    $("slug").value = makeSlug($("slug").value);
+    $("slug").dataset.edited = "true";
+  });
+
+  function clearForm() {
+    $("contentForm").reset();
+    $("contentId").value = "";
+    $("slug").dataset.edited = "";
+    $("formHeading").textContent = "Add New Content";
+    $("saveBtn").textContent = "Save content";
+    currentImages = [];
+    $("existingImages").replaceChildren();
+  }
+
+  $("resetBtn").addEventListener("click", clearForm);
+
+  async function uploadImages(files) {
+    const urls = [];
+
+    for (const file of files) {
+      if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+        throw new Error("Unsupported image type: " + file.name);
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        throw new Error(file.name + " exceeds the 5 MB limit.");
+      }
+
+      const safeName = file.name.toLowerCase()
+        .replace(/[^a-z0-9._-]/g, "-");
+      const path = `${crypto.randomUUID()}-${safeName}`;
+
+      const { error } = await supabase.storage
+        .from(BUCKET)
+        .upload(path, file, {
+          cacheControl: "3600",
+          upsert: false,
+          contentType: file.type
+        });
+
+      if (error) throw error;
+
+      const { data } = supabase.storage.from(BUCKET).getPublicUrl(path);
+      urls.push(data.publicUrl);
+    }
+
+    return urls;
+  }
+
+  $("contentForm").addEventListener("submit", async event => {
+    event.preventDefault();
+    if (busy) return;
+    setBusy(true);
+
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session || session.user.id !== ADMIN_ID) {
+        throw new Error("Your admin session is not valid. Sign in again.");
+      }
+
+      const title = $("title").value.trim();
+      const slug = makeSlug($("slug").value);
+      if (!title || !slug) throw new Error("Title and slug are required.");
+
+      const files = Array.from($("images").files || []);
+      const uploaded = await uploadImages(files);
+      const status = $("status").value;
+
+      const record = {
+        title,
+        slug,
+        category: $("category").value,
+        summary: $("summary").value.trim(),
+        body: $("body").value.trim(),
+        image_urls: [...currentImages, ...uploaded],
+        status,
+        published_at: status === "published"
+          ? new Date().toISOString()
+          : null,
+        updated_at: new Date().toISOString()
+      };
+
+      const id = $("contentId").value;
+      let result;
+
+      if (id) {
+        result = await supabase.from("bsa_content")
+          .update(record).eq("id", id).select().single();
+      } else {
+        result = await supabase.from("bsa_content")
+          .insert(record).select().single();
+      }
+
+      if (result.error) throw result.error;
+
+      clearForm();
+      message("Content saved successfully.", "success");
+      await loadContent();
+    } catch (err) {
+      message("Could not save content: " + err.message, "error");
+    } finally {
+      setBusy(false);
+    }
+  });
+
+  function renderImages(urls) {
+    return (urls || []).map(url =>
+      `<img src="${escapeHTML(url)}" alt="Content image" loading="lazy">`
+    ).join("");
+  }
+
+  async function loadContent() {
+    const list = $("contentList");
+    list.textContent = "Loading content…";
+
+    let query = supabase.from("bsa_content")
+      .select("*").order("created_at", { ascending: false });
+
+    if ($("filterCategory").value) {
+      query = query.eq("category", $("filterCategory").value);
+    }
+    if ($("filterStatus").value) {
+      query = query.eq("status", $("filterStatus").value);
+    }
+
+    const { data, error } = await query;
+
+    if (error) {
+      list.textContent = "Could not load content: " + error.message;
+      return;
+    }
+
+    if (!data.length) {
+      list.textContent = "No content found. Add your first article above.";
+      return;
+    }
+
+    list.innerHTML = data.map(item => `
+      <article class="content-item">
+        <h3>${escapeHTML(item.title)}</h3>
+        <span class="tag">${escapeHTML(item.category)}</span>
+        <span class="tag">${escapeHTML(item.status)}</span>
+        <p class="muted">${escapeHTML(item.summary || "")}</p>
+        <div class="thumbs">${renderImages(item.image_urls)}</div>
+        <div class="actions">
+          <button type="button" class="primary"
+            data-action="edit" data-id="${escapeHTML(item.id)}">Edit</button>
+          <button type="button" class="secondary"
+            data-action="toggle" data-id="${escapeHTML(item.id)}"
+            data-status="${escapeHTML(item.status)}">
+            ${item.status === "published" ? "Unpublish" : "Publish"}
+          </button>
+          <button type="button" class="danger"
+            data-action="delete" data-id="${escapeHTML(item.id)}">Delete</button>
+        </div>
+      </article>
+    `).join("");
+
+    list.querySelectorAll("button[data-action]").forEach(button => {
+      button.addEventListener("click", () => handleAction(button, data));
+    });
+  }
+
+  async function handleAction(button, records) {
+    const id = button.dataset.id;
+    const action = button.dataset.action;
+    const item = records.find(record => record.id === id);
+    if (!item) return;
+
+    if (action === "edit") {
+      $("contentId").value = item.id;
+      $("title").value = item.title || "";
+      $("slug").value = item.slug || "";
+      $("slug").dataset.edited = "true";
+      $("category").value = item.category || "general";
+      $("status").value = item.status || "draft";
+      $("summary").value = item.summary || "";
+      $("body").value = item.body || "";
+      currentImages = Array.isArray(item.image_urls) ? [...item.image_urls] : [];
+      $("existingImages").innerHTML = renderImages(currentImages);
+      $("formHeading").textContent = "Edit Content";
+      $("saveBtn").textContent = "Update content";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    if (action === "delete") {
+      if (!confirm(`Delete "${item.title}"? This cannot be undone.`)) return;
+
+      const { error } = await supabase.from("bsa_content")
+        .delete().eq("id", id);
+
+      if (error) {
+        message("Delete failed: " + error.message, "error");
+        return;
+      }
+
+      message("Content deleted. Uploaded images may remain in Storage.", "success");
+      await loadContent();
+      return;
+    }
+
+    if (action === "toggle") {
+      const nextStatus = item.status === "published" ? "draft" : "published";
+      const { error } = await supabase.from("bsa_content")
+        .update({
+          status: nextStatus,
+          published_at: nextStatus === "published"
+            ? new Date().toISOString()
+            : null,
+          updated_at: new Date().toISOString()
+        })
+        .eq("id", id);
+
+      if (error) {
+        message("Could not change publication status: " + error.message, "error");
+        return;
+      }
+
+      message(`Content is now ${nextStatus}.`, "success");
+      await loadContent();
+    }
+  }
+
+  $("refreshBtn").addEventListener("click", loadContent);
+  $("filterCategory").addEventListener("change", loadContent);
+  $("filterStatus").addEventListener("change", loadContent);
+
+  try {
+    await checkAdmin();
+  } catch (err) {
+    message("Connection error: " + err.message, "error");
+    $("loginPanel").classList.remove("hidden");
+  }
+
+  supabase.auth.onAuthStateChange(() => {
+    // Re-check the session after login state changes.
+    setTimeout(() => checkAdmin().catch(err =>
+      message("Session check failed: " + err.message, "error")
+    ), 0);
+  });
+</script>
+</body>
+</html>
