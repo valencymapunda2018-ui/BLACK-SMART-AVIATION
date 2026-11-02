@@ -112,3 +112,229 @@
   </script>
 </body>
 </html>
+            <li>Is the training provider appropriately recognised?</li>
+            <li>What are the costs and application deadlines?</li>
+          </ul>
+        `
+      },
+      {
+        match: ["learning resources"],
+        title: "Learning Resources",
+        subtitle: "Build your aviation knowledge",
+        body: `
+          <p>Choose learning materials that are accurate, current and
+          appropriate for your experience level.</p>
+          <h3>Helpful habits</h3>
+          <ul>
+            <li>Use reputable aviation education sources</li>
+            <li>Keep notes of new terminology</li>
+            <li>Compare information with official guidance</li>
+            <li>Continue learning as the industry develops</li>
+          </ul>
+        `
+      },
+      {
+        match: ["career journeys"],
+        title: "Career Journeys",
+        subtitle: "Learn from experiences",
+        body: `
+          <p>Career stories can help people understand different routes
+          into aviation, the challenges people face and the lessons they learn.</p>
+          <p>Black Smart Aviation welcomes interest in sharing stories
+          that are accurate, respectful and approved by the people featured.</p>
+        `
+      },
+      {
+        match: ["youth inspiration"],
+        title: "Youth Inspiration",
+        subtitle: "Encouraging the next generation",
+        body: `
+          <p>Young people can begin exploring aviation by asking questions,
+          learning about careers, building useful skills and seeking
+          reliable educational guidance.</p>
+          <p>Educational activities and career awareness can help make
+          aviation pathways easier to understand.</p>
+        `
+      },
+      {
+        match: ["black aviation talent"],
+        title: "Black Aviation Talent",
+        subtitle: "Celebrate ambition and achievement",
+        body: `
+          <p>Black Smart Aviation aims to help make Black aviation talent
+          more visible and encourage the next generation to consider
+          opportunities across the industry.</p>
+          <p>Stories should be shared with the consent of the people
+          featured and with accurate information.</p>
+        `
+      }
+    ];
+
+    const detailModal = document.getElementById("detailModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalSubtitle = document.getElementById("modalSubtitle");
+    const modalBody = document.getElementById("modalBody");
+    const modalClose = document.getElementById("modalClose");
+    const modalDone = document.getElementById("modalDone");
+    const modalContact = document.getElementById("modalContact");
+
+    let lastFocusedElement = null;
+
+    function openDetail(title) {
+      const normalTitle = title.trim().toLowerCase();
+
+      const detail = bsaDetails.find(function (item) {
+        return item.match.some(function (term) {
+          return normalTitle.includes(term.toLowerCase());
+        });
+      });
+
+      lastFocusedElement = document.activeElement;
+
+      if (detail) {
+        modalTitle.textContent = detail.title;
+        modalSubtitle.textContent = detail.subtitle;
+        modalBody.innerHTML = detail.body;
+      } else {
+        modalTitle.textContent = title;
+        modalSubtitle.textContent = "Learn · Connect · Inspire";
+        modalBody.innerHTML = `
+          <p>Find out more about ${escapeHTML(title)} and how it relates
+          to your aviation interests.</p>
+          <p>Contact Black Smart Aviation if you would like to ask a
+          question or express interest in this topic.</p>
+        `;
+      }
+
+      detailModal.classList.add("open");
+      detailModal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      modalClose.focus();
+    }
+
+    function closeDetail() {
+      detailModal.classList.remove("open");
+      detailModal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+
+      if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+        lastFocusedElement.focus();
+      }
+    }
+
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>"']/g, function (character) {
+        const entities = {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;"
+        };
+        return entities[character];
+      });
+    }
+
+    // Open details when a card is selected
+    document.querySelectorAll(".card").forEach(function (card) {
+      card.style.cursor = "pointer";
+
+      card.addEventListener("click", function (event) {
+        if (event.target.closest("a, button")) return;
+
+        const heading = card.querySelector("h3");
+        if (heading) openDetail(heading.textContent);
+      });
+    });
+
+    // Detail links inside cards
+    document.querySelectorAll("[data-detail]").forEach(function (link) {
+      link.addEventListener("click", function (event) {
+        event.preventDefault();
+        openDetail(link.dataset.detail);
+      });
+    });
+
+    // Links that preselect the user's enquiry interest
+    document.querySelectorAll("[data-interest]").forEach(function (link) {
+      link.addEventListener("click", function () {
+        const interestSelect = document.getElementById("interest");
+        const requestedInterest = link.dataset.interest;
+
+        const matchingOption = Array.from(interestSelect.options).find(
+          function (option) {
+            return option.value.toLowerCase() === requestedInterest.toLowerCase();
+          }
+        );
+
+        if (matchingOption) {
+          interestSelect.value = matchingOption.value;
+        } else if (/news|event|workshop/i.test(requestedInterest)) {
+          interestSelect.value = "News and Events";
+        } else if (/scholarship/i.test(requestedInterest)) {
+          interestSelect.value = "Scholarship Opportunities";
+        } else if (/galley/i.test(requestedInterest)) {
+          interestSelect.value = "Aviation Galley";
+        } else if (/career/i.test(requestedInterest)) {
+          interestSelect.value = "Career Opportunities";
+        } else {
+          interestSelect.value = "Other";
+        }
+      });
+    });
+
+    modalClose.addEventListener("click", closeDetail);
+    modalDone.addEventListener("click", closeDetail);
+
+    detailModal.addEventListener("click", function (event) {
+      if (event.target === detailModal) closeDetail();
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && detailModal.classList.contains("open")) {
+        closeDetail();
+      }
+    });
+
+    modalContact.addEventListener("click", function () {
+      closeDetail();
+    });
+
+    // Prepare an email using the visitor's default email application.
+    // This form does not write data to Supabase.
+    document.getElementById("contactForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const fullName = document.getElementById("fullName").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const interest = document.getElementById("interest").value;
+      const message = document.getElementById("message").value.trim();
+
+      if (!fullName || !email || !interest || !message) {
+        alert("Please complete all required fields.");
+        return;
+      }
+
+      const subject = "Black Smart Aviation Website Enquiry: " + interest;
+
+      const body = [
+        "BLACK SMART AVIATION WEBSITE ENQUIRY",
+        "",
+        "Full Name: " + fullName,
+        "Email Address: " + email,
+        "Interest: " + interest,
+        "",
+        "Message:",
+        message
+      ].join("\n");
+
+      const mailtoURL =
+        "mailto:blacksmartaviation@gmail.com" +
+        "?subject=" + encodeURIComponent(subject) +
+        "&body=" + encodeURIComponent(body);
+
+      window.location.href = mailtoURL;
+    });
+  </script>
+</body>
+</html>
