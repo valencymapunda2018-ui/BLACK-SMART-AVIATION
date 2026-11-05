@@ -1,340 +1,1294 @@
-    function openDetail(title) {
-      const item = detailContent[title];
 
-      if (!item || !detailModal) return;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#071D35">
 
-      modalTitle.textContent = title;
-      modalSubtitle.textContent = item.subtitle;
-      modalBody.innerHTML = item.body;
+<title>BLACK SMART AVIATION | Educate Connect Inspire</title>
 
-      detailModal.classList.add("open");
-      detailModal.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
-    }
+<meta name="description" content="Black Smart Aviation connects Black aviation talent, inspires the next generation and promotes aviation education, careers and opportunities.">
 
-    function closeDetail() {
-      if (!detailModal) return;
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-      detailModal.classList.remove("open");
-      detailModal.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
-    }
+<style>
+:root {
+  --navy: #071D35;
+  --navy2: #032442;
+  --gold: #E9B92F;
+  --red: #E3262E;
+  --white: #ffffff;
+  --light: #f4f7fb;
+  --text: #18314b;
+}
 
-    document.querySelectorAll("[data-detail]").forEach((link) => {
-      link.addEventListener("click", (event) => {
-        const title = link.getAttribute("data-detail");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-        if (detailContent[title]) {
-          event.preventDefault();
-          openDetail(title);
-        }
-      });
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--text);
+  background: white;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* HEADER */
+
+header {
+  width: 100%;
+  background: var(--navy);
+  position: relative;
+  z-index: 1000;
+  box-shadow: 0 3px 15px rgba(0,0,0,.2);
+}
+
+.brand {
+  min-height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+}
+
+.brand-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.logo-circle {
+  width: 96px;
+  height: 96px;
+  border: 4px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  font-size: 29px;
+  font-weight: 900;
+}
+
+.brand-name {
+  text-align: center;
+}
+
+.brand-name h1 {
+  color: white;
+  font-size: clamp(25px, 4vw, 55px);
+  font-weight: 900;
+  line-height: 1.15;
+  white-space: nowrap;
+  letter-spacing: -1.5px;
+}
+
+.brand-name h1 span {
+  color: var(--gold);
+}
+
+.brand-tagline {
+  color: var(--gold);
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 6px;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+}
+
+.brand-tagline::before,
+.brand-tagline::after {
+  content: "";
+  height: 2px;
+  width: 65px;
+  background: var(--gold);
+}
+
+/* NAVIGATION */
+
+nav {
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding: 10px 20px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 14px 15px;
+  border-radius: 9px;
+  transition: .3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  background: rgba(233,185,47,.2);
+  color: var(--gold);
+}
+
+.nav-links .join-nav {
+  background: var(--red);
+  padding: 15px 22px;
+  margin-left: 8px;
+}
+
+.nav-links .join-nav:hover {
+  background: #c51620;
+  color: white;
+}
+
+/* HERO SECTION */
+
+.hero {
+  min-height: 600px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background:
+    linear-gradient(90deg,
+      rgba(3,25,48,.94) 0%,
+      rgba(3,25,48,.78) 43%,
+      rgba(3,25,48,.38) 100%),
+    linear-gradient(rgba(3,25,48,.15),rgba(3,25,48,.3)),
+    url("https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=2000&q=90");
+
+  background-size: cover;
+  background-position: center;
+  color: white;
+  padding: 70px 4.8%;
+}
+
+.hero-content {
+  max-width: 850px;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--gold);
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  margin-bottom: 28px;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 40px;
+  height: 3px;
+  background: var(--red);
+}
+
+.hero h2 {
+  font-size: clamp(45px, 6vw, 83px);
+  line-height: 1.12;
+  font-weight: 900;
+  letter-spacing: -2px;
+  margin-bottom: 25px;
+}
+
+.hero h2 span {
+  color: var(--gold);
+}
+
+.hero p {
+  font-size: 18px;
+  line-height: 1.8;
+  max-width: 690px;
+  margin-bottom: 30px;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 58px;
+  padding: 15px 27px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 800;
+  transition: .3s;
+  cursor: pointer;
+}
+
+.btn-gold {
+  background: var(--gold);
+  color: var(--navy);
+  border: 2px solid var(--gold);
+}
+
+.btn-gold:hover {
+  background: white;
+  border-color: white;
+  transform: translateY(-3px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.btn-outline:hover {
+  background: white;
+  color: var(--navy);
+  transform: translateY(-3px);
+}
+
+/* MISSION STRIP */
+
+.mission-strip {
+  background: var(--light);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 28px 4%;
+  gap: 20px;
+}
+
+.mission-item {
+  text-align: center;
+  padding: 0 15px;
+}
+
+.mission-icon {
+  color: var(--gold);
+  font-size: 40px;
+  margin-bottom: 8px;
+}
+
+.mission-item h3 {
+  color: var(--navy);
+  font-size: 18px;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.mission-item p {
+  font-size: 13px;
+  color: #687b91;
+  line-height: 1.6;
+}
+
+/* GENERAL SECTIONS */
+
+section.content-section {
+  padding: 75px 5%;
+}
+
+.section-label {
+  color: var(--red);
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.section-label::after {
+  content: "";
+  width: 75px;
+  height: 2px;
+  background: var(--red);
+}
+
+.section-title {
+  font-size: clamp(28px, 4vw, 42px);
+  color: var(--navy);
+  font-weight: 900;
+  margin-bottom: 18px;
+}
+
+.section-intro {
+  max-width: 800px;
+  line-height: 1.8;
+  color: #64758a;
+  margin-bottom: 35px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.info-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 25px rgba(0,0,0,.08);
+  transition: .3s;
+  border: 1px solid #edf0f4;
+}
+
+.info-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 12px 30px rgba(0,0,0,.12);
+}
+
+.card-top {
+  height: 9px;
+  background: var(--gold);
+}
+
+.card-body {
+  padding: 27px;
+}
+
+.card-icon {
+  font-size: 35px;
+  margin-bottom: 15px;
+}
+
+.card-body h3 {
+  color: var(--navy);
+  font-size: 19px;
+  margin-bottom: 12px;
+}
+
+.card-body p {
+  color: #687b91;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.card-link {
+  display: inline-block;
+  color: var(--red);
+  font-size: 13px;
+  font-weight: 800;
+  margin-top: 18px;
+}
+
+/* DARK SECTION */
+
+.dark-section {
+  background: var(--navy);
+  color: white;
+}
+
+.dark-section .section-title {
+  color: white;
+}
+
+.dark-section .section-intro {
+  color: #c5d0dc;
+}
+
+.dark-section .info-card {
+  background: #102d4a;
+  border-color: #29425d;
+}
+
+.dark-section .card-body h3 {
+  color: var(--gold);
+}
+
+.dark-section .card-body p {
+  color: #d2dbe5;
+}
+
+/* COMMUNITY */
+
+.community-banner {
+  background: linear-gradient(110deg, #071D35, #123e61);
+  padding: 55px 30px;
+  text-align: center;
+  color: white;
+  border-radius: 15px;
+}
+
+.community-banner h2 {
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+
+.community-banner p {
+  max-width: 700px;
+  margin: 0 auto 25px;
+  line-height: 1.8;
+  color: #d8e1eb;
+}
+
+/* CONTACT */
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 35px;
+}
+
+.contact-details {
+  background: var(--navy);
+  color: white;
+  border-radius: 12px;
+  padding: 30px;
+}
+
+.contact-details h3 {
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.contact-details p {
+  line-height: 2;
+  margin-bottom: 10px;
+  overflow-wrap: anywhere;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #dce2e9;
+  border-radius: 7px;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.contact-form textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.contact-form button {
+  border: none;
+  font-family: inherit;
+}
+
+/* FOOTER */
+
+footer {
+  background: #031426;
+  color: white;
+  padding: 45px 5% 20px;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 35px;
+  padding-bottom: 30px;
+}
+
+.footer-content h3 {
+  color: var(--gold);
+  margin-bottom: 15px;
+}
+
+.footer-content p,
+.footer-content a {
+  color: #c3d0dd;
+  font-size: 13px;
+  line-height: 2;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-links a:hover {
+  color: var(--gold);
+}
+
+.copyright {
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,.15);
+  padding-top: 20px;
+  font-size: 12px;
+  color: #a9b8c8;
+}
+
+/* MOBILE MENU */
+
+.menu-toggle {
+  display: none;
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255,255,255,.4);
+  border-radius: 6px;
+  font-size: 25px;
+  padding: 5px 12px;
+  cursor: pointer;
+}
+
+@media(max-width: 900px) {
+  .nav-links {
+    gap: 0;
+  }
+
+  .nav-links a {
+    padding: 11px 9px;
+    font-size: 11px;
+  }
+
+  .brand-name h1 {
+    font-size: 35px;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media(max-width: 650px) {
+  .brand {
+    min-height: 100px;
+    padding: 12px 8px;
+  }
+
+  .brand-content {
+    gap: 10px;
+  }
+
+  .logo-circle {
+    width: 58px;
+    height: 58px;
+    border-width: 3px;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .brand-name h1 {
+    font-size: clamp(18px, 5vw, 28px);
+    letter-spacing: -1px;
+  }
+
+  .brand-tagline {
+    font-size: 9px;
+    letter-spacing: 2px;
+    gap: 7px;
+  }
+
+  .brand-tagline::before,
+  .brand-tagline::after {
+    width: 15px;
+  }
+
+  nav {
+    min-height: 55px;
+    justify-content: flex-end;
+    padding: 8px 15px;
+    position: relative;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--navy);
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px 15px 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,.25);
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    padding: 13px;
+  }
+
+  .nav-links .join-nav {
+    margin: 8px 0 0;
+    text-align: center;
+  }
+
+  .hero {
+    min-height: 570px;
+    padding: 65px 7%;
+    background-position: center;
+  }
+
+  .hero h2 {
+    font-size: 43px;
+    letter-spacing: -1px;
+  }
+
+  .hero p {
+    font-size: 15px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+
+  .btn {
+    width: 100%;
+    font-size: 13px;
+  }
+
+  .mission-strip {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 35px 20px;
+  }
+
+  section.content-section {
+    padding: 55px 6%;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .community-banner h2 {
+    font-size: 25px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="brand">
+    <div class="brand-content">
+
+      <div class="logo-circle">BSA</div>
+
+      <div class="brand-name">
+        <h1>BLACK SMART <span>AVIATION</span></h1>
+
+        <div class="brand-tagline">
+          EDUCATE · CONNECT · INSPIRE
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu">
+      ☰
+    </button>
+
+    <div class="nav-links" id="navLinks">
+
+      <a href="#home" class="active">Home</a>
+      <a href="#learn">Learn Aviation</a>
+      <a href="#opportunities">Opportunities</a>
+      <a href="#news">News & Events</a>
+      <a href="#galley">Aviation Galley</a>
+      <a href="#scholarships">Scholarships</a>
+      <a href="#stories">Our Stories</a>
+      <a href="#community">Community</a>
+      <a href="#donate">Donate</a>
+      <a href="#contact">Contact</a>
+      <a href="#join" class="join-nav">Join Us</a>
+
+    </div>
+  </nav>
+
+</header>
+
+<!-- HERO -->
+
+<main>
+
+<section class="hero" id="home">
+
+  <div class="hero-content">
+
+    <div class="eyebrow">
+      EDUCATE · CONNECT · INSPIRE
+    </div>
+
+    <h2>
+      Your Future in <span>Aviation</span> Starts Here.
+    </h2>
+
+    <p>
+      Connecting Black aviation talent, inspiring the next generation,
+      and opening doors to aviation education, careers, industry
+      knowledge and community opportunities.
+    </p>
+
+    <div class="hero-buttons">
+
+      <a href="#learn" class="btn btn-gold">
+        Explore Aviation
+      </a>
+
+      <a href="#community" class="btn btn-outline">
+        Join Our Community
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- THREE PILLARS -->
+
+<div class="mission-strip">
+
+  <div class="mission-item">
+    <div class="mission-icon">✈</div>
+    <h3>EDUCATE</h3>
+    <p>Build aviation knowledge and awareness</p>
+  </div>
+
+  <div class="mission-item">
+    <div class="mission-icon">👥</div>
+    <h3>CONNECT</h3>
+    <p>Bring talent and opportunities together</p>
+  </div>
+
+  <div class="mission-item">
+    <div class="mission-icon">🎓</div>
+    <h3>INSPIRE</h3>
+    <p>Encourage the next generation</p>
+  </div>
+
+</div>
+
+<!-- DISCOVER AVIATION -->
+
+<section class="content-section" id="learn">
+
+  <div class="section-label">DISCOVER AVIATION</div>
+
+  <h2 class="section-title">
+    Explore the World of Aviation
+  </h2>
+
+  <p class="section-intro">
+    Aviation is more than flying aircraft. It is a world of careers,
+    knowledge, technology, teamwork and endless possibilities.
+    Discover where your aviation journey can begin.
+  </p>
+
+  <div class="cards">
+
+    <article class="info-card">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="card-icon">✈️</div>
+        <h3>Flight Operations</h3>
+        <p>Discover how aircraft operations, flight planning and airport activities work.</p>
+        <a href="#opportunities" class="card-link">Explore More →</a>
+      </div>
+    </article>
+
+    <article class="info-card">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="card-icon">🛫</div>
+        <h3>Aviation Careers</h3>
+        <p>Learn about different career opportunities across the aviation industry.</p>
+        <a href="#opportunities" class="card-link">Explore More →</a>
+      </div>
+    </article>
+
+    <article class="info-card">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="card-icon">🌍</div>
+        <h3>Industry Knowledge</h3>
+        <p>Build awareness of the global aviation industry and its developments.</p>
+        <a href="#news" class="card-link">Explore More →</a>
+      </div>
+    </article>
+
+  </div>
+
+</section>
+
+<!-- OPPORTUNITIES -->
+
+<section class="content-section dark-section" id="opportunities">
+
+  <div class="section-label">CAREER OPPORTUNITIES</div>
+
+  <h2 class="section-title">Your Aviation Career Starts Here</h2>
+
+  <p class="section-intro">
+    Explore different aviation career paths and discover the skills,
+    training and knowledge needed to enter the industry.
+  </p>
+
+  <div class="cards">
+
+    <article class="info-card">
+      <div class="card-body">
+        <div class="card-icon">👨‍✈️</div>
+        <h3>Pilots</h3>
+        <p>Discover pilot training, aviation qualifications and flight careers.</p>
+      </div>
+    </article>
+
+    <article class="info-card">
+      <div class="card-body">
+        <div class="card-icon">🔧</div>
+        <h3>Aircraft Engineers</h3>
+        <p>Learn about aircraft maintenance, engineering and technical careers.</p>
+      </div>
+    </article>
+
+    <article class="info-card">
+      <div class="card-body">
+        <div class="card-icon">🧑‍✈️</div>
+        <h3>Cabin Crew</h3>
+        <p>Discover passenger service, cabin safety and inflight operations.</p>
+      </div>
+    </article>
+
+  </div>
+
+</section>
+
+<!-- NEWS -->
+
+<section class="content-section" id="news">
+
+  <div class="section-label">NEWS & EVENTS</div>
+
+  <h2 class="section-title">Aviation News and Events</h2>
+
+  <p class="section-intro">
+    Stay connected with aviation developments, educational activities,
+    industry events and community initiatives.
+  </p>
+
+  <div class="cards">
+
+    <article class="info-card">
+      <div class="card-body">
+        <div class="card-icon">📰</div>
+        <h3>Industry Updates</h3>
+        <p>Discover aviation news and important developments in the industry.</p>
+      </div>
+    </article>
+
+    <article class="info-card">
+      <div class="card-body">
+        <div class="card-icon">📅</div>
+        <h3>Events</h3>
+        <p>Connect with aviation events, educational sessions and networking activities.</p>
+      </div>
+    </article>
+
+    <article class="info-card">
+      <div class="card-body">
+        <div class="card-icon">🤝</div>
+        <h3>Networking</h3>
+        <p>Meet people who share your passion for aviation.</p>
+      </div>
+    </article>
+
+  </div>
+
+</section>
+
+<!-- AVIATION GALLEY -->
+
+<section class="content-section dark-section" id="galley">
+
+  <div class="section-label">AVIATION GALLEY</div>
+
+  <h2 class="section-title">Discover Aviation Galley Knowledge</h2>
+
+  <p class="section-intro">
+    Explore the world behind inflight catering, aircraft galley
+    operations, food preparation, equipment and service standards.
+  </p>
+
+  <div class="cards">
+
+    <article class="info-card">
+      <div class="card-body">
+        <div class="card-icon">🍽️</div>
+        <h3>Inflight Catering</h3>
+        <p>Understand how meals and catering services are prepared for flights.</p>
+      </div>
+    </article>
+
+    <article class="info-card">
+      <div class="card-body">
+        <div class="card-icon">✈️</div>
+        <h3>Galley Equipment</h3>
+        <p>Discover aircraft galley equipment and its operational functions.</p>
+      </div>
+    </article>
+
+    <article class="info-card">
+      <div class="card-body">
+        <div class="card-icon">👨‍🍳</div>
+        <h3>Galley Operations</h3>
+        <p>Learn about inflight service preparation and operational coordination.</p>
+      </div>
+    </article>
+
+  </div>
+
+</section>
+
+<!-- SCHOLARSHIPS -->
+
+<section class="content-section" id="scholarships">
+
+  <div class="section-label">EDUCATION SUPPORT</div>
+
+  <h2 class="section-title">Scholarships and Learning Opportunities</h2>
+
+  <p class="section-intro">
+    Education creates opportunities. We aim to connect aspiring
+    aviation professionals with learning resources, scholarships
+    and educational opportunities.
+  </p>
+
+  <div class="community-banner">
+    <h2>Dream Big. Learn More. Fly Higher.</h2>
+    <p>
+      Every aviation journey begins with knowledge, determination
+      and access to opportunities.
+    </p>
+    <a href="#contact" class="btn btn-gold">Get In Touch</a>
+  </div>
+
+</section>
+
+<!-- STORIES -->
+
+<section class="content-section dark-section" id="stories">
+
+  <div class="section-label">OUR STORIES</div>
+
+  <h2 class="section-title">Inspiring Aviation Journeys</h2>
+
+  <p class="section-intro">
+    Every aviation professional has a story. We celebrate ambition,
+    determination, achievements and the people shaping the future
+    of aviation.
+  </p>
+
+  <div class="cards">
+
+    <article class="info-card">
+      <div class="card-body">
+        <div class="card-icon">🌟</div>
+        <h3>Success Stories</h3>
+        <p>Celebrate people making a difference in aviation.</p>
+      </div>
+    </article>
+
+    <article class="info-card">
+      <div class="card-body">
+        <div class="card-icon">💡</div>
+        <h3>Inspiration</h3>
+        <p>Discover stories that encourage young people to pursue aviation.</p>
+      </div>
+    </article>
+
+    <article class="info-card">
+      <div class="card-body">
+        <div class="card-icon">🚀</div>
+        <h3>Our Future</h3>
+        <p>Inspire the next generation of aviation professionals.</p>
+      </div>
+    </article>
+
+  </div>
+
+</section>
+
+<!-- COMMUNITY -->
+
+<section class="content-section" id="community">
+
+  <div class="community-banner">
+    <h2>Be Part of the Aviation Community</h2>
+
+    <p>
+      Connect with aviation enthusiasts, professionals, students
+      and future leaders. Together we can educate, connect and
+      inspire the next generation.
+    </p>
+
+    <a href="#join" class="btn btn-gold">Join Our Community</a>
+  </div>
+
+</section>
+
+<!-- JOIN US -->
+
+<section class="content-section dark-section" id="join">
+
+  <div class="section-label">BECOME PART OF BSA</div>
+
+  <h2 class="section-title">Join Black Smart Aviation</h2>
+
+  <p class="section-intro">
+    Whether you are an aviation professional, student, enthusiast
+    or supporter, there is a place for you in our community.
+    Be part of a movement that connects talent and creates opportunities.
+  </p>
+
+  <div style="text-align:center;">
+    <a href="mailto:blacksmartaviation@gmail.com?subject=Joining%20Black%20Smart%20Aviation"
+       class="btn btn-gold">
+      Join Us Today
+    </a>
+  </div>
+
+</section>
+
+<!-- DONATE -->
+
+<section class="content-section" id="donate">
+
+  <div class="section-label">SUPPORT OUR MISSION</div>
+
+  <h2 class="section-title">Help Us Inspire the Next Generation</h2>
+
+  <p class="section-intro">
+    Your support helps promote aviation education, knowledge sharing,
+    youth inspiration and opportunities for aspiring aviation talent.
+    Together, we can make a difference.
+  </p>
+
+  <div style="text-align:center;">
+    <a href="mailto:blacksmartaviation@gmail.com?subject=Supporting%20Black%20Smart%20Aviation"
+       class="btn btn-gold">
+      Support Our Mission
+    </a>
+  </div>
+
+</section>
+
+<!-- CONTACT -->
+
+<section class="content-section" id="contact">
+
+  <div class="section-label">CONTACT US</div>
+
+  <h2 class="section-title">Let's Connect</h2>
+
+  <p class="section-intro">
+    Have a question, partnership idea or aviation opportunity?
+    We would love to hear from you.
+  </p>
+
+  <div class="contact-grid">
+
+    <div class="contact-details">
+
+      <h3>BLACK SMART AVIATION</h3>
+
+      <p>📧 blacksmartaviation@gmail.com</p>
+
+      <p>📞 +255 753 998 601</p>
+
+      <p>📞 +255 613 769 094</p>
+
+      <p>Educate · Connect · Inspire</p>
+
+    </div>
+
+    <form class="contact-form" id="contactForm">
+
+      <input type="text" id="name" placeholder="Your Full Name" required>
+
+      <input type="email" id="email" placeholder="Your Email Address" required>
+
+      <input type="text" id="subject" placeholder="Subject" required>
+
+      <textarea id="message" placeholder="Write your message..." required></textarea>
+
+      <button type="submit" class="btn btn-gold">
+        Send Message
+      </button>
+
+    </form>
+
+  </div>
+
+</section>
+
+</main>
+
+<!-- FOOTER -->
+
+<footer>
+
+  <div class="footer-content">
+
+    <div>
+      <h3>BLACK SMART AVIATION</h3>
+
+      <p>
+        Connecting Black aviation talent, inspiring the next generation
+        and opening doors to aviation education, careers and opportunities.
+      </p>
+
+      <p style="color:#E9B92F;font-weight:800;margin-top:15px;">
+        EDUCATE · CONNECT · INSPIRE
+      </p>
+    </div>
+
+    <div>
+      <h3>QUICK LINKS</h3>
+
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#learn">Learn Aviation</a>
+        <a href="#opportunities">Opportunities</a>
+        <a href="#galley">Aviation Galley</a>
+        <a href="#community">Community</a>
+      </div>
+    </div>
+
+    <div>
+      <h3>CONTACT</h3>
+
+      <div class="footer-links">
+        <a href="mailto:blacksmartaviation@gmail.com">Email Us</a>
+        <a href="tel:+255753998601">+255 753 998 601</a>
+        <a href="tel:+255613769094">+255 613 769 094</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="copyright">
+    © <span id="year"></span> BLACK SMART AVIATION.
+    All Rights Reserved.
+  </div>
+
+</footer>
+
+<script>
+
+// MOBILE MENU
+
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
+
+menuToggle.addEventListener("click", function() {
+  navLinks.classList.toggle("open");
+
+  menuToggle.textContent =
+    navLinks.classList.contains("open") ? "✕" : "☰";
+});
+
+// CLOSE MENU AFTER CLICKING A LINK
+
+document.querySelectorAll(".nav-links a").forEach(link => {
+
+  link.addEventListener("click", function() {
+
+    navLinks.classList.remove("open");
+    menuToggle.textContent = "☰";
+
+    document.querySelectorAll(".nav-links a").forEach(item => {
+      item.classList.remove("active");
     });
 
-    if (modalClose) {
-      modalClose.addEventListener("click", closeDetail);
-    }
+    this.classList.add("active");
 
-    if (detailModal) {
-      detailModal.addEventListener("click", (event) => {
-        if (event.target === detailModal) {
-          closeDetail();
-        }
-      });
-    }
+  });
 
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        closeDetail();
-      }
-    });
+});
 
-    // CONTACT FORM
-    const contactForm = document.getElementById("contactForm");
-    const formStatus = document.getElementById("formStatus");
+// CONTACT FORM
 
-    if (contactForm) {
-      contactForm.addEventListener("submit", (event) => {
-        event.preventDefault();
+document.getElementById("contactForm").addEventListener("submit", function(e) {
 
-        const name = document.getElementById("contactName").value.trim();
-        const email = document.getElementById("contactEmail").value.trim();
-        const subject = document.getElementById("contactSubject").value.trim();
-        const interest = document.getElementById("contactInterest").value;
-        const message = document.getElementById("contactMessage").value.trim();
+  e.preventDefault();
 
-        if (!name || !email || !subject || !message) {
-          formStatus.textContent = "Please complete all required fields.";
-          return;
-        }
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const subject = document.getElementById("subject").value;
+  const message = document.getElementById("message").value;
 
-        const emailSubject = encodeURIComponent(
-          "BSA Website Enquiry: " + subject
-        );
+  const body =
+    "Name: " + name +
+    "\nEmail: " + email +
+    "\n\nMessage:\n" + message;
 
-        const emailBody = encodeURIComponent(
-          "Name: " + name + "\n" +
-          "Email: " + email + "\n" +
-          "Area of Interest: " + (interest || "Not specified") + "\n\n" +
-          "Message:\n" + message
-        );
+  const mailto =
+    "mailto:blacksmartaviation@gmail.com" +
+    "?subject=" + encodeURIComponent(subject) +
+    "&body=" + encodeURIComponent(body);
 
-        const mailtoLink =
-          "mailto:blacksmartaviation@gmail.com" +
-          "?subject=" + emailSubject +
-          "&body=" + emailBody;
+  window.location.href = mailto;
 
-        formStatus.textContent =
-          "Opening your email application. Please send the prepared message to complete your enquiry.";
+});
 
-        window.location.href = mailtoLink;
-      });
-    }
+// COPYRIGHT YEAR
 
-    // QUICK INTEREST LINKS
-    document.querySelectorAll("[data-interest]").forEach((link) => {
-      link.addEventListener("click", () => {
-        const interest = link.getAttribute("data-interest");
-        const interestField = document.getElementById("contactInterest");
+document.getElementById("year").textContent =
+  new Date().getFullYear();
 
-        if (interestField) {
-          const matchingOption = Array.from(interestField.options).find(
-            (option) =>
-              option.value.toLowerCase() === interest.toLowerCase()
-          );
+</script>
 
-          if (matchingOption) {
-            interestField.value = matchingOption.value;
-          }
-        }
-      });
-    });
-  </script>
-</body>
-</html>
-            <li>Is the training provider appropriately recognised?</li>
-            <li>What are the costs and application deadlines?</li>
-          </ul>
-        `
-      },
-      {
-        match: ["learning resources"],
-        title: "Learning Resources",
-        subtitle: "Build your aviation knowledge",
-        body: `
-          <p>Choose learning materials that are accurate, current and
-          appropriate for your experience level.</p>
-          <h3>Helpful habits</h3>
-          <ul>
-            <li>Use reputable aviation education sources</li>
-            <li>Keep notes of new terminology</li>
-            <li>Compare information with official guidance</li>
-            <li>Continue learning as the industry develops</li>
-          </ul>
-        `
-      },
-      {
-        match: ["career journeys"],
-        title: "Career Journeys",
-        subtitle: "Learn from experiences",
-        body: `
-          <p>Career stories can help people understand different routes
-          into aviation, the challenges people face and the lessons they learn.</p>
-          <p>Black Smart Aviation welcomes interest in sharing stories
-          that are accurate, respectful and approved by the people featured.</p>
-        `
-      },
-      {
-        match: ["youth inspiration"],
-        title: "Youth Inspiration",
-        subtitle: "Encouraging the next generation",
-        body: `
-          <p>Young people can begin exploring aviation by asking questions,
-          learning about careers, building useful skills and seeking
-          reliable educational guidance.</p>
-          <p>Educational activities and career awareness can help make
-          aviation pathways easier to understand.</p>
-        `
-      },
-      {
-        match: ["black aviation talent"],
-        title: "Black Aviation Talent",
-        subtitle: "Celebrate ambition and achievement",
-        body: `
-          <p>Black Smart Aviation aims to help make Black aviation talent
-          more visible and encourage the next generation to consider
-          opportunities across the industry.</p>
-          <p>Stories should be shared with the consent of the people
-          featured and with accurate information.</p>
-        `
-      }
-    ];
-
-    const detailModal = document.getElementById("detailModal");
-    const modalTitle = document.getElementById("modalTitle");
-    const modalSubtitle = document.getElementById("modalSubtitle");
-    const modalBody = document.getElementById("modalBody");
-    const modalClose = document.getElementById("modalClose");
-    const modalDone = document.getElementById("modalDone");
-    const modalContact = document.getElementById("modalContact");
-
-    let lastFocusedElement = null;
-
-    function openDetail(title) {
-      const normalTitle = title.trim().toLowerCase();
-
-      const detail = bsaDetails.find(function (item) {
-        return item.match.some(function (term) {
-          return normalTitle.includes(term.toLowerCase());
-        });
-      });
-
-      lastFocusedElement = document.activeElement;
-
-      if (detail) {
-        modalTitle.textContent = detail.title;
-        modalSubtitle.textContent = detail.subtitle;
-        modalBody.innerHTML = detail.body;
-      } else {
-        modalTitle.textContent = title;
-        modalSubtitle.textContent = "Learn · Connect · Inspire";
-        modalBody.innerHTML = `
-          <p>Find out more about ${escapeHTML(title)} and how it relates
-          to your aviation interests.</p>
-          <p>Contact Black Smart Aviation if you would like to ask a
-          question or express interest in this topic.</p>
-        `;
-      }
-
-      detailModal.classList.add("open");
-      detailModal.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
-      modalClose.focus();
-    }
-
-    function closeDetail() {
-      detailModal.classList.remove("open");
-      detailModal.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
-
-      if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
-        lastFocusedElement.focus();
-      }
-    }
-
-    function escapeHTML(value) {
-      return String(value).replace(/[&<>"']/g, function (character) {
-        const entities = {
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          '"': "&quot;",
-          "'": "&#39;"
-        };
-        return entities[character];
-      });
-    }
-
-    // Open details when a card is selected
-    document.querySelectorAll(".card").forEach(function (card) {
-      card.style.cursor = "pointer";
-
-      card.addEventListener("click", function (event) {
-        if (event.target.closest("a, button")) return;
-
-        const heading = card.querySelector("h3");
-        if (heading) openDetail(heading.textContent);
-      });
-    });
-
-    // Detail links inside cards
-    document.querySelectorAll("[data-detail]").forEach(function (link) {
-      link.addEventListener("click", function (event) {
-        event.preventDefault();
-        openDetail(link.dataset.detail);
-      });
-    });
-
-    // Links that preselect the user's enquiry interest
-    document.querySelectorAll("[data-interest]").forEach(function (link) {
-      link.addEventListener("click", function () {
-        const interestSelect = document.getElementById("interest");
-        const requestedInterest = link.dataset.interest;
-
-        const matchingOption = Array.from(interestSelect.options).find(
-          function (option) {
-            return option.value.toLowerCase() === requestedInterest.toLowerCase();
-          }
-        );
-
-        if (matchingOption) {
-          interestSelect.value = matchingOption.value;
-        } else if (/news|event|workshop/i.test(requestedInterest)) {
-          interestSelect.value = "News and Events";
-        } else if (/scholarship/i.test(requestedInterest)) {
-          interestSelect.value = "Scholarship Opportunities";
-        } else if (/galley/i.test(requestedInterest)) {
-          interestSelect.value = "Aviation Galley";
-        } else if (/career/i.test(requestedInterest)) {
-          interestSelect.value = "Career Opportunities";
-        } else {
-          interestSelect.value = "Other";
-        }
-      });
-    });
-
-    modalClose.addEventListener("click", closeDetail);
-    modalDone.addEventListener("click", closeDetail);
-
-    detailModal.addEventListener("click", function (event) {
-      if (event.target === detailModal) closeDetail();
-    });
-
-    document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape" && detailModal.classList.contains("open")) {
-        closeDetail();
-      }
-    });
-
-    modalContact.addEventListener("click", function () {
-      closeDetail();
-    });
-
-    // Prepare an email using the visitor's default email application.
-    // This form does not write data to Supabase.
-    document.getElementById("contactForm").addEventListener("submit", function (event) {
-      event.preventDefault();
-
-      const fullName = document.getElementById("fullName").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const interest = document.getElementById("interest").value;
-      const message = document.getElementById("message").value.trim();
-
-      if (!fullName || !email || !interest || !message) {
-        alert("Please complete all required fields.");
-        return;
-      }
-
-      const subject = "Black Smart Aviation Website Enquiry: " + interest;
-
-      const body = [
-        "BLACK SMART AVIATION WEBSITE ENQUIRY",
-        "",
-        "Full Name: " + fullName,
-        "Email Address: " + email,
-        "Interest: " + interest,
-        "",
-        "Message:",
-        message
-      ].join("\n");
-
-      const mailtoURL =
-        "mailto:blacksmartaviation@gmail.com" +
-        "?subject=" + encodeURIComponent(subject) +
-        "&body=" + encodeURIComponent(body);
-
-      window.location.href = mailtoURL;
-    });
-  </script>
 </body>
 </html>
