@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,193 +15,164 @@
 
 <style>
 :root {
-  --navy:#071D35;
-  --navy2:#032442;
-  --gold:#E9B92F;
-  --red:#E3262E;
-  --white:#fff;
-  --light:#f4f7fb;
-  --text:#18314b;
+  --navy: #071D35;
+  --navy2: #032442;
+  --gold: #E9B92F;
+  --red: #E3262E;
+  --white: #ffffff;
+  --light: #f4f7fb;
+  --text: #18314b;
 }
 
 * {
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html {
-  scroll-behavior:smooth;
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
 }
 
 body {
-  font-family:'Montserrat',sans-serif;
-  color:var(--text);
-  background:white;
+  font-family: 'Montserrat', sans-serif;
+  color: var(--text);
+  background: white;
 }
 
 a {
-  text-decoration:none;
-  color:inherit;
-}
-
-button {
-  font-family:inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 /* HEADER */
 
 header {
-  width:100%;
-  background:var(--navy);
-  position:relative;
-  z-index:1000;
-  box-shadow:0 3px 15px rgba(0,0,0,.2);
+  width: 100%;
+  background: var(--navy);
+  position: relative;
+  z-index: 1000;
+  box-shadow: 0 3px 15px rgba(0,0,0,.2);
 }
 
 .brand {
-  min-height:145px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:15px;
+  min-height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
 }
 
 .brand-content {
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:20px;
-  width:100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 }
 
 .logo-circle {
-  width:96px;
-  height:96px;
-  border:4px solid var(--gold);
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--gold);
-  font-size:29px;
-  font-weight:900;
-  flex-shrink:0;
+  width: 96px;
+  height: 96px;
+  border: 4px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  font-size: 29px;
+  font-weight: 900;
 }
 
 .brand-name {
-  text-align:center;
+  text-align: center;
 }
 
 .brand-name h1 {
-  color:white;
-  font-size:clamp(25px,4vw,55px);
-  font-weight:900;
-  line-height:1.15;
-  white-space:nowrap;
-  letter-spacing:-1.5px;
+  color: white;
+  font-size: clamp(25px, 4vw, 55px);
+  font-weight: 900;
+  line-height: 1.15;
+  white-space: nowrap;
+  letter-spacing: -1.5px;
 }
 
 .brand-name h1 span {
-  color:var(--gold);
+  color: var(--gold);
 }
 
 .brand-tagline {
-  color:var(--gold);
-  font-size:17px;
-  font-weight:800;
-  letter-spacing:6px;
-  margin-top:8px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:25px;
+  color: var(--gold);
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 6px;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
 }
 
 .brand-tagline::before,
 .brand-tagline::after {
-  content:"";
-  height:2px;
-  width:65px;
-  background:var(--gold);
+  content: "";
+  height: 2px;
+  width: 65px;
+  background: var(--gold);
 }
 
 /* NAVIGATION */
 
 nav {
-  min-height:70px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-top:1px solid rgba(255,255,255,.08);
-  padding:10px 20px;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding: 10px 20px;
 }
 
 .nav-links {
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:5px;
-  flex-wrap:wrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  flex-wrap: wrap;
 }
 
 .nav-links a {
-  color:white;
-  font-size:12px;
-  font-weight:700;
-  padding:14px 12px;
-  border-radius:9px;
-  transition:.3s;
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 14px 15px;
+  border-radius: 9px;
+  transition: .3s;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
-  background:rgba(233,185,47,.2);
-  color:var(--gold);
+  background: rgba(233,185,47,.2);
+  color: var(--gold);
 }
 
 .nav-links .join-nav {
-  background:var(--red);
-  padding:15px 20px;
-  margin-left:8px;
+  background: var(--red);
+  padding: 15px 22px;
+  margin-left: 8px;
 }
 
 .nav-links .join-nav:hover {
-  background:#c51620;
-  color:white;
+  background: #c51620;
+  color: white;
 }
 
-/* PAGE NAVIGATION */
-
-.page-view,
-.home-page {
-  display:none;
-  animation:pageAppear .35s ease;
-}
-
-.page-view.active,
-.home-page.active {
-  display:block;
-}
-
-@keyframes pageAppear {
-  from {
-    opacity:0;
-    transform:translateY(8px);
-  }
-  to {
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-/* HERO */
+/* HERO SECTION */
 
 .hero {
-  min-height:600px;
-  position:relative;
-  display:flex;
-  align-items:center;
+  min-height: 600px;
+  position: relative;
+  display: flex;
+  align-items: center;
   background:
     linear-gradient(90deg,
       rgba(3,25,48,.94) 0%,
@@ -210,527 +180,524 @@ nav {
       rgba(3,25,48,.38) 100%),
     linear-gradient(rgba(3,25,48,.15),rgba(3,25,48,.3)),
     url("https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=2000&q=90");
-  background-size:cover;
-  background-position:center;
-  color:white;
-  padding:70px 4.8%;
+
+  background-size: cover;
+  background-position: center;
+  color: white;
+  padding: 70px 4.8%;
 }
 
 .hero-content {
-  max-width:850px;
+  max-width: 850px;
 }
 
 .eyebrow {
-  display:flex;
-  align-items:center;
-  gap:12px;
-  color:var(--gold);
-  font-size:15px;
-  font-weight:900;
-  letter-spacing:4px;
-  margin-bottom:28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--gold);
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  margin-bottom: 28px;
 }
 
 .eyebrow::before {
-  content:"";
-  width:40px;
-  height:3px;
-  background:var(--red);
+  content: "";
+  width: 40px;
+  height: 3px;
+  background: var(--red);
 }
 
 .hero h2 {
-  font-size:clamp(45px,6vw,83px);
-  line-height:1.12;
-  font-weight:900;
-  letter-spacing:-2px;
-  margin-bottom:25px;
+  font-size: clamp(45px, 6vw, 83px);
+  line-height: 1.12;
+  font-weight: 900;
+  letter-spacing: -2px;
+  margin-bottom: 25px;
 }
 
 .hero h2 span {
-  color:var(--gold);
+  color: var(--gold);
 }
 
 .hero p {
-  font-size:18px;
-  line-height:1.8;
-  max-width:690px;
-  margin-bottom:30px;
+  font-size: 18px;
+  line-height: 1.8;
+  max-width: 690px;
+  margin-bottom: 30px;
 }
 
 .hero-buttons {
-  display:flex;
-  flex-wrap:wrap;
-  gap:15px;
-  margin-top:30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 30px;
 }
 
-/* BUTTONS */
-
 .btn {
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:55px;
-  padding:15px 27px;
-  border-radius:9px;
-  font-size:14px;
-  font-weight:800;
-  transition:.3s;
-  cursor:pointer;
-  border:2px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 58px;
+  padding: 15px 27px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 800;
+  transition: .3s;
+  cursor: pointer;
 }
 
 .btn-gold {
-  background:var(--gold);
-  color:var(--navy);
-  border-color:var(--gold);
+  background: var(--gold);
+  color: var(--navy);
+  border: 2px solid var(--gold);
 }
 
 .btn-gold:hover {
-  background:white;
-  border-color:white;
-  transform:translateY(-3px);
+  background: white;
+  border-color: white;
+  transform: translateY(-3px);
 }
 
 .btn-outline {
-  background:transparent;
-  color:white;
-  border:2px solid white;
+  background: transparent;
+  color: white;
+  border: 2px solid white;
 }
 
 .btn-outline:hover {
-  background:white;
-  color:var(--navy);
-  transform:translateY(-3px);
+  background: white;
+  color: var(--navy);
+  transform: translateY(-3px);
 }
 
-/* MISSION */
+/* MISSION STRIP */
 
 .mission-strip {
-  background:var(--light);
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  padding:28px 4%;
-  gap:20px;
+  background: var(--light);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 28px 4%;
+  gap: 20px;
 }
 
 .mission-item {
-  text-align:center;
-  padding:0 15px;
+  text-align: center;
+  padding: 0 15px;
 }
 
 .mission-icon {
-  color:var(--gold);
-  font-size:40px;
-  margin-bottom:8px;
+  color: var(--gold);
+  font-size: 40px;
+  margin-bottom: 8px;
 }
 
 .mission-item h3 {
-  color:var(--navy);
-  font-size:18px;
-  font-weight:900;
-  margin-bottom:8px;
+  color: var(--navy);
+  font-size: 18px;
+  font-weight: 900;
+  margin-bottom: 8px;
 }
 
 .mission-item p {
-  font-size:13px;
-  color:#687b91;
-  line-height:1.6;
+  font-size: 13px;
+  color: #687b91;
+  line-height: 1.6;
 }
 
-/* SECTIONS */
+/* GENERAL SECTIONS */
 
 section.content-section {
-  padding:75px 5%;
-  min-height:470px;
+  padding: 75px 5%;
 }
 
 .section-label {
-  color:var(--red);
-  font-size:14px;
-  font-weight:900;
-  letter-spacing:4px;
-  margin-bottom:15px;
-  display:flex;
-  align-items:center;
-  gap:20px;
+  color: var(--red);
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .section-label::after {
-  content:"";
-  width:75px;
-  height:2px;
-  background:var(--red);
+  content: "";
+  width: 75px;
+  height: 2px;
+  background: var(--red);
 }
 
 .section-title {
-  font-size:clamp(28px,4vw,42px);
-  color:var(--navy);
-  font-weight:900;
-  margin-bottom:18px;
+  font-size: clamp(28px, 4vw, 42px);
+  color: var(--navy);
+  font-weight: 900;
+  margin-bottom: 18px;
 }
 
 .section-intro {
-  max-width:800px;
-  line-height:1.8;
-  color:#64758a;
-  margin-bottom:35px;
+  max-width: 800px;
+  line-height: 1.8;
+  color: #64758a;
+  margin-bottom: 35px;
 }
 
 .cards {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:25px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
 }
 
 .info-card {
-  background:white;
-  border-radius:12px;
-  overflow:hidden;
-  box-shadow:0 5px 25px rgba(0,0,0,.08);
-  transition:.3s;
-  border:1px solid #edf0f4;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 25px rgba(0,0,0,.08);
+  transition: .3s;
+  border: 1px solid #edf0f4;
 }
 
 .info-card:hover {
-  transform:translateY(-7px);
-  box-shadow:0 12px 30px rgba(0,0,0,.12);
+  transform: translateY(-7px);
+  box-shadow: 0 12px 30px rgba(0,0,0,.12);
 }
 
 .card-top {
-  height:9px;
-  background:var(--gold);
+  height: 9px;
+  background: var(--gold);
 }
 
 .card-body {
-  padding:27px;
+  padding: 27px;
 }
 
 .card-icon {
-  font-size:35px;
-  margin-bottom:15px;
+  font-size: 35px;
+  margin-bottom: 15px;
 }
 
 .card-body h3 {
-  color:var(--navy);
-  font-size:19px;
-  margin-bottom:12px;
+  color: var(--navy);
+  font-size: 19px;
+  margin-bottom: 12px;
 }
 
 .card-body p {
-  color:#687b91;
-  font-size:14px;
-  line-height:1.8;
+  color: #687b91;
+  font-size: 14px;
+  line-height: 1.8;
 }
 
 .card-link {
-  display:inline-block;
-  color:var(--red);
-  font-size:13px;
-  font-weight:800;
-  margin-top:18px;
+  display: inline-block;
+  color: var(--red);
+  font-size: 13px;
+  font-weight: 800;
+  margin-top: 18px;
 }
 
+/* DARK SECTION */
+
 .dark-section {
-  background:var(--navy);
-  color:white;
+  background: var(--navy);
+  color: white;
 }
 
 .dark-section .section-title {
-  color:white;
+  color: white;
 }
 
 .dark-section .section-intro {
-  color:#c5d0dc;
+  color: #c5d0dc;
 }
 
 .dark-section .info-card {
-  background:#102d4a;
-  border-color:#29425d;
+  background: #102d4a;
+  border-color: #29425d;
 }
 
 .dark-section .card-body h3 {
-  color:var(--gold);
+  color: var(--gold);
 }
 
 .dark-section .card-body p {
-  color:#d2dbe5;
+  color: #d2dbe5;
 }
 
-/* BANNERS */
+/* COMMUNITY */
 
 .community-banner {
-  background:linear-gradient(110deg,#071D35,#123e61);
-  padding:55px 30px;
-  text-align:center;
-  color:white;
-  border-radius:15px;
+  background: linear-gradient(110deg, #071D35, #123e61);
+  padding: 55px 30px;
+  text-align: center;
+  color: white;
+  border-radius: 15px;
 }
 
 .community-banner h2 {
-  font-size:32px;
-  margin-bottom:15px;
+  font-size: 32px;
+  margin-bottom: 15px;
 }
 
 .community-banner p {
-  max-width:700px;
-  margin:0 auto 25px;
-  line-height:1.8;
-  color:#d8e1eb;
+  max-width: 700px;
+  margin: 0 auto 25px;
+  line-height: 1.8;
+  color: #d8e1eb;
 }
 
 /* CONTACT */
 
 .contact-grid {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:35px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 35px;
 }
 
 .contact-details {
-  background:var(--navy);
-  color:white;
-  border-radius:12px;
-  padding:30px;
+  background: var(--navy);
+  color: white;
+  border-radius: 12px;
+  padding: 30px;
 }
 
 .contact-details h3 {
-  color:var(--gold);
-  margin-bottom:20px;
+  color: var(--gold);
+  margin-bottom: 20px;
 }
 
 .contact-details p {
-  line-height:2;
-  margin-bottom:10px;
-  overflow-wrap:anywhere;
+  line-height: 2;
+  margin-bottom: 10px;
+  overflow-wrap: anywhere;
 }
 
 .contact-form {
-  display:flex;
-  flex-direction:column;
-  gap:15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .contact-form input,
 .contact-form textarea {
-  width:100%;
-  padding:15px;
-  border:1px solid #dce2e9;
-  border-radius:7px;
-  font-family:inherit;
-  font-size:14px;
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #dce2e9;
+  border-radius: 7px;
+  font-family: inherit;
+  font-size: 14px;
 }
 
 .contact-form textarea {
-  min-height:130px;
-  resize:vertical;
+  min-height: 130px;
+  resize: vertical;
 }
 
 .contact-form button {
-  border:none;
+  border: none;
+  font-family: inherit;
 }
 
 /* FOOTER */
 
 footer {
-  background:#031426;
-  color:white;
-  padding:45px 5% 20px;
+  background: #031426;
+  color: white;
+  padding: 45px 5% 20px;
 }
 
 .footer-content {
-  display:grid;
-  grid-template-columns:2fr 1fr 1fr;
-  gap:35px;
-  padding-bottom:30px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 35px;
+  padding-bottom: 30px;
 }
 
 .footer-content h3 {
-  color:var(--gold);
-  margin-bottom:15px;
+  color: var(--gold);
+  margin-bottom: 15px;
 }
 
 .footer-content p,
 .footer-content a {
-  color:#c3d0dd;
-  font-size:13px;
-  line-height:2;
+  color: #c3d0dd;
+  font-size: 13px;
+  line-height: 2;
 }
 
 .footer-links {
-  display:flex;
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
 }
 
 .footer-links a:hover {
-  color:var(--gold);
+  color: var(--gold);
 }
 
 .copyright {
-  text-align:center;
-  border-top:1px solid rgba(255,255,255,.15);
-  padding-top:20px;
-  font-size:12px;
-  color:#a9b8c8;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,.15);
+  padding-top: 20px;
+  font-size: 12px;
+  color: #a9b8c8;
 }
 
 /* MOBILE MENU */
 
 .menu-toggle {
-  display:none;
-  background:transparent;
-  color:white;
-  border:1px solid rgba(255,255,255,.4);
-  border-radius:6px;
-  font-size:25px;
-  padding:5px 12px;
-  cursor:pointer;
+  display: none;
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255,255,255,.4);
+  border-radius: 6px;
+  font-size: 25px;
+  padding: 5px 12px;
+  cursor: pointer;
 }
 
-/* TABLET */
-
-@media(max-width:900px) {
+@media(max-width: 900px) {
   .nav-links {
-    gap:0;
+    gap: 0;
   }
 
   .nav-links a {
-    padding:11px 8px;
-    font-size:10px;
+    padding: 11px 9px;
+    font-size: 11px;
   }
 
   .brand-name h1 {
-    font-size:35px;
+    font-size: 35px;
   }
 
   .cards {
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* MOBILE */
-
-@media(max-width:650px) {
+@media(max-width: 650px) {
   .brand {
-    min-height:100px;
-    padding:12px 8px;
+    min-height: 100px;
+    padding: 12px 8px;
   }
 
   .brand-content {
-    gap:10px;
+    gap: 10px;
   }
 
   .logo-circle {
-    width:58px;
-    height:58px;
-    border-width:3px;
-    font-size:18px;
+    width: 58px;
+    height: 58px;
+    border-width: 3px;
+    font-size: 18px;
+    flex-shrink: 0;
   }
 
   .brand-name h1 {
-    font-size:clamp(18px,5vw,28px);
-    letter-spacing:-1px;
+    font-size: clamp(18px, 5vw, 28px);
+    letter-spacing: -1px;
   }
 
   .brand-tagline {
-    font-size:9px;
-    letter-spacing:2px;
-    gap:7px;
+    font-size: 9px;
+    letter-spacing: 2px;
+    gap: 7px;
   }
 
   .brand-tagline::before,
   .brand-tagline::after {
-    width:15px;
+    width: 15px;
   }
 
   nav {
-    min-height:55px;
-    justify-content:flex-end;
-    padding:8px 15px;
-    position:relative;
+    min-height: 55px;
+    justify-content: flex-end;
+    padding: 8px 15px;
+    position: relative;
   }
 
   .menu-toggle {
-    display:block;
+    display: block;
   }
 
   .nav-links {
-    display:none;
-    position:absolute;
-    top:100%;
-    left:0;
-    width:100%;
-    background:var(--navy);
-    flex-direction:column;
-    align-items:stretch;
-    padding:12px 15px 20px;
-    box-shadow:0 10px 20px rgba(0,0,0,.25);
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--navy);
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px 15px 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,.25);
   }
 
   .nav-links.open {
-    display:flex;
+    display: flex;
   }
 
   .nav-links a {
-    font-size:13px;
-    padding:13px;
+    font-size: 13px;
+    padding: 13px;
   }
 
   .nav-links .join-nav {
-    margin:8px 0 0;
-    text-align:center;
+    margin: 8px 0 0;
+    text-align: center;
   }
 
   .hero {
-    min-height:570px;
-    padding:65px 7%;
-    background-position:center;
+    min-height: 570px;
+    padding: 65px 7%;
+    background-position: center;
   }
 
   .hero h2 {
-    font-size:43px;
-    letter-spacing:-1px;
+    font-size: 43px;
+    letter-spacing: -1px;
   }
 
   .hero p {
-    font-size:15px;
+    font-size: 15px;
   }
 
   .eyebrow {
-    font-size:11px;
-    letter-spacing:2px;
+    font-size: 11px;
+    letter-spacing: 2px;
   }
 
   .btn {
-    width:100%;
-    font-size:13px;
+    width: 100%;
+    font-size: 13px;
   }
 
   .mission-strip {
-    grid-template-columns:1fr;
-    gap:30px;
-    padding:35px 20px;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 35px 20px;
   }
 
   section.content-section {
-    padding:55px 6%;
+    padding: 55px 6%;
   }
 
   .cards {
-    grid-template-columns:1fr;
+    grid-template-columns: 1fr;
   }
 
   .contact-grid {
-    grid-template-columns:1fr;
+    grid-template-columns: 1fr;
   }
 
   .footer-content {
-    grid-template-columns:1fr;
-    gap:25px;
+    grid-template-columns: 1fr;
+    gap: 25px;
   }
 
   .community-banner h2 {
-    font-size:25px;
+    font-size: 25px;
   }
 }
 </style>
@@ -757,10 +724,7 @@ footer {
   </div>
 
   <nav>
-
-    <button class="menu-toggle" id="menuToggle"
-      aria-label="Open navigation menu"
-      aria-expanded="false">
+    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu">
       ☰
     </button>
 
@@ -783,73 +747,71 @@ footer {
 
 </header>
 
+<!-- HERO -->
+
 <main>
 
-<!-- HOME PAGE -->
+<section class="hero" id="home">
 
-<div class="home-page active" id="home">
+  <div class="hero-content">
 
-  <section class="hero">
-
-    <div class="hero-content">
-
-      <div class="eyebrow">
-        EDUCATE · CONNECT · INSPIRE
-      </div>
-
-      <h2>
-        Your Future in <span>Aviation</span> Starts Here.
-      </h2>
-
-      <p>
-        Connecting Black aviation talent, inspiring the next generation,
-        and opening doors to aviation education, careers, industry
-        knowledge and community opportunities.
-      </p>
-
-      <div class="hero-buttons">
-
-        <a href="#learn" class="btn btn-gold">
-          Explore Aviation
-        </a>
-
-        <a href="#community" class="btn btn-outline">
-          Join Our Community
-        </a>
-
-      </div>
-
+    <div class="eyebrow">
+      EDUCATE · CONNECT · INSPIRE
     </div>
 
-  </section>
+    <h2>
+      Your Future in <span>Aviation</span> Starts Here.
+    </h2>
 
-  <div class="mission-strip">
+    <p>
+      Connecting Black aviation talent, inspiring the next generation,
+      and opening doors to aviation education, careers, industry
+      knowledge and community opportunities.
+    </p>
 
-    <div class="mission-item">
-      <div class="mission-icon">✈</div>
-      <h3>EDUCATE</h3>
-      <p>Build aviation knowledge and awareness</p>
-    </div>
+    <div class="hero-buttons">
 
-    <div class="mission-item">
-      <div class="mission-icon">👥</div>
-      <h3>CONNECT</h3>
-      <p>Bring talent and opportunities together</p>
-    </div>
+      <a href="#learn" class="btn btn-gold">
+        Explore Aviation
+      </a>
 
-    <div class="mission-item">
-      <div class="mission-icon">🎓</div>
-      <h3>INSPIRE</h3>
-      <p>Encourage the next generation</p>
+      <a href="#community" class="btn btn-outline">
+        Join Our Community
+      </a>
+
     </div>
 
   </div>
 
+</section>
+
+<!-- THREE PILLARS -->
+
+<div class="mission-strip">
+
+  <div class="mission-item">
+    <div class="mission-icon">✈</div>
+    <h3>EDUCATE</h3>
+    <p>Build aviation knowledge and awareness</p>
+  </div>
+
+  <div class="mission-item">
+    <div class="mission-icon">👥</div>
+    <h3>CONNECT</h3>
+    <p>Bring talent and opportunities together</p>
+  </div>
+
+  <div class="mission-item">
+    <div class="mission-icon">🎓</div>
+    <h3>INSPIRE</h3>
+    <p>Encourage the next generation</p>
+  </div>
+
 </div>
 
-<!-- LEARN AVIATION -->
+<!-- DISCOVER AVIATION -->
 
-<section class="content-section page-view" id="learn">
+<section class="content-section" id="learn">
 
   <div class="section-label">DISCOVER AVIATION</div>
 
@@ -901,7 +863,7 @@ footer {
 
 <!-- OPPORTUNITIES -->
 
-<section class="content-section dark-section page-view" id="opportunities">
+<section class="content-section dark-section" id="opportunities">
 
   <div class="section-label">CAREER OPPORTUNITIES</div>
 
@@ -942,9 +904,9 @@ footer {
 
 </section>
 
-<!-- NEWS AND EVENTS -->
+<!-- NEWS -->
 
-<section class="content-section page-view" id="news">
+<section class="content-section" id="news">
 
   <div class="section-label">NEWS & EVENTS</div>
 
@@ -987,7 +949,7 @@ footer {
 
 <!-- AVIATION GALLEY -->
 
-<section class="content-section dark-section page-view" id="galley">
+<section class="content-section dark-section" id="galley">
 
   <div class="section-label">AVIATION GALLEY</div>
 
@@ -1030,7 +992,7 @@ footer {
 
 <!-- SCHOLARSHIPS -->
 
-<section class="content-section page-view" id="scholarships">
+<section class="content-section" id="scholarships">
 
   <div class="section-label">EDUCATION SUPPORT</div>
 
@@ -1043,23 +1005,19 @@ footer {
   </p>
 
   <div class="community-banner">
-
     <h2>Dream Big. Learn More. Fly Higher.</h2>
-
     <p>
       Every aviation journey begins with knowledge, determination
       and access to opportunities.
     </p>
-
     <a href="#contact" class="btn btn-gold">Get In Touch</a>
-
   </div>
 
 </section>
 
 <!-- STORIES -->
 
-<section class="content-section dark-section page-view" id="stories">
+<section class="content-section dark-section" id="stories">
 
   <div class="section-label">OUR STORIES</div>
 
@@ -1103,10 +1061,9 @@ footer {
 
 <!-- COMMUNITY -->
 
-<section class="content-section page-view" id="community">
+<section class="content-section" id="community">
 
   <div class="community-banner">
-
     <h2>Be Part of the Aviation Community</h2>
 
     <p>
@@ -1116,14 +1073,13 @@ footer {
     </p>
 
     <a href="#join" class="btn btn-gold">Join Our Community</a>
-
   </div>
 
 </section>
 
 <!-- JOIN US -->
 
-<section class="content-section dark-section page-view" id="join">
+<section class="content-section dark-section" id="join">
 
   <div class="section-label">BECOME PART OF BSA</div>
 
@@ -1136,19 +1092,17 @@ footer {
   </p>
 
   <div style="text-align:center;">
-
     <a href="mailto:blacksmartaviation@gmail.com?subject=Joining%20Black%20Smart%20Aviation"
        class="btn btn-gold">
       Join Us Today
     </a>
-
   </div>
 
 </section>
 
 <!-- DONATE -->
 
-<section class="content-section page-view" id="donate">
+<section class="content-section" id="donate">
 
   <div class="section-label">SUPPORT OUR MISSION</div>
 
@@ -1161,19 +1115,17 @@ footer {
   </p>
 
   <div style="text-align:center;">
-
     <a href="mailto:blacksmartaviation@gmail.com?subject=Supporting%20Black%20Smart%20Aviation"
        class="btn btn-gold">
       Support Our Mission
     </a>
-
   </div>
 
 </section>
 
 <!-- CONTACT -->
 
-<section class="content-section page-view" id="contact">
+<section class="content-section" id="contact">
 
   <div class="section-label">CONTACT US</div>
 
@@ -1202,17 +1154,13 @@ footer {
 
     <form class="contact-form" id="contactForm">
 
-      <input type="text" id="name"
-        placeholder="Your Full Name" required>
+      <input type="text" id="name" placeholder="Your Full Name" required>
 
-      <input type="email" id="email"
-        placeholder="Your Email Address" required>
+      <input type="email" id="email" placeholder="Your Email Address" required>
 
-      <input type="text" id="subject"
-        placeholder="Subject" required>
+      <input type="text" id="subject" placeholder="Subject" required>
 
-      <textarea id="message"
-        placeholder="Write your message..." required></textarea>
+      <textarea id="message" placeholder="Write your message..." required></textarea>
 
       <button type="submit" class="btn btn-gold">
         Send Message
@@ -1233,7 +1181,6 @@ footer {
   <div class="footer-content">
 
     <div>
-
       <h3>BLACK SMART AVIATION</h3>
 
       <p>
@@ -1244,251 +1191,98 @@ footer {
       <p style="color:#E9B92F;font-weight:800;margin-top:15px;">
         EDUCATE · CONNECT · INSPIRE
       </p>
-
     </div>
 
     <div>
-
       <h3>QUICK LINKS</h3>
 
       <div class="footer-links">
-
         <a href="#home">Home</a>
         <a href="#learn">Learn Aviation</a>
         <a href="#opportunities">Opportunities</a>
         <a href="#galley">Aviation Galley</a>
         <a href="#community">Community</a>
-
       </div>
-
     </div>
 
     <div>
-
       <h3>CONTACT</h3>
 
       <div class="footer-links">
-
         <a href="mailto:blacksmartaviation@gmail.com">Email Us</a>
         <a href="tel:+255753998601">+255 753 998 601</a>
         <a href="tel:+255613769094">+255 613 769 094</a>
-
       </div>
-
     </div>
 
   </div>
 
   <div class="copyright">
-
     © <span id="year"></span> BLACK SMART AVIATION.
     All Rights Reserved.
-
   </div>
 
 </footer>
 
 <script>
 
-/* =====================================
-   BLACK SMART AVIATION PAGE NAVIGATION
-===================================== */
+// MOBILE MENU
 
 const menuToggle = document.getElementById("menuToggle");
 const navLinks = document.getElementById("navLinks");
 
-const homePage = document.getElementById("home");
-
-const pages = document.querySelectorAll(".page-view");
-
-const navigationLinks = document.querySelectorAll(
-  ".nav-links a"
-);
-
-/* CLOSE MOBILE MENU */
-
-function closeMobileMenu() {
-
-  navLinks.classList.remove("open");
-
-  menuToggle.textContent = "☰";
-
-  menuToggle.setAttribute("aria-expanded", "false");
-
-}
-
-/* MOBILE MENU BUTTON */
-
 menuToggle.addEventListener("click", function() {
+  navLinks.classList.toggle("open");
 
-  const isOpen = navLinks.classList.toggle("open");
-
-  menuToggle.textContent = isOpen ? "✕" : "☰";
-
-  menuToggle.setAttribute("aria-expanded", String(isOpen));
-
+  menuToggle.textContent =
+    navLinks.classList.contains("open") ? "✕" : "☰";
 });
 
-/* OPEN SELECTED PAGE */
+// CLOSE MENU AFTER CLICKING A LINK
 
-function openPage(pageId, updateHistory = true) {
+document.querySelectorAll(".nav-links a").forEach(link => {
 
-  let selectedPage;
+  link.addEventListener("click", function() {
 
-  if (pageId === "home" || !pageId) {
+    navLinks.classList.remove("open");
+    menuToggle.textContent = "☰";
 
-    selectedPage = homePage;
+    document.querySelectorAll(".nav-links a").forEach(item => {
+      item.classList.remove("active");
+    });
 
-  } else {
-
-    selectedPage = document.getElementById(pageId);
-
-  }
-
-  if (!selectedPage) {
-
-    selectedPage = homePage;
-    pageId = "home";
-
-  }
-
-  /* HIDE ALL PAGES */
-
-  homePage.classList.remove("active");
-
-  pages.forEach(page => {
-
-    page.classList.remove("active");
+    this.classList.add("active");
 
   });
 
-  /* SHOW SELECTED PAGE */
+});
 
-  selectedPage.classList.add("active");
+// CONTACT FORM
 
-  /* UPDATE NAVIGATION ACTIVE LINK */
+document.getElementById("contactForm").addEventListener("submit", function(e) {
 
-  navigationLinks.forEach(link => {
+  e.preventDefault();
 
-    link.classList.remove("active");
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const subject = document.getElementById("subject").value;
+  const message = document.getElementById("message").value;
 
-    if (link.getAttribute("href") === "#" + pageId) {
+  const body =
+    "Name: " + name +
+    "\nEmail: " + email +
+    "\n\nMessage:\n" + message;
 
-      link.classList.add("active");
+  const mailto =
+    "mailto:blacksmartaviation@gmail.com" +
+    "?subject=" + encodeURIComponent(subject) +
+    "&body=" + encodeURIComponent(body);
 
-    }
-
-  });
-
-  /* CLOSE MOBILE MENU */
-
-  closeMobileMenu();
-
-  /* UPDATE URL */
-
-  if (updateHistory) {
-
-    history.pushState(
-      { page: pageId },
-      "",
-      "#" + pageId
-    );
-
-  }
-
-  /* START PAGE FROM TOP */
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-
-}
-
-/* ALL INTERNAL LINKS */
-
-document.addEventListener("click", function(event) {
-
-  const link = event.target.closest('a[href^="#"]');
-
-  if (!link) return;
-
-  const href = link.getAttribute("href");
-
-  if (!href || href === "#") return;
-
-  const pageId = href.substring(1);
-
-  const target = document.getElementById(pageId);
-
-  if (!target) return;
-
-  event.preventDefault();
-
-  openPage(pageId);
+  window.location.href = mailto;
 
 });
 
-/* BROWSER BACK AND FORWARD BUTTONS */
-
-window.addEventListener("popstate", function() {
-
-  const pageId = window.location.hash.substring(1) || "home";
-
-  openPage(pageId, false);
-
-});
-
-/* OPEN CORRECT PAGE WHEN WEBSITE LOADS */
-
-window.addEventListener("DOMContentLoaded", function() {
-
-  const pageId = window.location.hash.substring(1) || "home";
-
-  openPage(pageId, false);
-
-});
-
-/* CONTACT FORM */
-
-document.getElementById("contactForm").addEventListener(
-  "submit",
-  function(event) {
-
-    event.preventDefault();
-
-    const name = document.getElementById("name").value.trim();
-
-    const email = document.getElementById("email").value.trim();
-
-    const subject = document.getElementById("subject").value.trim();
-
-    const message = document.getElementById("message").value.trim();
-
-    if (!name || !email || !subject || !message) {
-
-      alert("Please complete all fields.");
-
-      return;
-
-    }
-
-    const body =
-      "Name: " + name +
-      "\nEmail: " + email +
-      "\n\nMessage:\n" + message;
-
-    const mailto =
-      "mailto:blacksmartaviation@gmail.com" +
-      "?subject=" + encodeURIComponent(subject) +
-      "&body=" + encodeURIComponent(body);
-
-    window.location.href = mailto;
-
-  }
-);
-
-/* COPYRIGHT YEAR */
+// COPYRIGHT YEAR
 
 document.getElementById("year").textContent =
   new Date().getFullYear();
