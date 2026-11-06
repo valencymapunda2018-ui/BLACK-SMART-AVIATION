@@ -557,6 +557,98 @@ footer {
   cursor: pointer;
 }
 
+/* PAGE NAVIGATION */
+
+.page-hidden {
+  display: none !important;
+}
+
+.page-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--navy);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 800;
+  margin-bottom: 25px;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+}
+
+/* WHATSAPP FLOATING BUTTON */
+
+.whatsapp-container {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 9999;
+}
+
+.whatsapp-main {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: #25D366;
+  color: white;
+  border: none;
+  font-size: 32px;
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(0,0,0,.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.whatsapp-options {
+  display: none;
+  position: absolute;
+  right: 0;
+  bottom: 75px;
+  width: 260px;
+  background: white;
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 5px 25px rgba(0,0,0,.2);
+}
+
+.whatsapp-options.show {
+  display: block;
+}
+
+.whatsapp-options h3 {
+  color: var(--navy);
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+
+.whatsapp-options p {
+  color: #687b91;
+  font-size: 12px;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.whatsapp-options a {
+  display: block;
+  background: #25D366;
+  color: white;
+  padding: 12px;
+  margin-top: 9px;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.whatsapp-options a:hover {
+  background: #128C7E;
+}
+
+/* RESPONSIVE DESIGN */
+
 @media(max-width: 900px) {
   .nav-links {
     gap: 0;
@@ -699,6 +791,16 @@ footer {
   .community-banner h2 {
     font-size: 25px;
   }
+
+  .whatsapp-container {
+    right: 15px;
+    bottom: 15px;
+  }
+
+  .whatsapp-main {
+    width: 56px;
+    height: 56px;
+  }
 }
 </style>
 </head>
@@ -747,9 +849,9 @@ footer {
 
 </header>
 
-<!-- HERO -->
-
 <main>
+
+<!-- HERO -->
 
 <section class="hero" id="home">
 
@@ -1224,36 +1326,218 @@ footer {
 
 </footer>
 
+<!-- WHATSAPP FLOATING BUTTON -->
+
+<div class="whatsapp-container">
+
+  <div class="whatsapp-options" id="whatsappOptions">
+
+    <h3>Chat With Black Smart Aviation</h3>
+
+    <p>Choose the number you would like to contact.</p>
+
+    <a href="https://wa.me/255753998601"
+       target="_blank"
+       rel="noopener">
+      WhatsApp 1: +255 753 998 601
+    </a>
+
+    <a href="https://wa.me/255613769094"
+       target="_blank"
+       rel="noopener">
+      WhatsApp 2: +255 613 769 094
+    </a>
+
+  </div>
+
+  <button class="whatsapp-main"
+          id="whatsappButton"
+          aria-label="Chat with us on WhatsApp"
+          aria-expanded="false">
+    ☎
+  </button>
+
+</div>
+
 <script>
 
-// MOBILE MENU
+// ELEMENTS
 
 const menuToggle = document.getElementById("menuToggle");
 const navLinks = document.getElementById("navLinks");
 
+const whatsappButton = document.getElementById("whatsappButton");
+const whatsappOptions = document.getElementById("whatsappOptions");
+
+// WEBSITE ELEMENTS
+
+const hero = document.querySelector(".hero");
+const missionStrip = document.querySelector(".mission-strip");
+
+const pageSections = document.querySelectorAll(
+  "main > section.content-section"
+);
+
+// ALL WEBSITE PAGE IDS
+
+const validPages = [
+  "home",
+  "learn",
+  "opportunities",
+  "news",
+  "galley",
+  "scholarships",
+  "stories",
+  "community",
+  "join",
+  "donate",
+  "contact"
+];
+
+// OPEN SELECTED PAGE
+
+function openPage(pageId, updateHistory = true) {
+
+  if (!validPages.includes(pageId)) {
+    return;
+  }
+
+  // HOME SHOWS THE COMPLETE WEBSITE
+
+  if (pageId === "home") {
+
+    hero.classList.remove("page-hidden");
+    missionStrip.classList.remove("page-hidden");
+
+    pageSections.forEach(section => {
+      section.classList.remove("page-hidden");
+    });
+
+  } else {
+
+    // HIDE HOME AND ALL OTHER SECTIONS
+
+    hero.classList.add("page-hidden");
+    missionStrip.classList.add("page-hidden");
+
+    pageSections.forEach(section => {
+      section.classList.add("page-hidden");
+    });
+
+    // SHOW ONLY THE SELECTED SECTION
+
+    const selectedPage = document.getElementById(pageId);
+
+    if (selectedPage) {
+      selectedPage.classList.remove("page-hidden");
+    }
+
+  }
+
+  // UPDATE ACTIVE NAVIGATION
+
+  document.querySelectorAll(".nav-links a").forEach(link => {
+
+    link.classList.remove("active");
+
+    if (link.getAttribute("href") === "#" + pageId) {
+      link.classList.add("active");
+    }
+
+  });
+
+  // CLOSE MOBILE MENU
+
+  navLinks.classList.remove("open");
+  menuToggle.textContent = "☰";
+
+  // UPDATE BROWSER ADDRESS
+
+  if (updateHistory) {
+    history.pushState({ page: pageId }, "", "#" + pageId);
+  }
+
+  // GO TO TOP
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+// HANDLE ALL INTERNAL WEBSITE LINKS
+
+document.addEventListener("click", function(event) {
+
+  const link = event.target.closest('a[href^="#"]');
+
+  if (!link) {
+    return;
+  }
+
+  const pageId = link.getAttribute("href").substring(1);
+
+  if (!validPages.includes(pageId)) {
+    return;
+  }
+
+  event.preventDefault();
+
+  openPage(pageId);
+
+});
+
+// MOBILE MENU
+
 menuToggle.addEventListener("click", function() {
+
   navLinks.classList.toggle("open");
 
   menuToggle.textContent =
     navLinks.classList.contains("open") ? "✕" : "☰";
+
 });
 
-// CLOSE MENU AFTER CLICKING A LINK
+// BROWSER BACK AND FORWARD BUTTONS
 
-document.querySelectorAll(".nav-links a").forEach(link => {
+window.addEventListener("popstate", function() {
 
-  link.addEventListener("click", function() {
+  const pageId = window.location.hash.substring(1) || "home";
 
-    navLinks.classList.remove("open");
-    menuToggle.textContent = "☰";
+  openPage(
+    validPages.includes(pageId) ? pageId : "home",
+    false
+  );
 
-    document.querySelectorAll(".nav-links a").forEach(item => {
-      item.classList.remove("active");
-    });
+});
 
-    this.classList.add("active");
+// WHATSAPP BUTTON
 
-  });
+whatsappButton.addEventListener("click", function(event) {
+
+  event.stopPropagation();
+
+  const isOpen = whatsappOptions.classList.toggle("show");
+
+  whatsappButton.setAttribute(
+    "aria-expanded",
+    isOpen ? "true" : "false"
+  );
+
+});
+
+// CLOSE WHATSAPP OPTIONS WHEN CLICKING OUTSIDE
+
+document.addEventListener("click", function(event) {
+
+  if (!event.target.closest(".whatsapp-container")) {
+
+    whatsappOptions.classList.remove("show");
+
+    whatsappButton.setAttribute("aria-expanded", "false");
+
+  }
 
 });
 
@@ -1286,6 +1570,22 @@ document.getElementById("contactForm").addEventListener("submit", function(e) {
 
 document.getElementById("year").textContent =
   new Date().getFullYear();
+
+// INITIAL WEBSITE VIEW
+
+// ALL SECTIONS ARE VISIBLE WHEN WEBSITE FIRST OPENS
+
+const initialPage = window.location.hash.substring(1);
+
+if (initialPage && validPages.includes(initialPage)) {
+
+  openPage(initialPage, false);
+
+} else {
+
+  openPage("home", false);
+
+}
 
 </script>
 
