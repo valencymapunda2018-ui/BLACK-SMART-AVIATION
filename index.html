@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -623,11 +622,98 @@
 
     .bsa-detail-content li { margin-bottom:8px; }
 
+
+    /* LIVE CONTENT FROM THE BSA ADMIN DASHBOARD */
+    .bsa-live-section { background:var(--white); }
+    .bsa-live-status {
+      margin:18px 0 0;
+      color:var(--text);
+      font-size:13px;
+      font-weight:700;
+    }
+    .bsa-live-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:22px;
+      margin-top:30px;
+    }
+    .bsa-live-card {
+      min-width:0;
+      overflow:hidden;
+      background:#fff;
+      border:1px solid var(--border);
+      border-top:4px solid var(--gold);
+      border-radius:9px;
+      box-shadow:0 5px 20px rgba(7,29,53,.05);
+      cursor:pointer;
+      transition:transform .2s ease,box-shadow .2s ease;
+    }
+    .bsa-live-card:hover {
+      transform:translateY(-4px);
+      box-shadow:var(--shadow);
+    }
+    .bsa-live-card:focus-visible {
+      outline:3px solid var(--gold);
+      outline-offset:4px;
+    }
+    .bsa-live-card img {
+      width:100%;
+      height:190px;
+      object-fit:cover;
+      background:var(--light);
+    }
+    .bsa-live-card-content { padding:22px; }
+    .bsa-live-category {
+      display:inline-block;
+      margin-bottom:9px;
+      color:#9B7610;
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:1.3px;
+      text-transform:uppercase;
+    }
+    .bsa-live-card h3 {
+      margin:0 0 9px;
+      color:var(--navy);
+      font-size:19px;
+      line-height:1.45;
+      overflow-wrap:anywhere;
+    }
+    .bsa-live-card p {
+      margin:0;
+      color:var(--text);
+      font-size:13px;
+      line-height:1.85;
+      white-space:pre-wrap;
+      overflow-wrap:anywhere;
+    }
+    .bsa-live-read-more {
+      display:inline-block;
+      margin-top:15px;
+      color:#9B7610;
+      font-size:12px;
+      font-weight:800;
+    }
+    .bsa-live-detail-image {
+      width:100%;
+      max-height:360px;
+      margin:0 0 20px;
+      border-radius:8px;
+      object-fit:cover;
+    }
+    .bsa-live-detail-body {
+      color:var(--text);
+      line-height:1.9;
+      white-space:pre-wrap;
+      overflow-wrap:anywhere;
+    }
+
     @media(max-width:1000px) {
       .container { width:90%; }
       .cards { grid-template-columns:repeat(2,minmax(0,1fr)); }
       .action-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
       .contact-layout { grid-template-columns:1fr; gap:30px; }
+      .bsa-live-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
       .hero { min-height:500px; }
     }
 
@@ -650,7 +736,7 @@
       section { padding:49px 0; }
       .section-heading { font-size:27px; }
       .intro { font-size:14px; }
-      .cards,.action-grid {
+      .cards,.action-grid,.bsa-live-grid {
         grid-template-columns:1fr;
         gap:17px;
         margin-top:25px;
@@ -689,6 +775,7 @@
         <a href="#opportunities">Opportunities</a>
         <a href="#scholarships">Scholarships</a>
         <a href="#stories">Our Stories</a>
+        <a href="#bsa-live-content">Latest Updates</a>
         <a href="#community">Community</a>
         <a href="#join-us">Join Us</a>
         <a href="#donate">Donate</a>
@@ -911,6 +998,22 @@
         </div>
       </div>
     </section>
+
+    <section class="bsa-live-section" id="bsa-live-content">
+      <div class="container">
+        <span class="section-label">From Our Admin Dashboard</span>
+        <h2 class="section-heading">Latest Updates from BLACK SMART AVIATION</h2>
+        <p class="intro">
+          Read the latest aviation news, opportunities, scholarships, stories
+          and learning updates shared by the BLACK SMART AVIATION team.
+        </p>
+        <p class="bsa-live-status" id="bsa-live-status" role="status" aria-live="polite">
+          Loading the latest updates...
+        </p>
+        <div class="bsa-live-grid" id="bsa-live-grid"></div>
+      </div>
+    </section>
+
   </main>
 
   <footer>
@@ -1250,5 +1353,169 @@
       window.location.href = mailto;
     });
   </script>
+
+  <!-- PUBLIC BSA CONTENT: ONLY PUBLISHED ITEMS ARE DISPLAYED -->
+  <script type="module">
+    import { supabase } from "./js/bsa-supabase.js";
+
+    const liveStatus = document.getElementById("bsa-live-status");
+    const liveGrid = document.getElementById("bsa-live-grid");
+
+    function getSafeImageUrls(value) {
+      let urls = value;
+
+      if (typeof urls === "string") {
+        try {
+          urls = JSON.parse(urls);
+        } catch {
+          urls = [urls];
+        }
+      }
+
+      if (!Array.isArray(urls)) return [];
+
+      return urls.filter(function(value) {
+        if (typeof value !== "string") return false;
+        try {
+          const parsed = new URL(value);
+          return parsed.protocol === "https:" || parsed.protocol === "http:";
+        } catch {
+          return false;
+        }
+      });
+    }
+
+    function openPublishedItem(item) {
+      const overlay = document.getElementById("bsaDetailOverlay");
+      const title = document.getElementById("bsaDetailTitle");
+      const subtitle = document.getElementById("bsaDetailSubtitle");
+      const content = document.getElementById("bsaDetailContent");
+      const closeButton = document.getElementById("bsaDetailClose");
+
+      title.textContent = item.title || "BLACK SMART AVIATION Update";
+      subtitle.textContent = item.category
+        ? String(item.category).replace(/[_-]/g, " ")
+        : "Educate · Connect · Inspire";
+
+      content.replaceChildren();
+
+      const imageUrls = getSafeImageUrls(item.image_urls);
+      if (imageUrls.length > 0) {
+        const image = document.createElement("img");
+        image.className = "bsa-live-detail-image";
+        image.src = imageUrls[0];
+        image.alt = item.title ? String(item.title) : "BLACK SMART AVIATION update";
+        image.loading = "lazy";
+        content.appendChild(image);
+      }
+
+      const summary = document.createElement("p");
+      summary.textContent = item.summary || "";
+      if (summary.textContent) content.appendChild(summary);
+
+      const body = document.createElement("div");
+      body.className = "bsa-live-detail-body";
+      body.textContent = item.body || "";
+      if (body.textContent) content.appendChild(body);
+
+      overlay.classList.add("open");
+      overlay.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      closeButton.focus();
+    }
+
+    function createPublishedCard(item) {
+      const card = document.createElement("article");
+      card.className = "bsa-live-card";
+      card.tabIndex = 0;
+      card.setAttribute("role", "button");
+      card.setAttribute("aria-haspopup", "dialog");
+
+      const imageUrls = getSafeImageUrls(item.image_urls);
+      if (imageUrls.length > 0) {
+        const image = document.createElement("img");
+        image.src = imageUrls[0];
+        image.alt = item.title ? String(item.title) : "BLACK SMART AVIATION update";
+        image.loading = "lazy";
+        image.onerror = function() {
+          image.remove();
+        };
+        card.appendChild(image);
+      }
+
+      const cardContent = document.createElement("div");
+      cardContent.className = "bsa-live-card-content";
+
+      const category = document.createElement("span");
+      category.className = "bsa-live-category";
+      category.textContent = item.category
+        ? String(item.category).replace(/[_-]/g, " ")
+        : "BSA Update";
+
+      const heading = document.createElement("h3");
+      heading.textContent = item.title || "Untitled update";
+
+      const summary = document.createElement("p");
+      summary.textContent = item.summary || "";
+
+      const readMore = document.createElement("span");
+      readMore.className = "bsa-live-read-more";
+      readMore.textContent = "Read More →";
+
+      cardContent.append(category, heading);
+      if (summary.textContent) cardContent.appendChild(summary);
+      cardContent.appendChild(readMore);
+      card.appendChild(cardContent);
+
+      card.addEventListener("click", function() {
+        openPublishedItem(item);
+      });
+
+      card.addEventListener("keydown", function(event) {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openPublishedItem(item);
+        }
+      });
+
+      return card;
+    }
+
+    async function loadPublishedContent() {
+      liveStatus.textContent = "Loading the latest updates...";
+      liveGrid.replaceChildren();
+
+      try {
+        const { data, error } = await supabase
+          .from("bsa_content")
+          .select("id,title,slug,category,summary,body,image_urls,status")
+          .eq("status", "published");
+
+        if (error) throw error;
+
+        const publishedItems = Array.isArray(data) ? data : [];
+
+        if (publishedItems.length === 0) {
+          liveStatus.textContent = "There are no published updates at the moment. Please check back soon.";
+          return;
+        }
+
+        publishedItems.forEach(function(item) {
+          liveGrid.appendChild(createPublishedCard(item));
+        });
+
+        liveStatus.textContent = publishedItems.length === 1
+          ? "1 published update available."
+          : publishedItems.length + " published updates available.";
+      } catch (error) {
+        console.error("BSA public content loading error:", error);
+        liveStatus.textContent =
+          "We could not load the latest updates right now. Please try again later.";
+      }
+    }
+
+    loadPublishedContent();
+  </script>
+
 </body>
 </html>
