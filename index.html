@@ -204,6 +204,8 @@ footer a:hover {color:var(--gold)}
 .bsa-detail-content li {margin-bottom:8px}
 
 /* News and Events */
+.bsa-category-block {margin-top:38px}
+.bsa-category-block .section-heading {font-size:22px;margin-top:0}
 .bsa-live-section {background:#fff}
 .bsa-live-status {margin:18px 0 0;color:var(--text);font-size:13px;font-weight:700}
 .bsa-live-grid {
@@ -344,6 +346,22 @@ footer a:hover {color:var(--gold)}
       <article class="card" id="scholarships"><div class="card-number">03</div><h3>Scholarships &amp; Training</h3><p>Discover aviation courses, training programmes and potential educational funding opportunities.</p></article>
       <article class="card" id="stories"><div class="card-number">04</div><h3>Our Stories</h3><p>Celebrate aviation professionals, their journeys, achievements and contributions to the industry.</p></article>
     </div>
+    <div class="bsa-category-block">
+      <h3 class="section-heading">Aviation Updates</h3>
+      <div class="bsa-live-grid" id="bsa-aviation-grid"></div>
+    </div>
+    <div class="bsa-category-block">
+      <h3 class="section-heading">Jobs &amp; Opportunities Updates</h3>
+      <div class="bsa-live-grid" id="bsa-jobs-grid"></div>
+    </div>
+    <div class="bsa-category-block">
+      <h3 class="section-heading">Scholarships &amp; Training Updates</h3>
+      <div class="bsa-live-grid" id="bsa-scholarships-grid"></div>
+    </div>
+    <div class="bsa-category-block">
+      <h3 class="section-heading">Our Stories Updates</h3>
+      <div class="bsa-live-grid" id="bsa-stories-grid"></div>
+    </div>
   </div>
 </section>
 
@@ -358,6 +376,10 @@ footer a:hover {color:var(--gold)}
       <article class="card"><div class="card-number">03</div><h3>Galley Operations</h3><p>Understand galley preparation, equipment checks, trolley handling, stock control and coordination with cabin crew.</p></article>
       <article class="card"><div class="card-number">04</div><h3>Careers in Galley Services</h3><p>Discover careers in airline catering, inflight services, catering logistics and aircraft galley operations.</p></article>
     </div>
+    <div class="bsa-category-block">
+      <h3 class="section-heading">Aviation Galley Updates</h3>
+      <div class="bsa-live-grid" id="bsa-galley-grid"></div>
+    </div>
   </div>
 </section>
 
@@ -367,6 +389,10 @@ footer a:hover {color:var(--gold)}
     <h2 class="section-heading">Our Mission. Our Future.</h2>
     <p>BLACK SMART AVIATION aims to connect Black aviation talent across Africa and the world, promote aviation knowledge and opportunities, and inspire young people to pursue careers in the aviation industry. We believe that talent, ambition and opportunity can open the skies to the next generation.</p>
     <a class="button gold-button" href="#join-us">Become Part of Our Community</a>
+    <div class="bsa-category-block">
+      <h3 class="section-heading">Community Updates</h3>
+      <div class="bsa-live-grid" id="bsa-community-grid"></div>
+    </div>
   </div>
 </section>
 
@@ -912,6 +938,20 @@ function attachStudyTourForm() {
 const liveStatus = document.getElementById("bsa-live-status");
 const liveGrid = document.getElementById("bsa-live-grid");
 
+const categoryGrids = {
+  aviation: document.getElementById("bsa-aviation-grid"),
+  galley: document.getElementById("bsa-galley-grid"),
+  jobs: document.getElementById("bsa-jobs-grid"),
+  scholarships: document.getElementById("bsa-scholarships-grid"),
+  stories: document.getElementById("bsa-stories-grid"),
+  community: document.getElementById("bsa-community-grid")
+};
+
+function getCategoryGrid(category) {
+  const normalized = String(category || "general").trim().toLowerCase();
+  return categoryGrids[normalized] || liveGrid;
+}
+
 function getSafeImageUrls(value) {
   let urls = value;
 
@@ -1044,20 +1084,27 @@ async function loadPublishedContent() {
 
     const publishedItems = Array.isArray(data) ? data : [];
 
-    /* Keep the static Airport Study Tour card and add published Admin content */
+    /* Send each published Admin item to the section matching its category.
+       The general category remains in News & Events. */
+    const categoryCounts = {};
     publishedItems.forEach(function(item) {
-      liveGrid.appendChild(createPublishedCard(item));
+      const destination = getCategoryGrid(item.category);
+      destination.appendChild(createPublishedCard(item));
+      const categoryName = String(item.category || "general").trim().toLowerCase();
+      categoryCounts[categoryName] = (categoryCounts[categoryName] || 0) + 1;
     });
 
     if (publishedItems.length === 0) {
       liveStatus.textContent =
-        "Airport Study Tour is currently listed. More news and updates will appear here when published by BSA.";
+        "Airport Study Tour is currently listed. More news and updates will appear in their relevant sections when published by BSA.";
     } else {
+      const generalCount = categoryCounts.general || 0;
       liveStatus.textContent =
         "Airport Study Tour and " + publishedItems.length +
         (publishedItems.length === 1
-          ? " published update available."
-          : " published updates available.");
+          ? " published update loaded into its selected section."
+          : " published updates loaded into their selected sections.") +
+        (generalCount ? " " + generalCount + " general update(s) appear in News & Events." : "");
     }
 
   } catch (error) {
