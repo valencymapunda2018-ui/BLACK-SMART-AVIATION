@@ -204,8 +204,6 @@ footer a:hover {color:var(--gold)}
 .bsa-detail-content li {margin-bottom:8px}
 
 /* News and Events */
-.bsa-category-block {margin-top:38px}
-.bsa-category-block .section-heading {font-size:22px;margin-top:0}
 .bsa-live-section {background:#fff}
 .bsa-live-status {margin:18px 0 0;color:var(--text);font-size:13px;font-weight:700}
 .bsa-live-grid {
@@ -229,6 +227,13 @@ footer a:hover {color:var(--gold)}
 .bsa-live-read-more {display:inline-block;margin-top:15px;color:#9B7610;font-size:12px;font-weight:800}
 .bsa-live-detail-image {width:100%;max-height:360px;margin:0 0 20px;border-radius:8px;object-fit:cover}
 .bsa-live-detail-body {color:var(--text);line-height:1.9;white-space:pre-wrap;overflow-wrap:anywhere}
+
+/* Admin-published content in its matching website section */
+.bsa-category-block {margin-top:34px}
+.bsa-category-heading {margin:0 0 16px;color:var(--navy);font-size:22px}
+.bsa-category-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.bsa-category-block:empty {display:none}
+.bsa-category-block .bsa-live-card {height:100%}
 
 /* Study tour form inside modal */
 .study-tour-banner {
@@ -259,7 +264,7 @@ footer a:hover {color:var(--gold)}
   .cards {grid-template-columns:repeat(2,minmax(0,1fr))}
   .action-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
   .contact-layout {grid-template-columns:1fr;gap:30px}
-  .bsa-live-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
+  .bsa-live-grid,.bsa-category-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
   .hero {min-height:500px}
 }
 @media(max-width:600px) {
@@ -277,7 +282,7 @@ footer a:hover {color:var(--gold)}
   section {padding:49px 0}
   .section-heading {font-size:27px}
   .intro {font-size:14px}
-  .cards,.action-grid,.bsa-live-grid {grid-template-columns:1fr;gap:17px;margin-top:25px}
+  .cards,.action-grid,.bsa-live-grid,.bsa-category-grid {grid-template-columns:1fr;gap:17px;margin-top:25px}
   .card,.action-card {padding:23px}
   .contact-form {padding:22px}
   .action-card .button {width:100%}
@@ -292,6 +297,79 @@ footer a:hover {color:var(--gold)}
   html {scroll-behavior:auto}
   *,*::before,*::after {transition-duration:.01ms !important;animation-duration:.01ms !important}
 }
+
+
+/* BSA TRAVEL — dedicated travel services section */
+.bsa-travel-section {
+  position:relative;overflow:hidden;color:#fff;
+  background:radial-gradient(circle at 85% 12%,rgba(212,175,55,.18),transparent 30%),linear-gradient(135deg,#041326 0%,#071D35 58%,#102D4D 100%);
+  border-top:4px solid var(--gold);border-bottom:4px solid var(--red);
+}
+.bsa-travel-hero {display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:38px;margin-bottom:38px}
+.bsa-travel-kicker {display:inline-block;margin-bottom:13px;color:var(--gold);font-size:12px;font-weight:900;letter-spacing:3px;text-transform:uppercase}
+.bsa-travel-title {max-width:720px;margin:0;color:#fff;font-size:clamp(36px,5.5vw,61px);font-weight:900;line-height:1.08;letter-spacing:-1.2px}
+.bsa-travel-copy {max-width:650px;margin:20px 0 0;color:#D5DFEB;font-size:15px;line-height:1.95}
+.bsa-travel-visual {
+  min-height:280px;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;
+  padding:30px;border:1px solid rgba(212,175,55,.55);border-radius:14px;
+  background:linear-gradient(0deg,rgba(4,19,38,.96),rgba(4,19,38,.08)),url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=85') center/cover;
+  box-shadow:0 18px 45px rgba(0,0,0,.22)
+}
+.bsa-travel-visual strong {color:var(--gold);font-size:clamp(21px,3vw,30px);line-height:1.2}
+.bsa-travel-visual span {margin-top:8px;color:#fff;font-size:13px;font-weight:700;letter-spacing:1.5px}
+.bsa-travel-services {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:28px}
+.bsa-travel-service {
+  display:flex;flex-direction:column;align-items:flex-start;min-height:250px;padding:27px;
+  border:1px solid rgba(212,175,55,.38);border-top:4px solid var(--gold);border-radius:11px;
+  background:rgba(255,255,255,.97);color:var(--navy);text-align:left;cursor:pointer;
+  box-shadow:0 9px 28px rgba(0,0,0,.14)
+}
+.bsa-travel-service:hover {transform:translateY(-5px);box-shadow:0 17px 38px rgba(0,0,0,.24);border-color:var(--gold)}
+.bsa-travel-icon {display:flex;align-items:center;justify-content:center;width:58px;height:58px;margin-bottom:18px;border-radius:12px;background:var(--navy);color:var(--gold);font-size:28px}
+.bsa-travel-service h3 {margin:0 0 9px;color:var(--navy);font-size:19px;line-height:1.35}
+.bsa-travel-service p {flex:1;margin:0;color:var(--text);font-size:13px;line-height:1.8}
+.bsa-travel-open {display:inline-block;margin-top:18px;color:#9B7610;font-size:12px;font-weight:900;letter-spacing:.4px}
+.bsa-travel-footnote {margin:24px 0 0;padding:16px 19px;border-left:4px solid var(--gold);background:rgba(255,255,255,.08);color:#E3EAF2;font-size:12px;line-height:1.8}
+.bsa-travel-form {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin-top:18px}
+.bsa-travel-field {min-width:0}
+.bsa-travel-field.full {grid-column:1/-1}
+.bsa-travel-field label {display:block;margin-bottom:6px;color:var(--navy);font-size:13px;font-weight:800}
+.bsa-travel-field input,.bsa-travel-field select,.bsa-travel-field textarea {width:100%;min-height:45px;padding:11px 13px;border:1px solid #CCD5E0;border-radius:6px;background:#fff;color:var(--navy);font:inherit;font-size:14px}
+.bsa-travel-field textarea {min-height:90px;resize:vertical}
+.bsa-travel-form-note {grid-column:1/-1;margin:0;color:var(--text);font-size:12px;line-height:1.8}
+.bsa-travel-form button {grid-column:1/-1;justify-self:start}
+@media(max-width:900px) {
+  .bsa-travel-hero {grid-template-columns:1fr;gap:25px}
+  .bsa-travel-visual {min-height:230px}
+  .bsa-travel-services {grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:600px) {
+  .bsa-travel-services {grid-template-columns:1fr;gap:16px}
+  .bsa-travel-service {min-height:210px;padding:23px}
+  .bsa-travel-visual {min-height:200px;padding:22px}
+  .bsa-travel-form {grid-template-columns:1fr}
+  .bsa-travel-field.full,.bsa-travel-form-note,.bsa-travel-form button {grid-column:1}
+}
+
+
+/* BSA TRAVEL service imagery, samples and preferred-choice controls */
+.bsa-detail-header.bsa-travel-modal-header {
+  min-height:190px;background-color:#071D35;background-position:center;background-size:cover;
+  background-image:linear-gradient(90deg,rgba(4,19,38,.94),rgba(4,19,38,.48));
+}
+.bsa-travel-gallery {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0 24px}
+.bsa-travel-sample {min-width:0;overflow:hidden;border:1px solid var(--border);border-radius:8px;background:#F4F6F9}
+.bsa-travel-sample img {width:100%;height:125px;object-fit:cover}
+.bsa-travel-sample span {display:block;padding:8px 10px;color:var(--navy);font-size:11px;font-weight:800}
+.bsa-travel-sample-note {margin:0 0 14px;color:var(--text);font-size:12px;line-height:1.7}
+.bsa-travel-field .bsa-other-input {margin-top:8px}
+.bsa-travel-field .bsa-choice-hint {display:block;margin-top:5px;color:#64748B;font-size:11px;font-weight:400}
+@media(max-width:600px) {
+  .bsa-travel-gallery {grid-template-columns:1fr 1fr;gap:9px}
+  .bsa-travel-sample img {height:105px}
+  .bsa-detail-header.bsa-travel-modal-header {min-height:160px}
+}
+
 </style>
 </head>
 
@@ -306,6 +384,7 @@ footer a:hover {color:var(--gold)}
     <nav class="container" id="mainNav" aria-label="Main navigation">
       <a href="#home">Home</a>
       <a href="#learn">Learn Aviation</a>
+      <a href="#bsa-travel">BSA TRAVEL</a>
       <a href="#aviation-galley">Aviation Galley</a>
       <a href="#opportunities">Opportunities</a>
       <a href="#scholarships">Scholarships</a>
@@ -335,6 +414,73 @@ footer a:hover {color:var(--gold)}
   </div>
 </section>
 
+<!-- BSA TRAVEL: INDEPENDENT SERVICE HUB WITHIN THE BSA WEBSITE -->
+<section class="bsa-travel-section" id="bsa-travel">
+  <div class="container">
+    <div class="bsa-travel-hero">
+      <div>
+        <span class="bsa-travel-kicker">BLACK SMART AVIATION · BSA TRAVEL</span>
+        <h2 class="bsa-travel-title">Your Journey. Your World.</h2>
+        <p class="bsa-travel-copy">Travel beyond limits with BSA TRAVEL. Explore flight tickets, train and bus journeys, hotel stays, airport transfers and travel assistance — all through one convenient travel service desk.</p>
+        <div class="buttons">
+          <a class="button gold-button" href="#bsa-travel-services">Explore Travel Services</a>
+          <a class="button secondary" href="#contact">Contact BSA</a>
+        </div>
+      </div>
+      <div class="bsa-travel-visual" role="img" aria-label="Passenger aircraft flying above the clouds">
+        <strong>TRAVEL BEYOND LIMITS</strong>
+        <span>PLAN · BOOK · EXPERIENCE</span>
+      </div>
+    </div>
+
+    <span class="section-label" style="color:var(--gold)">Explore Our Services</span>
+    <h2 class="section-heading" style="color:#fff;border-left-color:var(--red)">One Place. Six Ways to Travel.</h2>
+    <p class="intro" style="color:#D5DFEB">Choose a service below and send your travel request to the BSA TRAVEL team.</p>
+
+    <div class="bsa-travel-services" id="bsa-travel-services">
+      <button class="bsa-travel-service" type="button" data-travel-service="air">
+        <span class="bsa-travel-icon" aria-hidden="true">✈</span>
+        <h3>AIR TICKETING</h3>
+        <p>Request domestic and international flight options, preferred airlines, travel dates and passenger arrangements.</p>
+        <span class="bsa-travel-open">SEARCH FLIGHTS →</span>
+      </button>
+      <button class="bsa-travel-service" type="button" data-travel-service="train">
+        <span class="bsa-travel-icon" aria-hidden="true">🚆</span>
+        <h3>TRAIN TICKETS</h3>
+        <p>Enquire about train routes, departure dates, passenger numbers and preferred travel class.</p>
+        <span class="bsa-travel-open">FIND TRAIN TICKETS →</span>
+      </button>
+      <button class="bsa-travel-service" type="button" data-travel-service="bus">
+        <span class="bsa-travel-icon" aria-hidden="true">🚌</span>
+        <h3>BUS TICKETS</h3>
+        <p>Send a bus ticket request with your route, journey date, number of passengers and trip type.</p>
+        <span class="bsa-travel-open">FIND BUS TICKETS →</span>
+      </button>
+      <button class="bsa-travel-service" type="button" data-travel-service="hotel">
+        <span class="bsa-travel-icon" aria-hidden="true">🏨</span>
+        <h3>HOTEL BOOKING</h3>
+        <p>Request accommodation options by destination, check-in and check-out dates, rooms and guests.</p>
+        <span class="bsa-travel-open">FIND A HOTEL →</span>
+      </button>
+      <button class="bsa-travel-service" type="button" data-travel-service="transfer">
+        <span class="bsa-travel-icon" aria-hidden="true">🚘</span>
+        <h3>AIRPORT TRANSFER</h3>
+        <p>Arrange an airport pick-up or drop-off request, including your flight arrival or departure details.</p>
+        <span class="bsa-travel-open">REQUEST TRANSFER →</span>
+      </button>
+      <button class="bsa-travel-service" type="button" data-travel-service="assistance">
+        <span class="bsa-travel-icon" aria-hidden="true">🧭</span>
+        <h3>TRAVEL ASSISTANCE</h3>
+        <p>Ask for help with travel planning, itinerary guidance, special travel needs and general trip support.</p>
+        <span class="bsa-travel-open">GET TRAVEL HELP →</span>
+      </button>
+    </div>
+
+    <p class="bsa-travel-footnote"><strong>Important:</strong> This first version sends a travel enquiry to BSA. A request is not a confirmed reservation or ticket. Availability, supplier confirmation, prices, payment instructions and ticket issuance will be communicated by the BSA TRAVEL team. Live booking and payment will be enabled when the relevant provider systems are connected.</p>
+  </div>
+</section>
+
+
 <section id="learn">
   <div class="container">
     <span class="section-label">Learn and Grow</span>
@@ -346,21 +492,21 @@ footer a:hover {color:var(--gold)}
       <article class="card" id="scholarships"><div class="card-number">03</div><h3>Scholarships &amp; Training</h3><p>Discover aviation courses, training programmes and potential educational funding opportunities.</p></article>
       <article class="card" id="stories"><div class="card-number">04</div><h3>Our Stories</h3><p>Celebrate aviation professionals, their journeys, achievements and contributions to the industry.</p></article>
     </div>
-    <div class="bsa-category-block">
-      <h3 class="section-heading">Aviation Updates</h3>
-      <div class="bsa-live-grid" id="bsa-aviation-grid"></div>
+    <div class="bsa-category-block" id="bsa-aviation-block" hidden>
+      <h3 class="bsa-category-heading">Aviation Learning Updates</h3>
+      <div class="bsa-category-grid" id="bsa-aviation-grid"></div>
     </div>
-    <div class="bsa-category-block">
-      <h3 class="section-heading">Jobs &amp; Opportunities Updates</h3>
-      <div class="bsa-live-grid" id="bsa-jobs-grid"></div>
+    <div class="bsa-category-block" id="bsa-jobs-block" hidden>
+      <h3 class="bsa-category-heading">Jobs &amp; Opportunities Updates</h3>
+      <div class="bsa-category-grid" id="bsa-jobs-grid"></div>
     </div>
-    <div class="bsa-category-block">
-      <h3 class="section-heading">Scholarships &amp; Training Updates</h3>
-      <div class="bsa-live-grid" id="bsa-scholarships-grid"></div>
+    <div class="bsa-category-block" id="bsa-scholarships-block" hidden>
+      <h3 class="bsa-category-heading">Scholarships &amp; Training Updates</h3>
+      <div class="bsa-category-grid" id="bsa-scholarships-grid"></div>
     </div>
-    <div class="bsa-category-block">
-      <h3 class="section-heading">Our Stories Updates</h3>
-      <div class="bsa-live-grid" id="bsa-stories-grid"></div>
+    <div class="bsa-category-block" id="bsa-stories-block" hidden>
+      <h3 class="bsa-category-heading">Our Stories Updates</h3>
+      <div class="bsa-category-grid" id="bsa-stories-grid"></div>
     </div>
   </div>
 </section>
@@ -376,9 +522,9 @@ footer a:hover {color:var(--gold)}
       <article class="card"><div class="card-number">03</div><h3>Galley Operations</h3><p>Understand galley preparation, equipment checks, trolley handling, stock control and coordination with cabin crew.</p></article>
       <article class="card"><div class="card-number">04</div><h3>Careers in Galley Services</h3><p>Discover careers in airline catering, inflight services, catering logistics and aircraft galley operations.</p></article>
     </div>
-    <div class="bsa-category-block">
-      <h3 class="section-heading">Aviation Galley Updates</h3>
-      <div class="bsa-live-grid" id="bsa-galley-grid"></div>
+    <div class="bsa-category-block" id="bsa-galley-block" hidden>
+      <h3 class="bsa-category-heading">Aviation Galley Updates</h3>
+      <div class="bsa-category-grid" id="bsa-galley-grid"></div>
     </div>
   </div>
 </section>
@@ -389,9 +535,9 @@ footer a:hover {color:var(--gold)}
     <h2 class="section-heading">Our Mission. Our Future.</h2>
     <p>BLACK SMART AVIATION aims to connect Black aviation talent across Africa and the world, promote aviation knowledge and opportunities, and inspire young people to pursue careers in the aviation industry. We believe that talent, ambition and opportunity can open the skies to the next generation.</p>
     <a class="button gold-button" href="#join-us">Become Part of Our Community</a>
-    <div class="bsa-category-block">
-      <h3 class="section-heading">Community Updates</h3>
-      <div class="bsa-live-grid" id="bsa-community-grid"></div>
+    <div class="bsa-category-block" id="bsa-community-block" hidden>
+      <h3 class="bsa-category-heading">Community Updates</h3>
+      <div class="bsa-category-grid" id="bsa-community-grid"></div>
     </div>
   </div>
 </section>
@@ -480,7 +626,7 @@ footer a:hover {color:var(--gold)}
   <div class="container">
     <span class="section-label">Announcements, Activities and Updates</span>
     <h2 class="section-heading">News &amp; Events</h2>
-    <p class="intro">Explore upcoming events, aviation news, opportunities, scholarships, stories and learning updates shared by BLACK SMART AVIATION.</p>
+    <p class="intro">Explore announcements, upcoming events and general updates shared by BLACK SMART AVIATION.</p>
     <p class="bsa-live-status" id="bsa-live-status" role="status" aria-live="polite">Loading News &amp; Events...</p>
     <div class="bsa-live-grid" id="bsa-live-grid">
 
@@ -506,6 +652,7 @@ footer a:hover {color:var(--gold)}
     <div class="footer-links">
       <a href="#home">Home</a>
       <a href="#learn">Learn Aviation</a>
+      <a href="#bsa-travel">BSA TRAVEL</a>
       <a href="#aviation-galley">Aviation Galley</a>
       <a href="#opportunities">Opportunities</a>
       <a href="#scholarships">Scholarships</a>
@@ -708,6 +855,11 @@ function openCardDetails(card) {
 
   detailTitle.textContent = detail.title;
   detailSubtitle.textContent = detail.subtitle;
+  const travelModalHeader = detailTitle.closest(".bsa-detail-header");
+  if (travelModalHeader) {
+    travelModalHeader.classList.remove("bsa-travel-modal-header");
+    travelModalHeader.style.backgroundImage = "";
+  }
   detailContent.innerHTML = detail.body;
   showDetailsModal();
 }
@@ -740,6 +892,243 @@ document.addEventListener("keydown",function(event) {
     closeCardDetails();
   }
 });
+
+
+
+/* BSA TRAVEL SERVICE REQUESTS — enquiry stage until live providers are connected */
+const bsaTravelServices = {
+  air: {
+    title:"AIR TICKETING", subtitle:"Flight Search & Ticket Enquiry", image:"https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1400&q=85", samples:[["https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=700&q=80","Aircraft in flight"],["https://images.unsplash.com/photo-1542296332-2e4473faf563?auto=format&fit=crop&w=700&q=80","Airport terminal"],["https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?auto=format&fit=crop&w=700&q=80","Air travel experience"]],
+    fields:[
+      {name:"trip_type",label:"Trip Type",type:"select",required:true,options:["One Way","Round Trip","Multi-City"]},
+      {name:"origin",label:"From / Departure City",type:"text",required:true,placeholder:"e.g. Dar es Salaam"},
+      {name:"destination",label:"To / Destination City",type:"text",required:true,placeholder:"e.g. Nairobi"},
+      {name:"departure_date",label:"Departure Date",type:"date",required:true},
+      {name:"return_date",label:"Return Date",type:"date"},
+      {name:"passengers",label:"Passengers",type:"number",required:true,min:"1",value:"1"},
+      {name:"airline",label:"Preferred Airline",type:"select",options:["No preference","Air Tanzania","Precision Air","Flightlink","Auric Air","Coastal Aviation"]},
+      {name:"travel_class",label:"Travel Class",type:"select",options:["Economy","Premium Economy","Business","First Class"]}
+    ]
+  },
+  train: {
+    title:"TRAIN TICKETS", subtitle:"Train Journey Enquiry", image:"https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=1400&q=85", samples:[["https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=700&q=80","Passenger train"],["https://images.unsplash.com/photo-1516054719048-38394ee6cfb5?auto=format&fit=crop&w=700&q=80","Railway journey"],["https://images.unsplash.com/photo-1532105956626-9569c03602f6?auto=format&fit=crop&w=700&q=80","Train station"]],
+    fields:[
+      {name:"origin",label:"Departure Station / City",type:"text",required:true},
+      {name:"destination",label:"Arrival Station / City",type:"text",required:true},
+      {name:"departure_date",label:"Travel Date",type:"date",required:true},
+      {name:"return_date",label:"Return Date (if applicable)",type:"date"},
+      {name:"passengers",label:"Number of Passengers",type:"number",required:true,min:"1",value:"1"},
+      {name:"travel_class",label:"Preferred Class",type:"select",options:["Standard","Economy","Business","First Class"]}
+    ]
+  },
+  bus: {
+    title:"BUS TICKETS", subtitle:"Bus Ticket Enquiry", image:"https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=1400&q=85", samples:[["https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=700&q=80","Modern coach bus"],["https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=700&q=80","Intercity bus travel"],["https://images.unsplash.com/photo-1557223562-6c77ef16210f?auto=format&fit=crop&w=700&q=80","Coach passenger seats"]],
+    fields:[
+      {name:"trip_type",label:"Trip Type",type:"select",required:true,options:["One Way","Return"]},
+      {name:"origin",label:"Departure City / Station",type:"text",required:true},
+      {name:"destination",label:"Destination City / Station",type:"text",required:true},
+      {name:"departure_date",label:"Departure Date",type:"date",required:true},
+      {name:"return_date",label:"Return Date (if applicable)",type:"date"},
+      {name:"passengers",label:"Number of Passengers",type:"number",required:true,min:"1",value:"1"},
+      {name:"bus_company",label:"Preferred Bus Company (Top 10 Tanzania options)",type:"select",required:true,other:true,otherLabel:"Write another bus company",options:["Select a bus company","Abood Bus Service","Ally's Star Bus","Kilimanjaro Express","Esther Luxury Coach","New Force","Dar Express","Shabiby Line","BM Coach","ABC Presidential / Executive","Extra Luxury","Other"]}
+    ]
+  },
+  hotel: {
+    title:"HOTEL BOOKING", subtitle:"Dar es Salaam Hotel Selection & Accommodation Request", image:"https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1400&q=85", samples:[["https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=700&q=80","Luxury hotel exterior"],["https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=700&q=80","Hotel guest room"],["https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=700&q=80","Hotel pool and resort"]],
+    fields:[
+      {name:"destination",label:"Destination / City",type:"text",required:true,value:"Dar es Salaam"},
+      {name:"check_in",label:"Check-in Date",type:"date",required:true},
+      {name:"check_out",label:"Check-out Date",type:"date",required:true},
+      {name:"guests",label:"Number of Guests",type:"number",required:true,min:"1",value:"1"},
+      {name:"rooms",label:"Number of Rooms",type:"number",required:true,min:"1",value:"1"},
+      {name:"hotel_preference",label:"Preferred Hotel (Dar es Salaam selection — 5-star choices first)",type:"select",required:true,other:true,otherLabel:"Write another hotel name",options:["Select a hotel","Hyatt Regency Dar es Salaam, The Kilimanjaro — 5 Star","Johari Rotana — 5 Star","Sea Cliff Hotel — 5 Star","Dar es Salaam Serena Hotel — 5 Star","Ledger Plaza Bahari Beach Hotel — 5 Star (confirm current status)","Four Points by Sheraton New Africa — 4 Star","Crowne Plaza Dar es Salaam — 4 Star","Holiday Inn Dar es Salaam City Centre — 4 Star","Golden Tulip Dar City Center — 4 Star","Southern Sun Dar es Salaam — 4 Star","Delta Hotels Dar es Salaam — premium hotel","Protea Hotel Dar es Salaam Courtyard — premium hotel","ONOMO Hotel Dar es Salaam — 4 Star","DoubleTree by Hilton Dar es Salaam — 4 Star","Best Western Coral Beach — 4 Star","White Sands Resort & Conference Centre — 4 Star","Kunduchi Beach Hotel & Resort — 4 Star","Colosseum Hotel & Fitness Club — 4 Star","Tiffany Diamond Hotel — premium hotel","Harbour View Suites — premium suites","Other"]}
+    ]
+  },
+  transfer: {
+    title:"AIRPORT TRANSFER", subtitle:"Airport Pick-up & Drop-off Request", image:"https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1400&q=85", samples:[["https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=700&q=80","Private transfer vehicle"],["https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=700&q=80","Comfortable car interior"],["https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=700&q=80","Airport road transfer"]],
+    fields:[
+      {name:"pickup",label:"Pick-up Location",type:"text",required:true},
+      {name:"dropoff",label:"Drop-off Location",type:"text",required:true},
+      {name:"transfer_date",label:"Transfer Date",type:"date",required:true},
+      {name:"transfer_time",label:"Pick-up Time",type:"time"},
+      {name:"passengers",label:"Number of Passengers",type:"number",required:true,min:"1",value:"1"},
+      {name:"flight_number",label:"Flight Number (if applicable)",type:"text",placeholder:"e.g. TC 101"},
+      {name:"luggage",label:"Luggage Details",type:"text",placeholder:"e.g. 2 suitcases and 1 cabin bag"}
+    ]
+  },
+  assistance: {
+    title:"TRAVEL ASSISTANCE", subtitle:"Travel Planning & Support Request", image:"https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1400&q=85", samples:[["https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=700&q=80","Travel planning"],["https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=700&q=80","Destination inspiration"],["https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=80","Explore the world"]],
+    fields:[
+      {name:"destination",label:"Travel Destination",type:"text",required:true},
+      {name:"travel_date",label:"Expected Travel Date",type:"date"},
+      {name:"assistance_type",label:"Type of Assistance",type:"select",required:true,options:["Travel planning / itinerary","Visa information guidance","Special assistance request","Travel documentation guidance","Other travel support"]},
+      {name:"details",label:"Tell Us What You Need",type:"textarea",required:true,placeholder:"Describe your travel plans or the assistance you need."}
+    ]
+  }
+};
+
+function buildBsaTravelField(field) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "bsa-travel-field" + (field.type === "textarea" ? " full" : "");
+  const id = "bsaTravel_" + field.name;
+  const label = document.createElement("label");
+  label.htmlFor = id;
+  label.textContent = field.label + (field.required ? " *" : "");
+  wrapper.appendChild(label);
+
+  let control;
+  if (field.type === "select") {
+    control = document.createElement("select");
+    (field.options || []).forEach(function(optionText, index) {
+      const option = document.createElement("option");
+      option.value = (index === 0 && (optionText === "No preference" || optionText.startsWith("Select a "))) ? "" : optionText;
+      option.textContent = optionText;
+      control.appendChild(option);
+    });
+    if (!field.required) {
+      const first = document.createElement("option");
+      first.value = ""; first.textContent = "Select an option";
+      control.insertBefore(first,control.firstChild);
+      control.value = "";
+    }
+  } else if (field.type === "textarea") {
+    control = document.createElement("textarea");
+  } else {
+    control = document.createElement("input");
+    control.type = field.type || "text";
+  }
+  control.id = id;
+  control.name = field.name;
+  if (field.required) control.required = true;
+  if (field.placeholder) control.placeholder = field.placeholder;
+  if (field.min) control.min = field.min;
+  if (field.value) control.value = field.value;
+  if (field.type === "number") control.step = "1";
+  wrapper.appendChild(control);
+  if (field.other && field.type === "select") {
+    const otherInput = document.createElement("input");
+    otherInput.type = "text";
+    otherInput.name = field.name + "_other";
+    otherInput.className = "bsa-other-input";
+    otherInput.placeholder = field.otherLabel || "Write your preferred option";
+    otherInput.setAttribute("aria-label",field.otherLabel || "Other option");
+    otherInput.hidden = true;
+    otherInput.maxLength = 160;
+    wrapper.appendChild(otherInput);
+    control.addEventListener("change",function() {
+      const isOther = control.value === "Other";
+      otherInput.hidden = !isOther;
+      otherInput.required = isOther;
+      if (!isOther) otherInput.value = "";
+      if (isOther) otherInput.focus();
+    });
+  }
+  return wrapper;
+}
+
+function openBsaTravelService(serviceKey) {
+  const service = bsaTravelServices[serviceKey];
+  if (!service) return;
+
+  detailTitle.textContent = service.title;
+  detailSubtitle.textContent = "BSA TRAVEL · " + service.subtitle;
+  detailContent.replaceChildren();
+  const travelModalHeader = detailTitle.closest(".bsa-detail-header");
+  if (travelModalHeader) {
+    travelModalHeader.classList.add("bsa-travel-modal-header");
+    travelModalHeader.style.backgroundImage = "linear-gradient(90deg,rgba(4,19,38,.94),rgba(4,19,38,.50)),url('" + service.image + "')";
+  }
+
+  const intro = document.createElement("p");
+  intro.textContent = serviceKey === "hotel"
+    ? "Choose from the recommended Dar es Salaam hotel list below. The first options are listed as five-star by accommodation listings. Other properties have different or unconfirmed classifications; BSA will verify the requested hotel and room availability before confirming."
+    : "Complete the details below. The BSA TRAVEL team will review your request and contact you with available options, applicable prices and next steps.";
+  detailContent.appendChild(intro);
+
+  const gallery = document.createElement("div");
+  gallery.className = "bsa-travel-gallery";
+  (service.samples || []).forEach(function(sample) {
+    const item = document.createElement("div");
+    item.className = "bsa-travel-sample";
+    const image = document.createElement("img");
+    image.src = sample[0];
+    image.alt = sample[1];
+    image.loading = "lazy";
+    const caption = document.createElement("span");
+    caption.textContent = sample[1];
+    item.appendChild(image);
+    item.appendChild(caption);
+    gallery.appendChild(item);
+  });
+  detailContent.appendChild(gallery);
+  const sampleNote = document.createElement("p");
+  sampleNote.className = "bsa-travel-sample-note";
+  sampleNote.textContent = "Sample images are for illustration only. Actual vehicles, aircraft, train classes, hotel rooms and availability depend on the supplier and travel date.";
+  detailContent.appendChild(sampleNote);
+
+  const form = document.createElement("form");
+  form.className = "bsa-travel-form";
+  form.id = "bsaTravelRequestForm";
+
+  service.fields.forEach(function(field) {
+    form.appendChild(buildBsaTravelField(field));
+  });
+
+  const divider = document.createElement("div");
+  divider.className = "bsa-travel-field full";
+  const dividerHeading = document.createElement("h3");
+  dividerHeading.textContent = "Your Contact Details";
+  divider.appendChild(dividerHeading);
+  form.appendChild(divider);
+
+  [
+    {name:"customer_name",label:"Full Name",type:"text",required:true,placeholder:"Your full name"},
+    {name:"customer_phone",label:"Phone / WhatsApp Number",type:"tel",required:true,placeholder:"+255 ..."},
+    {name:"customer_email",label:"Email Address",type:"email",required:false,placeholder:"you@example.com"}
+  ].forEach(function(field) { form.appendChild(buildBsaTravelField(field)); });
+
+  const note = document.createElement("p");
+  note.className = "bsa-travel-form-note";
+  note.textContent = "This form sends an enquiry to BLACK SMART AVIATION. It does not make a booking, charge a payment or issue a ticket. Please review the details in your email application and send the message to BSA.";
+  form.appendChild(note);
+
+  const submit = document.createElement("button");
+  submit.className = "button primary";
+  submit.type = "submit";
+  submit.textContent = "Send Travel Enquiry";
+  form.appendChild(submit);
+
+  form.addEventListener("submit",function(event) {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+    const values = new FormData(form);
+    const lines = ["BSA TRAVEL REQUEST", "Service: " + service.title, ""];
+    service.fields.forEach(function(field) {
+      let value = String(values.get(field.name) || "").trim();
+      if (field.other && value === "Other") {
+        value = String(values.get(field.name + "_other") || "").trim();
+      }
+      if (value) lines.push(field.label + ": " + value);
+    });
+    lines.push("", "Full Name: " + String(values.get("customer_name") || "").trim());
+    lines.push("Phone / WhatsApp: " + String(values.get("customer_phone") || "").trim());
+    lines.push("Email: " + String(values.get("customer_email") || "").trim());
+    lines.push("", "Please contact me with availability, prices and next steps.");
+    const subject = "BSA TRAVEL - " + service.title + " Enquiry";
+    const mailto = "mailto:blacksmartaviation@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(lines.join("\n"));
+    window.location.href = mailto;
+  });
+
+  detailContent.appendChild(form);
+  showDetailsModal();
+}
+
+document.querySelectorAll("[data-travel-service]").forEach(function(button) {
+  button.addEventListener("click",function() {
+    openBsaTravelService(button.getAttribute("data-travel-service"));
+  });
+});
+
 
 /* CONTACT FORM */
 const contactForm = document.getElementById("contactForm");
@@ -775,6 +1164,8 @@ const studyTourCard = document.getElementById("airportStudyTourCard");
 const studyTourTemplate = document.getElementById("studyTourFormTemplate");
 
 function openStudyTourItem() {
+  const travelModalHeader = detailTitle.closest(".bsa-detail-header");
+  if (travelModalHeader) { travelModalHeader.classList.remove("bsa-travel-modal-header"); travelModalHeader.style.backgroundImage = ""; }
   detailTitle.textContent = "Airport Study Tour – HTDA";
   detailSubtitle.textContent = "Upcoming Event · BLACK SMART AVIATION";
 
@@ -934,23 +1325,19 @@ function attachStudyTourForm() {
   });
 }
 
-/* PUBLIC WEBSITE CONTENT: ONLY PUBLISHED ITEMS ARE DISPLAYED */
+/* PUBLIC WEBSITE CONTENT: ONLY PUBLISHED ITEMS ARE DISPLAYED IN THEIR ADMIN CATEGORY */
 const liveStatus = document.getElementById("bsa-live-status");
 const liveGrid = document.getElementById("bsa-live-grid");
 
-const categoryGrids = {
-  aviation: document.getElementById("bsa-aviation-grid"),
-  galley: document.getElementById("bsa-galley-grid"),
-  jobs: document.getElementById("bsa-jobs-grid"),
-  scholarships: document.getElementById("bsa-scholarships-grid"),
-  stories: document.getElementById("bsa-stories-grid"),
-  community: document.getElementById("bsa-community-grid")
+const categoryDestinations = {
+  aviation: { grid: "bsa-aviation-grid", block: "bsa-aviation-block" },
+  galley: { grid: "bsa-galley-grid", block: "bsa-galley-block" },
+  jobs: { grid: "bsa-jobs-grid", block: "bsa-jobs-block" },
+  scholarships: { grid: "bsa-scholarships-grid", block: "bsa-scholarships-block" },
+  stories: { grid: "bsa-stories-grid", block: "bsa-stories-block" },
+  community: { grid: "bsa-community-grid", block: "bsa-community-block" },
+  general: { grid: "bsa-live-grid", block: null }
 };
-
-function getCategoryGrid(category) {
-  const normalized = String(category || "general").trim().toLowerCase();
-  return categoryGrids[normalized] || liveGrid;
-}
 
 function getSafeImageUrls(value) {
   let urls = value;
@@ -978,6 +1365,8 @@ function getSafeImageUrls(value) {
 }
 
 function openPublishedItem(item) {
+  const travelModalHeader = detailTitle.closest(".bsa-detail-header");
+  if (travelModalHeader) { travelModalHeader.classList.remove("bsa-travel-modal-header"); travelModalHeader.style.backgroundImage = ""; }
   detailTitle.textContent = item.title || "BLACK SMART AVIATION Update";
 
   detailSubtitle.textContent = item.category
@@ -1023,9 +1412,7 @@ function createPublishedCard(item) {
     image.src = imageUrls[0];
     image.alt = item.title ? String(item.title) : "BLACK SMART AVIATION update";
     image.loading = "lazy";
-    image.onerror = function() {
-      image.remove();
-    };
+    image.onerror = function() { image.remove(); };
     card.appendChild(image);
   }
 
@@ -1049,18 +1436,11 @@ function createPublishedCard(item) {
   readMore.textContent = "Read More →";
 
   cardContent.append(category,heading);
-
-  if (summary.textContent) {
-    cardContent.appendChild(summary);
-  }
-
+  if (summary.textContent) cardContent.appendChild(summary);
   cardContent.appendChild(readMore);
   card.appendChild(cardContent);
 
-  card.addEventListener("click",function() {
-    openPublishedItem(item);
-  });
-
+  card.addEventListener("click",function() { openPublishedItem(item); });
   card.addEventListener("keydown",function(event) {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
@@ -1069,6 +1449,13 @@ function createPublishedCard(item) {
   });
 
   return card;
+}
+
+function normalizeCategory(category) {
+  const value = String(category || "general").trim().toLowerCase();
+  return Object.prototype.hasOwnProperty.call(categoryDestinations,value)
+    ? value
+    : "general";
 }
 
 async function loadPublishedContent() {
@@ -1083,33 +1470,46 @@ async function loadPublishedContent() {
     if (error) throw error;
 
     const publishedItems = Array.isArray(data) ? data : [];
+    const counts = {};
 
-    /* Send each published Admin item to the section matching its category.
-       The general category remains in News & Events. */
-    const categoryCounts = {};
     publishedItems.forEach(function(item) {
-      const destination = getCategoryGrid(item.category);
-      destination.appendChild(createPublishedCard(item));
-      const categoryName = String(item.category || "general").trim().toLowerCase();
-      categoryCounts[categoryName] = (categoryCounts[categoryName] || 0) + 1;
+      const category = normalizeCategory(item.category);
+      const destination = categoryDestinations[category];
+      const targetGrid = document.getElementById(destination.grid);
+      if (!targetGrid) {
+        console.warn("BSA category destination not found:",category);
+        return;
+      }
+
+      targetGrid.appendChild(createPublishedCard(item));
+      counts[category] = (counts[category] || 0) + 1;
+
+      if (destination.block) {
+        const block = document.getElementById(destination.block);
+        if (block) block.hidden = false;
+      }
     });
 
-    if (publishedItems.length === 0) {
+    const generalCount = counts.general || 0;
+    const totalCount = publishedItems.length;
+
+    if (totalCount === 0) {
       liveStatus.textContent =
-        "Airport Study Tour is currently listed. More news and updates will appear in their relevant sections when published by BSA.";
+        "Airport Study Tour is currently listed. More general news and events will appear here when published by BSA.";
+    } else if (generalCount === 0) {
+      liveStatus.textContent =
+        "Airport Study Tour is listed. " + totalCount +
+        (totalCount === 1 ? " published update has been added to its selected section." :
+        " published updates have been added to their selected sections.");
     } else {
-      const generalCount = categoryCounts.general || 0;
       liveStatus.textContent =
-        "Airport Study Tour and " + publishedItems.length +
-        (publishedItems.length === 1
-          ? " published update loaded into its selected section."
-          : " published updates loaded into their selected sections.") +
-        (generalCount ? " " + generalCount + " general update(s) appear in News & Events." : "");
+        "Airport Study Tour and " + generalCount +
+        (generalCount === 1 ? " general update available. Other updates appear in their selected sections." :
+        " general updates available. Other updates appear in their selected sections.");
     }
 
   } catch (error) {
     console.error("BSA public content loading error:",error);
-
     liveStatus.textContent =
       "Airport Study Tour is listed below. We could not load other updates right now. Please try again later.";
   }
