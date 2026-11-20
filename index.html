@@ -145,6 +145,21 @@ section {padding:76px 0;scroll-margin-top:20px}
 .action-card h3 {margin:0 0 10px;color:var(--navy);font-size:22px}
 .action-card p {flex-grow:1;margin:0;color:var(--text);font-size:14px;line-height:1.9}
 .action-card .button {margin-top:24px}
+.payment-list {width:100%;margin:20px 0 0;padding:17px;background:#F4F6F9;border:1px solid var(--border);border-radius:8px}
+.payment-list p {margin:0 0 13px;font-size:13px;line-height:1.7}
+.payment-list p:last-child {margin-bottom:0}
+.payment-list strong {display:block;color:var(--navy);font-size:14px}
+.payment-number {display:block;margin-top:3px;color:#9B7610;font-size:21px;font-weight:900;letter-spacing:.5px;overflow-wrap:anywhere}
+.contact-actions {display:grid;gap:10px;width:100%;margin-top:22px}
+.contact-actions a {display:block;padding:11px 14px;border:1px solid var(--border);border-radius:6px;background:#F4F6F9;color:var(--navy);font-size:13px;font-weight:800;text-decoration:none}
+.contact-actions a:hover {background:var(--navy);color:#fff}
+.join-section {background:#fff;border-top:3px solid var(--gold)}
+.join-form {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:28px;padding:28px;background:#fff;border:1px solid var(--border);border-top:4px solid var(--gold);border-radius:10px;box-shadow:var(--shadow)}
+.join-form label {display:block;margin-bottom:7px;color:var(--navy);font-size:13px;font-weight:800}
+.join-form input,.join-form select,.join-form textarea {width:100%;min-height:46px;padding:12px 14px;border:1px solid #CCD5E0;border-radius:6px;background:#fff;color:var(--navy);font:inherit;font-size:14px}
+.join-form textarea {min-height:105px;resize:vertical}
+.join-form .full-width,.join-form button,.join-status {grid-column:1/-1}
+.join-status {margin:0;color:var(--navy);font-size:13px;font-weight:700}
 .contact-section {background:#EAF0F6;border-top:3px solid var(--gold)}
 .contact-layout {
   display:grid;grid-template-columns:.9fr 1.1fr;align-items:start;
@@ -289,8 +304,8 @@ footer a:hover {color:var(--gold)}
   .footer-links {gap:8px 13px}
   .bsa-detail-overlay {padding:10px}
   .bsa-detail-header,.bsa-detail-content {padding:20px}
-  .study-form {grid-template-columns:1fr;padding:20px}
-  .study-form .full-width,.study-form button,.study-status {grid-column:1}
+  .study-form,.join-form {grid-template-columns:1fr;padding:20px}
+  .study-form .full-width,.study-form button,.study-status,.join-form .full-width,.join-form button,.join-status {grid-column:1}
   .study-fees {grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce) {
@@ -551,25 +566,52 @@ footer a:hover {color:var(--gold)}
       <article class="action-card" id="join-us">
         <div class="action-icon">&#9997;</div>
         <h3>Join Us</h3>
-        <p>Join our community as an aviation student, professional, mentor, aviation enthusiast or supporter.</p>
-        <a class="button primary" href="#contact" data-interest="Joining the community">Become a Member</a>
+        <p>Join our community as an aviation student, professional, mentor, aviation enthusiast or supporter. Complete the membership form below to send your application.</p>
+        <a class="button primary" href="#join-form">Become a Member</a>
       </article>
       <article class="action-card" id="donate">
         <div class="action-icon">&#9829;</div>
         <h3>Donate</h3>
-        <p>Support aviation education, youth development and initiatives that help open doors to aviation careers. Contact us to discuss supporting our mission.</p>
-        <a class="button primary" href="#contact" data-interest="Donation and support">Support Our Mission</a>
+        <p>Support aviation education, youth development and initiatives that help open doors to aviation careers. You can contribute using the payment details below.</p>
+        <div class="payment-list">
+          <p><strong>Airtel Money — Lipa Namba</strong><span class="payment-number">8595000</span></p>
+          <p><strong>NMB Bank — Account Number</strong><span class="payment-number">23510077031</span></p>
+        </div>
       </article>
       <article class="action-card" id="chat-with-us">
         <div class="action-icon">&#9993;</div>
-        <h3>Chat With Us</h3>
-        <p>Have a question, idea, partnership proposal or opportunity to share? Contact us by phone, WhatsApp or email.</p>
-        <a class="button primary" href="#contact">Contact Our Team</a>
+        <h3>Contact Our Team</h3>
+        <p>Choose your preferred way to contact BLACK SMART AVIATION. Each option opens the relevant application or service.</p>
+        <div class="contact-actions">
+          <a href="https://wa.me/255753998601" target="_blank" rel="noopener noreferrer">WhatsApp — +255 753 998 601</a>
+          <a href="mailto:blacksmartaviation@gmail.com">Email — blacksmartaviation@gmail.com</a>
+          <a href="tel:+255753998601">Normal Call — +255 753 998 601</a>
+          <a href="https://wa.me/255613769094" target="_blank" rel="noopener noreferrer">WhatsApp — +255 613 769 094</a>
+          <a href="tel:+255613769094">Normal Call — +255 613 769 094</a>
+        </div>
       </article>
     </div>
   </div>
 </section>
 
+<section class="join-section" id="join-form">
+  <div class="container">
+    <span class="section-label">Membership Application</span>
+    <h2 class="section-heading">Join BLACK SMART AVIATION</h2>
+    <p class="intro">Complete the form below. Your application will be prepared for submission to the BSA team by email.</p>
+    <form class="join-form" id="joinForm">
+      <div><label for="joinFullName">Full Name *</label><input id="joinFullName" name="fullName" type="text" autocomplete="name" placeholder="Enter your full name" required></div>
+      <div><label for="joinPhone">Phone Number *</label><input id="joinPhone" name="phone" type="tel" autocomplete="tel" placeholder="e.g. +255..." required></div>
+      <div><label for="joinEmail">Email Address *</label><input id="joinEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" required></div>
+      <div><label for="joinCountry">Country *</label><input id="joinCountry" name="country" type="text" autocomplete="country-name" placeholder="Your country" required></div>
+      <div class="full-width"><label for="joinType">Membership Type *</label><select id="joinType" name="membershipType" required><option value="">Select membership type</option><option>Aviation Student</option><option>Aviation Professional</option><option>Mentor / Volunteer</option><option>Aviation Enthusiast</option><option>Supporter</option><option>Organisation / Institution</option></select></div>
+      <div class="full-width"><label for="joinReason">Why would you like to join BLACK SMART AVIATION? *</label><textarea id="joinReason" name="reason" placeholder="Tell us briefly about your interest..." required></textarea></div>
+      <button class="button primary" type="submit">Submit Membership Application</button>
+      <p class="form-note full-width">When you submit, your email application will open with the information filled in. Review and send it to BSA. This form does not create an automatic membership confirmation.</p>
+      <p class="join-status" id="joinStatus" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
 <section class="contact-section" id="contact">
   <div class="container">
     <span class="section-label">We Would Love to Hear From You</span>
@@ -1129,6 +1171,27 @@ document.querySelectorAll("[data-travel-service]").forEach(function(button) {
   });
 });
 
+
+/* JOIN US MEMBERSHIP FORM */
+const joinForm = document.getElementById("joinForm");
+const joinStatus = document.getElementById("joinStatus");
+joinForm.addEventListener("submit",function(event) {
+  event.preventDefault();
+  if (!joinForm.reportValidity()) return;
+  const fullName = document.getElementById("joinFullName").value.trim();
+  const phone = document.getElementById("joinPhone").value.trim();
+  const email = document.getElementById("joinEmail").value.trim();
+  const country = document.getElementById("joinCountry").value.trim();
+  const membershipType = document.getElementById("joinType").value;
+  const reason = document.getElementById("joinReason").value.trim();
+  const subject = "BLACK SMART AVIATION - Membership Application";
+  const body = "Membership Application\n\nFull Name: " + fullName +
+    "\nPhone: " + phone + "\nEmail: " + email + "\nCountry: " + country +
+    "\nMembership Type: " + membershipType + "\n\nReason for joining:\n" + reason;
+  const mailto = "mailto:blacksmartaviation@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+  joinStatus.textContent = "Opening your email application. Please review and send your membership application.";
+  window.location.href = mailto;
+});
 
 /* CONTACT FORM */
 const contactForm = document.getElementById("contactForm");
