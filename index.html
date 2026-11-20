@@ -876,16 +876,45 @@ function closeCardDetails() {
   document.body.style.overflow = "";
 }
 
-function openCardDetails(card) {
+async function openCardDetails(card) {
   const heading = card.querySelector("h3");
   const cardTitle = heading ? heading.textContent.trim() : "Black Smart Aviation";
   const normalTitle = cardTitle.toLowerCase();
 
   let detail = bsaDetails.find(function(item) {
-    return item.match.some(function(term) {
-      return normalTitle.includes(term);
-    });
+    return item.match.some(function(term) { return normalTitle.includes(term); });
   });
+
+  // Admin-published Galley content overrides the built-in details for these four cards.
+  const galleySlugMap = {
+    "aircraft galley equipment":"aircraft-galley-equipment",
+    "airline catering":"airline-catering",
+    "galley operations":"galley-operations",
+    "careers in galley services":"careers-in-galley-services"
+  };
+  const galleyKey = Object.keys(galleySlugMap).find(key => normalTitle.includes(key));
+  if (galleyKey && window.bsaSupabase) {
+    try {
+      const { data, error } = await window.bsaSupabase
+        .from("bsa_content")
+        .select("title,slug,category,summary,body,image_urls,status")
+        .eq("category", "galley")
+        .eq("status", "published")
+        .eq("slug", galleySlugMap[galleyKey])
+        .maybeSingle();
+      if (!error && data) {
+        detail = {
+          title:data.title || cardTitle,
+          subtitle:"Aviation Galley · Admin Published Content",
+          body:data.body || "",
+          adminContent:data
+        };
+      }
+    } catch (err) {
+      console.warn("Could not load admin Galley content; using built-in details.", err);
+    }
+  }
+
 
   if (!detail) {
     detail = {
@@ -902,7 +931,36 @@ function openCardDetails(card) {
     travelModalHeader.classList.remove("bsa-travel-modal-header");
     travelModalHeader.style.backgroundImage = "";
   }
-  detailContent.innerHTML = detail.body;
+
+  if (detail.adminContent) {
+    detailContent.replaceChildren();
+    let rawUrls = detail.adminContent.image_urls;
+    if (typeof rawUrls === "string") { try { rawUrls = JSON.parse(rawUrls); } catch { rawUrls = [rawUrls]; } }
+    const urls = Array.isArray(rawUrls) ? rawUrls.filter(function(url) {
+      if (typeof url !== "string") return false;
+      try { const parsed = new URL(url); return parsed.protocol === "https:" || parsed.protocol === "http:"; }
+      catch { return false; }
+    }) : [];
+    urls.forEach(function(url) {
+      const image = document.createElement("img");
+      image.className = "bsa-live-detail-image";
+      image.src = url;
+      image.alt = detail.title;
+      image.loading = "lazy";
+      detailContent.appendChild(image);
+    });
+    if (detail.adminContent.summary) {
+      const summary = document.createElement("p");
+      summary.textContent = detail.adminContent.summary;
+      detailContent.appendChild(summary);
+    }
+    const body = document.createElement("div");
+    body.className = "bsa-live-detail-body";
+    body.textContent = detail.adminContent.body || "";
+    detailContent.appendChild(body);
+  } else {
+    detailContent.innerHTML = detail.body;
+  }
   showDetailsModal();
 }
 
@@ -1221,6 +1279,7 @@ contactForm.addEventListener("submit",function(event) {
 <!-- SUPABASE CONNECTION -->
 <script type="module">
 import { supabase } from "./js/bsa-supabase.js";
+window.bsaSupabase = supabase;
 
 /* AIRPORT STUDY TOUR EVENT DETAILS AND REGISTRATION */
 const studyTourCard = document.getElementById("airportStudyTourCard");
