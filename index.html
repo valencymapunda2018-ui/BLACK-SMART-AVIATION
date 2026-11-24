@@ -250,6 +250,8 @@ footer a:hover {color:var(--gold)}
 .bsa-category-block {margin-top:34px}
 .bsa-category-heading {margin:0 0 16px;color:var(--navy);font-size:22px}
 .bsa-category-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.bsa-category-grid .bsa-live-card {height:100%}
+.bsa-category-block[hidden] {display:none !important}
 .bsa-category-block:empty {display:none}
 .bsa-category-block .bsa-live-card {height:100%}
 
@@ -901,33 +903,41 @@ async function openCardDetails(card) {
     return item.match.some(function(term) { return normalTitle.includes(term); });
   });
 
-  // Admin-published Galley content overrides the built-in details for these four cards.
-  const galleySlugMap = {
-    "aircraft galley equipment":"aircraft-galley-equipment",
-    "airline catering":"airline-catering",
-    "galley operations":"galley-operations",
-    "careers in galley services":"careers-in-galley-services"
+  // Any matching Admin-published post can replace the built-in detail page.
+  // This works across all nine Admin categories, not only Aviation Galley.
+  const staticCardCategory = {
+    "aviation careers":"aviation",
+    "jobs & opportunities":"jobs",
+    "scholarships & training":"scholarships",
+    "our stories":"stories",
+    "aircraft galley equipment":"galley",
+    "airline catering":"galley",
+    "galley operations":"galley",
+    "careers in galley services":"galley"
   };
-  const galleyKey = Object.keys(galleySlugMap).find(key => normalTitle.includes(key));
-  if (galleyKey && window.bsaSupabase) {
+  const matchingTitle = Object.keys(staticCardCategory).find(key => normalTitle.includes(key));
+  if (matchingTitle && window.bsaSupabase) {
     try {
+      const expectedSlug = matchingTitle
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
       const { data, error } = await window.bsaSupabase
         .from("bsa_content")
         .select("title,slug,category,summary,body,image_urls,status")
-        .eq("category", "galley")
+        .eq("category", staticCardCategory[matchingTitle])
         .eq("status", "published")
-        .eq("slug", galleySlugMap[galleyKey])
+        .eq("slug", expectedSlug)
         .maybeSingle();
       if (!error && data) {
         detail = {
           title:data.title || cardTitle,
-          subtitle:"Aviation Galley · Admin Published Content",
+          subtitle:"Admin Published Content · " + staticCardCategory[matchingTitle],
           body:data.body || "",
           adminContent:data
         };
       }
     } catch (err) {
-      console.warn("Could not load admin Galley content; using built-in details.", err);
+      console.warn("Could not load matching Admin content; using built-in details.", err);
     }
   }
 
@@ -1463,128 +1473,116 @@ function attachStudyTourForm() {
   });
 }
 
-/* PUBLIC WEBSITE CONTENT: ONLY PUBLISHED ITEMS ARE DISPLAYED IN THEIR ADMIN CATEGORY */
+/* PUBLIC WEBSITE CONTENT: READ PUBLISHED POSTS FROM THE BSA ADMIN DASHBOARD */
 const liveStatus = document.getElementById("bsa-live-status");
-const liveGrid = document.getElementById("bsa-live-grid");
-
 const youtubeStatus = document.getElementById("bsa-youtube-status");
-const youtubeGrid = document.getElementById("bsa-youtube-grid");
 
+// These keys exactly match the Category values in admin.html.
 const categoryDestinations = {
-  aviation: { grid: "bsa-aviation-grid", block: "bsa-aviation-block" },
-  galley: { grid: "bsa-galley-grid", block: "bsa-galley-block" },
-  jobs: { grid: "bsa-jobs-grid", block: "bsa-jobs-block" },
-  scholarships: { grid: "bsa-scholarships-grid", block: "bsa-scholarships-block" },
-  stories: { grid: "bsa-stories-grid", block: "bsa-stories-block" },
-  community: { grid: "bsa-community-grid", block: "bsa-community-block" },
-  news: { grid: "bsa-live-grid", block: null },
-  general: { grid: "bsa-live-grid", block: null },
-  youtube: { grid: "bsa-youtube-grid", block: null }
+  aviation: { grid: "bsa-aviation-grid", block: "bsa-aviation-block", label: "Learn Aviation" },
+  galley: { grid: "bsa-galley-grid", block: "bsa-galley-block", label: "Aviation Galley" },
+  jobs: { grid: "bsa-jobs-grid", block: "bsa-jobs-block", label: "Jobs & Opportunities" },
+  scholarships: { grid: "bsa-scholarships-grid", block: "bsa-scholarships-block", label: "Scholarships & Training" },
+  stories: { grid: "bsa-stories-grid", block: "bsa-stories-block", label: "Our Stories" },
+  community: { grid: "bsa-community-grid", block: "bsa-community-block", label: "Community" },
+  general: { grid: "bsa-live-grid", block: null, label: "General News" },
+  news: { grid: "bsa-live-grid", block: null, label: "News & Events" },
+  youtube: { grid: "bsa-youtube-grid", block: null, label: "YouTube" }
 };
+
+function normalizeCategory(category) {
+  const raw = String(category || "general").trim().toLowerCase();
+  const value = raw === "youtube_clips" ? "youtube" : raw;
+  return Object.prototype.hasOwnProperty.call(categoryDestinations, value) ? value : "general";
+}
 
 function getSafeImageUrls(value) {
   let urls = value;
-
   if (typeof urls === "string") {
-    try {
-      urls = JSON.parse(urls);
-    } catch {
-      urls = [urls];
-    }
+    try { urls = JSON.parse(urls); }
+    catch (_) { urls = [urls]; }
   }
-
   if (!Array.isArray(urls)) return [];
-
-  return urls.filter(function(value) {
-    if (typeof value !== "string") return false;
-
+  return urls.filter(function(url) {
+    if (typeof url !== "string") return false;
     try {
-      const parsed = new URL(value);
+      const parsed = new URL(url);
       return parsed.protocol === "https:" || parsed.protocol === "http:";
-    } catch {
-      return false;
-    }
+    } catch (_) { return false; }
   });
 }
 
 function getYouTubeVideoId(value) {
   if (typeof value !== "string" || !value.trim()) return null;
-
   try {
     const parsed = new URL(value.trim());
     const host = parsed.hostname.toLowerCase().replace(/^www\./, "");
     if (!["youtube.com", "m.youtube.com", "youtu.be"].includes(host)) return null;
-
-    let videoId = "";
-    if (host === "youtu.be") {
-      videoId = parsed.pathname.split("/").filter(Boolean)[0] || "";
-    } else if (parsed.pathname === "/watch") {
-      videoId = parsed.searchParams.get("v") || "";
-    } else {
+    let id = "";
+    if (host === "youtu.be") id = parsed.pathname.split("/").filter(Boolean)[0] || "";
+    else if (parsed.pathname === "/watch") id = parsed.searchParams.get("v") || "";
+    else {
       const match = parsed.pathname.match(/^\/(?:embed|shorts|live)\/([A-Za-z0-9_-]{11})(?:$|\/)/);
-      videoId = match ? match[1] : "";
+      id = match ? match[1] : "";
     }
-
-    return /^[A-Za-z0-9_-]{11}$/.test(videoId) ? videoId : null;
-  } catch {
-    return null;
-  }
+    return /^[A-Za-z0-9_-]{11}$/.test(id) ? id : null;
+  } catch (_) { return null; }
 }
 
 function openPublishedItem(item) {
   const travelModalHeader = detailTitle.closest(".bsa-detail-header");
-  if (travelModalHeader) { travelModalHeader.classList.remove("bsa-travel-modal-header"); travelModalHeader.style.backgroundImage = ""; }
+  if (travelModalHeader) {
+    travelModalHeader.classList.remove("bsa-travel-modal-header");
+    travelModalHeader.style.backgroundImage = "";
+  }
+  const category = normalizeCategory(item.category);
+  const destination = categoryDestinations[category];
   detailTitle.textContent = item.title || "BLACK SMART AVIATION Update";
-
-  detailSubtitle.textContent = normalizeCategory(item.category) === "youtube"
-    ? "YouTube"
-    : (item.category ? String(item.category).replace(/[_-]/g," ") : "Educate · Connect · Inspire");
-
+  detailSubtitle.textContent = destination.label;
   detailContent.replaceChildren();
 
-  const category = normalizeCategory(item.category);
   const imageUrls = getSafeImageUrls(item.image_urls);
-  const videoId = category === "youtube" ? getYouTubeVideoId(item.body) : null;
-
-  if (videoId) {
-    const frame = document.createElement("iframe");
-    frame.className = "bsa-youtube-frame";
-    frame.src = "https://www.youtube-nocookie.com/embed/" + videoId;
-    frame.title = (item.title || "BLACK SMART AVIATION YouTube video") + " video";
-    frame.loading = "lazy";
-    frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-    frame.referrerPolicy = "strict-origin-when-cross-origin";
-    frame.allowFullscreen = true;
-    detailContent.appendChild(frame);
-  } else if (category === "youtube") {
-    const warning = document.createElement("p");
-    warning.textContent = "The YouTube video link is unavailable or invalid. Please contact the BSA team.";
-    detailContent.appendChild(warning);
+  if (category === "youtube") {
+    const videoId = getYouTubeVideoId(item.body);
+    if (videoId) {
+      const frame = document.createElement("iframe");
+      frame.className = "bsa-youtube-frame";
+      frame.src = "https://www.youtube-nocookie.com/embed/" + videoId;
+      frame.title = (item.title || "BLACK SMART AVIATION YouTube video") + " video";
+      frame.loading = "lazy";
+      frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      frame.referrerPolicy = "strict-origin-when-cross-origin";
+      frame.allowFullscreen = true;
+      detailContent.appendChild(frame);
+    } else {
+      const warning = document.createElement("p");
+      warning.textContent = "The YouTube video link is unavailable or invalid. Please contact the BSA team.";
+      detailContent.appendChild(warning);
+    }
   }
 
-  // Display every image attached to this post, not only the first image.
-  imageUrls.forEach(function(url,index) {
+  // Show every image attached to this Admin post.
+  imageUrls.forEach(function(url, index) {
     const image = document.createElement("img");
     image.className = "bsa-live-detail-image";
     image.src = url;
-    image.alt = (item.title ? String(item.title) : "BLACK SMART AVIATION update") + " image " + (index + 1);
+    image.alt = (item.title || "BLACK SMART AVIATION update") + " image " + (index + 1);
     image.loading = "lazy";
     image.onerror = function() { image.remove(); };
     detailContent.appendChild(image);
   });
 
-  const summary = document.createElement("p");
-  summary.textContent = item.summary || "";
-  if (summary.textContent) detailContent.appendChild(summary);
-
-  // YouTube URLs are used only to build the validated player above.
-  if (category !== "youtube") {
+  if (item.summary) {
+    const summary = document.createElement("p");
+    summary.textContent = item.summary;
+    detailContent.appendChild(summary);
+  }
+  if (category !== "youtube" && item.body) {
     const body = document.createElement("div");
     body.className = "bsa-live-detail-body";
-    body.textContent = item.body || "";
-    if (body.textContent) detailContent.appendChild(body);
+    body.textContent = item.body;
+    detailContent.appendChild(body);
   }
-
   showDetailsModal();
 }
 
@@ -1592,90 +1590,83 @@ function createPublishedCard(item) {
   const card = document.createElement("article");
   card.className = "bsa-live-card";
   card.tabIndex = 0;
-  card.setAttribute("role","button");
-  card.setAttribute("aria-haspopup","dialog");
+  card.setAttribute("role", "button");
+  card.setAttribute("aria-haspopup", "dialog");
 
-  const imageUrls = getSafeImageUrls(item.image_urls);
-
-  if (imageUrls.length > 0) {
+  const images = getSafeImageUrls(item.image_urls);
+  if (images.length) {
     const image = document.createElement("img");
-    image.src = imageUrls[0];
-    image.alt = item.title ? String(item.title) : "BLACK SMART AVIATION update";
+    image.src = images[0];
+    image.alt = item.title || "BLACK SMART AVIATION update";
     image.loading = "lazy";
     image.onerror = function() { image.remove(); };
     card.appendChild(image);
   }
 
-  const cardContent = document.createElement("div");
-  cardContent.className = "bsa-live-card-content";
-
+  const content = document.createElement("div");
+  content.className = "bsa-live-card-content";
   const category = document.createElement("span");
   category.className = "bsa-live-category";
-  category.textContent = item.category
-    ? String(item.category).replace(/[_-]/g," ")
-    : "BSA Update";
-
+  category.textContent = categoryDestinations[normalizeCategory(item.category)].label;
   const heading = document.createElement("h3");
   heading.textContent = item.title || "Untitled update";
-
   const summary = document.createElement("p");
   summary.textContent = item.summary || "";
-
   const readMore = document.createElement("span");
   readMore.className = "bsa-live-read-more";
-  readMore.textContent = "Read More →";
+  readMore.textContent = normalizeCategory(item.category) === "youtube" ? "Watch Video →" : "Read More →";
+  content.append(category, heading);
+  if (summary.textContent) content.appendChild(summary);
+  content.appendChild(readMore);
+  card.appendChild(content);
 
-  cardContent.append(category,heading);
-  if (summary.textContent) cardContent.appendChild(summary);
-  cardContent.appendChild(readMore);
-  card.appendChild(cardContent);
-
-  card.addEventListener("click",function() { openPublishedItem(item); });
-  card.addEventListener("keydown",function(event) {
+  card.addEventListener("click", function() { openPublishedItem(item); });
+  card.addEventListener("keydown", function(event) {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
       openPublishedItem(item);
     }
   });
-
   return card;
 }
 
-function normalizeCategory(category) {
-  const rawValue = String(category || "general").trim().toLowerCase();
-  // Keep older posts working if they were saved under the previous category key.
-  const value = rawValue === "youtube_clips" ? "youtube" : rawValue;
-  return Object.prototype.hasOwnProperty.call(categoryDestinations,value)
-    ? value
-    : "general";
-}
-
 async function loadPublishedContent() {
-  liveStatus.textContent = "Loading News & Events...";
-  youtubeStatus.textContent = "Loading YouTube...";
+  if (liveStatus) liveStatus.textContent = "Loading News & Events...";
+  if (youtubeStatus) youtubeStatus.textContent = "Loading YouTube...";
+
+  // Clear previously rendered Admin cards before refreshing to avoid duplicates.
+  Object.values(categoryDestinations).forEach(function(destination) {
+    const grid = document.getElementById(destination.grid);
+    if (grid) {
+      Array.from(grid.querySelectorAll('[data-bsa-admin-post="true"]')).forEach(node => node.remove());
+    }
+  });
 
   try {
-    const { data,error } = await supabase
+    const { data, error } = await supabase
       .from("bsa_content")
-      .select("id,title,slug,category,summary,body,image_urls,status")
-      .eq("status","published");
-
+      .select("id,title,slug,category,summary,body,image_urls,status,created_at,published_at")
+      .eq("status", "published")
+      .order("published_at", { ascending: false, nullsFirst: false });
     if (error) throw error;
 
     const publishedItems = Array.isArray(data) ? data : [];
     const counts = {};
+    let displayedCount = 0;
 
     publishedItems.forEach(function(item) {
       const category = normalizeCategory(item.category);
       const destination = categoryDestinations[category];
       const targetGrid = document.getElementById(destination.grid);
       if (!targetGrid) {
-        console.warn("BSA category destination not found:",category);
+        console.warn("BSA Admin category grid is missing:", category, destination.grid);
         return;
       }
-
-      targetGrid.appendChild(createPublishedCard(item));
+      const card = createPublishedCard(item);
+      card.dataset.bsaAdminPost = "true";
+      targetGrid.appendChild(card);
       counts[category] = (counts[category] || 0) + 1;
+      displayedCount++;
 
       if (destination.block) {
         const block = document.getElementById(destination.block);
@@ -1684,28 +1675,23 @@ async function loadPublishedContent() {
     });
 
     const newsCount = (counts.news || 0) + (counts.general || 0);
-    const youtubeCount = counts.youtube || 0;
-    const totalCount = publishedItems.length;
-
-    if (newsCount === 0) {
-      liveStatus.textContent = totalCount === 0
-        ? "Airport Study Tour is currently listed. More news and events will appear here when published by BSA."
-        : "Airport Study Tour is listed. No News & Events posts have been published yet. Other updates appear in their selected sections.";
-    } else {
-      liveStatus.textContent = "Airport Study Tour and " + newsCount +
-        (newsCount === 1 ? " published News & Events update available." : " published News & Events updates available.");
+    if (liveStatus) {
+      liveStatus.textContent = newsCount
+        ? "Airport Study Tour and " + newsCount + (newsCount === 1 ? " published update available." : " published updates available.")
+        : "Airport Study Tour is listed here. News & Events and General News posts published by BSA Admin will appear in this section.";
+    }
+    if (youtubeStatus) {
+      const videoCount = counts.youtube || 0;
+      youtubeStatus.textContent = videoCount
+        ? videoCount + (videoCount === 1 ? " published YouTube video available. Select its card to watch." : " published YouTube videos available. Select a card to watch.")
+        : "No videos have been published yet. YouTube videos published by BSA Admin will appear here.";
     }
 
-    youtubeStatus.textContent = youtubeCount === 0
-      ? "No videos have been published yet. New videos will appear here when added by the BSA Admin."
-      : youtubeCount + (youtubeCount === 1 ? " published video available. Select its card to watch." : " published videos available. Select a card to watch.");
-
+    console.info("BSA Admin content loaded:", displayedCount, "published posts", counts);
   } catch (error) {
-    console.error("BSA public content loading error:",error);
-    liveStatus.textContent =
-      "Airport Study Tour is listed below. We could not load other updates right now. Please try again later.";
-    youtubeStatus.textContent =
-      "We could not load YouTube right now. Please try again later.";
+    console.error("BSA public content loading error:", error);
+    if (liveStatus) liveStatus.textContent = "We could not load Admin updates right now. Please refresh the page or try again later.";
+    if (youtubeStatus) youtubeStatus.textContent = "We could not load YouTube right now. Please refresh the page or try again later.";
   }
 }
 
