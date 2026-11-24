@@ -1,773 +1,1642 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#071D35">
-  <title>BSA Admin Dashboard</title>
-  <style>
-    :root {
-      --navy: #071D35;
-      --red: #E3262E;
-      --gold: #D4AF37;
-      --light: #f3f6fa;
-      --white: #fff;
-      --text: #18283b;
-      --muted: #64748b;
-      --border: #dce3ec;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#071D35">
+<meta name="description" content="BLACK SMART AVIATION connects Black aviation talent, inspires the next generation, and promotes aviation education, career opportunities, scholarships and aviation galley knowledge.">
+<title>BLACK SMART AVIATION | Educate, Connect, Inspire</title>
 
-    * { box-sizing: border-box; }
+<style>
+:root {
+  --navy:#071D35;
+  --navy-light:#102D4D;
+  --red:#E3262E;
+  --gold:#D4AF37;
+  --white:#FFFFFF;
+  --light:#F4F6F9;
+  --text:#536174;
+  --muted:#D5DFEB;
+  --dark:#041326;
+  --border:#E0E6EE;
+  --shadow:0 12px 35px rgba(7,29,53,.09);
+}
+* {box-sizing:border-box}
+html {scroll-behavior:smooth;scroll-padding-top:25px}
+body {
+  margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--navy);
+  background:#fff;line-height:1.7;-webkit-font-smoothing:antialiased;
+}
+img {display:block;max-width:100%}
+a,button {transition:all .2s ease}
+a:focus-visible,button:focus-visible,input:focus-visible,
+select:focus-visible,textarea:focus-visible {
+  outline:3px solid var(--gold);outline-offset:3px;
+}
+.container {width:min(1200px,88%);margin-inline:auto}
+header {
+  position:relative;z-index:10;background:var(--navy);color:#fff;
+  border-bottom:3px solid var(--gold);
+}
+.header-inner {padding:25px 0 15px;text-align:center}
+.brand {
+  display:inline-block;color:var(--gold);font-size:clamp(23px,3vw,36px);
+  font-weight:900;letter-spacing:2px;line-height:1.3;text-decoration:none;
+}
+.tagline {max-width:650px;margin:10px auto 0;color:var(--muted);font-size:14px}
+.brand-accent {width:65px;height:3px;margin:15px auto 0;background:var(--red);border-radius:5px}
+.nav-wrap {border-top:1px solid rgba(255,255,255,.09)}
+nav {
+  display:flex;justify-content:center;align-items:center;flex-wrap:wrap;
+  gap:5px 17px;padding:12px 0 15px;
+}
+nav a {
+  padding:7px 0;color:#fff;font-size:12px;font-weight:700;
+  text-decoration:none;border-bottom:2px solid transparent;
+}
+nav a:hover,nav a.active {color:var(--gold);border-bottom-color:var(--gold)}
+.buttons {display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:30px}
+.button {
+  display:inline-flex;justify-content:center;align-items:center;min-height:46px;
+  padding:12px 22px;border:1px solid transparent;border-radius:5px;
+  font:inherit;font-size:13px;font-weight:800;text-align:center;text-decoration:none;cursor:pointer;
+}
+.button:hover {transform:translateY(-2px)}
+.primary {background:var(--red);color:#fff;border-color:var(--red)}
+.primary:hover {background:#BD1B25;color:#fff}
+.secondary {background:transparent;color:#fff;border-color:var(--gold)}
+.secondary:hover {background:var(--gold);color:var(--navy)}
+.gold-button {background:var(--gold);color:var(--navy);border-color:var(--gold)}
+.gold-button:hover {background:#E6C65C}
+.hero {
+  position:relative;isolation:isolate;display:flex;align-items:center;
+  min-height:560px;padding:85px 0;overflow:hidden;color:#fff;background-color:var(--navy);
+  background-image:linear-gradient(90deg,rgba(4,19,38,.96),rgba(7,29,53,.83) 48%,rgba(7,29,53,.38)),url("bao-menglong--FhoJYnw-cg-unsplash.jpg");
+  background-position:center;background-size:cover;background-repeat:no-repeat;
+}
+.hero-content {max-width:760px}
+.eyebrow {
+  display:inline-block;margin-bottom:14px;color:var(--gold);font-size:12px;
+  font-weight:900;letter-spacing:3px;text-transform:uppercase;
+}
+h1 {
+  max-width:750px;margin:0;color:#fff;font-size:clamp(38px,6vw,68px);
+  font-weight:900;letter-spacing:-1.5px;line-height:1.12;
+}
+.hero p {max-width:610px;margin:22px 0 0;color:#E3EAF2;font-size:16px;line-height:1.9}
+.hero-line {width:80px;height:4px;margin-top:24px;background:var(--gold);border-radius:5px}
+section {padding:76px 0;scroll-margin-top:20px}
+.section-heading {
+  margin:0 0 14px;padding-left:16px;border-left:4px solid var(--gold);
+  color:var(--navy);font-size:clamp(27px,3.5vw,36px);font-weight:900;line-height:1.3;
+}
+.intro {max-width:760px;margin:0;color:var(--text);font-size:15px;line-height:1.9}
+.section-label {
+  display:block;margin-bottom:9px;color:#9B7610;font-size:11px;
+  font-weight:900;letter-spacing:2px;text-transform:uppercase;
+}
+.cards {
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:22px;margin-top:34px;
+}
+.card {
+  position:relative;min-width:0;padding:26px 23px;background:#fff;
+  border:1px solid var(--border);border-top:4px solid var(--gold);
+  border-radius:9px;box-shadow:0 5px 20px rgba(7,29,53,.045);
+  overflow-wrap:anywhere;cursor:pointer;transition:transform .22s ease,box-shadow .22s ease;
+}
+.card:hover {transform:translateY(-5px);box-shadow:var(--shadow)}
+.card:focus-visible {outline:3px solid var(--gold);outline-offset:4px}
+.card::after {
+  content:"Explore More →";display:block;margin-top:15px;
+  color:#9B7610;font-size:12px;font-weight:800;
+}
+.card-number {
+  display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;
+  margin-bottom:16px;border-radius:8px;background:var(--navy);color:var(--gold);
+  font-size:15px;font-weight:900;
+}
+.card h3 {margin:0 0 10px;color:var(--navy);font-size:18px;line-height:1.45}
+.card p {margin:0;color:var(--text);font-size:13px;line-height:1.9}
+.galley-section {background:var(--light)}
+.galley-section .card {background:#fff}
+.mission {
+  overflow:hidden;background:radial-gradient(circle at 90% 10%,rgba(212,175,55,.12),transparent 35%),var(--navy);
+  color:#fff;border-top:4px solid var(--gold);border-bottom:4px solid var(--red);
+}
+.mission .section-heading {color:#fff}
+.mission .section-label {color:var(--gold)}
+.mission p {max-width:820px;margin:20px 0 27px;color:var(--muted);font-size:15px;line-height:2}
+.action-section {background:linear-gradient(135deg,#F4F6F9,#fff 55%,#EAF0F6)}
+.action-grid {
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:35px;
+}
+.action-card {
+  display:flex;flex-direction:column;align-items:flex-start;min-width:0;padding:30px;
+  background:#fff;border:1px solid var(--border);border-top:4px solid var(--gold);
+  border-radius:10px;box-shadow:0 6px 24px rgba(7,29,53,.055);overflow-wrap:anywhere;
+}
+.action-icon {
+  display:flex;align-items:center;justify-content:center;width:52px;height:52px;
+  margin-bottom:20px;border:2px solid var(--gold);border-radius:50%;
+  background:var(--navy);color:var(--gold);font-size:23px;font-weight:800;
+}
+.action-card h3 {margin:0 0 10px;color:var(--navy);font-size:22px}
+.action-card p {flex-grow:1;margin:0;color:var(--text);font-size:14px;line-height:1.9}
+.action-card .button {margin-top:24px}
+.payment-list {width:100%;margin:20px 0 0;padding:17px;background:#F4F6F9;border:1px solid var(--border);border-radius:8px}
+.payment-list p {margin:0 0 13px;font-size:13px;line-height:1.7}
+.payment-list p:last-child {margin-bottom:0}
+.payment-list strong {display:block;color:var(--navy);font-size:14px}
+.payment-number {display:block;margin-top:3px;color:#9B7610;font-size:21px;font-weight:900;letter-spacing:.5px;overflow-wrap:anywhere}
+.contact-actions {display:grid;gap:10px;width:100%;margin-top:22px}
+.contact-actions a {display:block;padding:11px 14px;border:1px solid var(--border);border-radius:6px;background:#F4F6F9;color:var(--navy);font-size:13px;font-weight:800;text-decoration:none}
+.contact-actions a:hover {background:var(--navy);color:#fff}
+.join-section {background:#fff;border-top:3px solid var(--gold)}
+.join-form {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:28px;padding:28px;background:#fff;border:1px solid var(--border);border-top:4px solid var(--gold);border-radius:10px;box-shadow:var(--shadow)}
+.join-form label {display:block;margin-bottom:7px;color:var(--navy);font-size:13px;font-weight:800}
+.join-form input,.join-form select,.join-form textarea {width:100%;min-height:46px;padding:12px 14px;border:1px solid #CCD5E0;border-radius:6px;background:#fff;color:var(--navy);font:inherit;font-size:14px}
+.join-form textarea {min-height:105px;resize:vertical}
+.join-form .full-width,.join-form button,.join-status {grid-column:1/-1}
+.join-status {margin:0;color:var(--navy);font-size:13px;font-weight:700}
+.contact-section {background:#EAF0F6;border-top:3px solid var(--gold)}
+.contact-layout {
+  display:grid;grid-template-columns:.9fr 1.1fr;align-items:start;
+  gap:48px;margin-top:36px;
+}
+.contact-info {color:var(--text);font-size:14px;line-height:1.9}
+.contact-info h3 {margin-top:0;color:var(--navy);font-size:23px}
+.contact-info strong {color:var(--navy)}
+.contact-info a {color:#B21D25;font-weight:700;text-decoration:none;overflow-wrap:anywhere}
+.contact-info a:hover {color:#8C151D;text-decoration:underline}
+.contact-item {margin:22px 0;padding-bottom:18px;border-bottom:1px solid #D5DFE9}
+.contact-form {
+  display:grid;gap:18px;min-width:0;padding:30px;background:#fff;
+  border:1px solid var(--border);border-top:4px solid var(--gold);
+  border-radius:10px;box-shadow:var(--shadow);
+}
+.contact-form label,.study-form label {
+  display:block;margin-bottom:7px;color:var(--navy);font-size:13px;font-weight:800;
+}
+.contact-form input,.contact-form select,.contact-form textarea,
+.study-form input,.study-form select,.study-form textarea {
+  width:100%;min-height:46px;padding:12px 14px;border:1px solid #CCD5E0;
+  border-radius:6px;background:#fff;color:var(--navy);font:inherit;font-size:14px;
+}
+.contact-form textarea,.study-form textarea {min-height:100px;resize:vertical}
+.form-note {margin:0;color:var(--text);font-size:12px;line-height:1.7}
+.form-status {margin:0;color:var(--navy);font-size:13px;font-weight:700}
+footer {
+  padding:38px 0 24px;background:var(--dark);border-top:4px solid var(--gold);
+  color:var(--muted);text-align:center;font-size:13px;line-height:2.2;
+}
+.footer-brand {display:inline-block;margin-bottom:8px;color:var(--gold);font-size:19px;font-weight:900;letter-spacing:1.5px}
+.footer-links {display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;margin:18px 0}
+footer a {color:#fff;text-decoration:none}
+footer a:hover {color:var(--gold)}
+.footer-bottom {margin-top:20px;padding-top:18px;border-top:1px solid rgba(255,255,255,.12);color:#AAB9CA;font-size:12px}
 
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--light);
-      color: var(--text);
-    }
+/* Details modal */
+.bsa-detail-overlay {
+  display:none;position:fixed;inset:0;z-index:9999;overflow-y:auto;
+  padding:20px;background:rgba(4,19,38,.85);
+}
+.bsa-detail-overlay.open {display:flex;align-items:center;justify-content:center}
+.bsa-detail-panel {
+  width:min(800px,100%);max-height:90vh;overflow-y:auto;
+  background:#fff;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.3);
+}
+.bsa-detail-header {padding:28px;background:var(--navy);color:#fff;border-bottom:4px solid var(--gold)}
+.bsa-detail-header h2 {margin:12px 0;color:#fff;font-size:clamp(25px,5vw,36px);line-height:1.3}
+.bsa-detail-header p {color:var(--muted)}
+.bsa-detail-close {
+  float:right;padding:9px 15px;border:1px solid var(--gold);border-radius:5px;
+  background:transparent;color:#fff;font-weight:bold;cursor:pointer;
+}
+.bsa-detail-content {padding:28px;color:var(--text)}
+.bsa-detail-content h3 {margin-top:24px;color:var(--navy)}
+.bsa-detail-content li {margin-bottom:8px}
 
-    header {
-      background: var(--navy);
-      color: white;
-      padding: 22px max(20px, calc((100% - 1100px)/2));
-      border-bottom: 4px solid var(--gold);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
+/* News and Events */
+.bsa-live-section {background:#fff}
+.bsa-live-status {margin:18px 0 0;color:var(--text);font-size:13px;font-weight:700}
+.bsa-live-grid {
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:30px;
+}
+.bsa-live-card {
+  min-width:0;overflow:hidden;background:#fff;border:1px solid var(--border);
+  border-top:4px solid var(--gold);border-radius:9px;
+  box-shadow:0 5px 20px rgba(7,29,53,.05);cursor:pointer;
+}
+.bsa-live-card:hover {transform:translateY(-4px);box-shadow:var(--shadow)}
+.bsa-live-card:focus-visible {outline:3px solid var(--gold);outline-offset:4px}
+.bsa-live-card img {width:100%;height:190px;object-fit:cover;background:var(--light)}
+.bsa-live-card-content {padding:22px}
+.bsa-live-category {
+  display:inline-block;margin-bottom:9px;color:#9B7610;font-size:11px;
+  font-weight:900;letter-spacing:1.3px;text-transform:uppercase;
+}
+.bsa-live-card h3 {margin:0 0 9px;color:var(--navy);font-size:19px;line-height:1.45;overflow-wrap:anywhere}
+.bsa-live-card p {margin:0;color:var(--text);font-size:13px;line-height:1.85;white-space:pre-wrap;overflow-wrap:anywhere}
+.bsa-live-read-more {display:inline-block;margin-top:15px;color:#9B7610;font-size:12px;font-weight:800}
+.bsa-live-detail-image {width:100%;max-height:360px;margin:0 0 20px;border-radius:8px;object-fit:cover}
+.bsa-live-detail-body {color:var(--text);line-height:1.9;white-space:pre-wrap;overflow-wrap:anywhere}
 
-    header h1 { margin: 0 0 6px; font-size: 22px; }
-    header p { margin: 0; color: #d9e3ef; font-size: 13px; }
+/* Admin-published content in its matching website section */
+.bsa-category-block {margin-top:34px}
+.bsa-category-heading {margin:0 0 16px;color:var(--navy);font-size:22px}
+.bsa-category-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.bsa-category-block:empty {display:none}
+.bsa-category-block .bsa-live-card {height:100%}
 
-    main {
-      max-width: 1100px;
-      margin: 28px auto;
-      padding: 0 18px 40px;
-    }
+/* Study tour form inside modal */
+.study-tour-banner {
+  margin:10px 0 24px;padding:24px;background:var(--navy);color:#fff;
+  border-left:5px solid var(--gold);border-radius:8px;
+}
+.study-tour-banner h3 {margin:0 0 10px;color:var(--gold);font-size:23px}
+.study-tour-banner p {margin:8px 0;color:#E3EAF2}
+.study-fees {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:22px 0}
+.study-fee {padding:20px;background:#fff;border:1px solid var(--border);border-top:4px solid var(--gold);border-radius:8px}
+.study-fee strong {display:block;color:var(--navy);font-size:14px}
+.study-fee span {display:block;color:#9B7610;font-size:25px;font-weight:900}
+.study-form {
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;
+  margin-top:25px;padding:24px;background:#fff;border:1px solid var(--border);
+  border-top:4px solid var(--gold);border-radius:10px;box-shadow:var(--shadow);
+}
+.study-form .full-width {grid-column:1/-1}
+.study-form .fee-display {
+  padding:15px;background:#F4F6F9;border:1px solid var(--border);
+  border-radius:6px;color:var(--navy);font-size:16px;font-weight:900;
+}
+.study-form button {grid-column:1/-1}
+.study-status {grid-column:1/-1;margin:0;font-size:14px;font-weight:700}
+.study-note {margin-top:18px;color:var(--text);font-size:12px;line-height:1.8}
+@media(max-width:1000px) {
+  .container {width:90%}
+  .cards {grid-template-columns:repeat(2,minmax(0,1fr))}
+  .action-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
+  .contact-layout {grid-template-columns:1fr;gap:30px}
+  .bsa-live-grid,.bsa-category-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero {min-height:500px}
+}
+@media(max-width:600px) {
+  .header-inner {padding-top:22px}
+  .brand {font-size:clamp(19px,5.5vw,27px);letter-spacing:1px}
+  .tagline {max-width:330px;font-size:12px}
+  nav {gap:5px 13px;padding:10px 0 13px}
+  nav a {font-size:11px}
+  .hero {min-height:470px;padding:60px 0;background-position:58% center}
+  .eyebrow {font-size:10px;letter-spacing:2px}
+  h1 {font-size:clamp(36px,10vw,48px);letter-spacing:-.8px}
+  .hero p {font-size:14px}
+  .buttons {flex-direction:column;align-items:stretch;gap:12px}
+  .buttons .button {width:100%}
+  section {padding:49px 0}
+  .section-heading {font-size:27px}
+  .intro {font-size:14px}
+  .cards,.action-grid,.bsa-live-grid,.bsa-category-grid {grid-template-columns:1fr;gap:17px;margin-top:25px}
+  .card,.action-card {padding:23px}
+  .contact-form {padding:22px}
+  .action-card .button {width:100%}
+  .footer-links {gap:8px 13px}
+  .bsa-detail-overlay {padding:10px}
+  .bsa-detail-header,.bsa-detail-content {padding:20px}
+  .study-form,.join-form {grid-template-columns:1fr;padding:20px}
+  .study-form .full-width,.study-form button,.study-status,.join-form .full-width,.join-form button,.join-status {grid-column:1}
+  .study-fees {grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce) {
+  html {scroll-behavior:auto}
+  *,*::before,*::after {transition-duration:.01ms !important;animation-duration:.01ms !important}
+}
 
-    .card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 24px;
-      margin-bottom: 22px;
-      box-shadow: 0 5px 20px #071d350a;
-    }
 
-    h2 { color: var(--navy); margin-top: 0; font-size: 21px; }
-    .muted { color: var(--muted); font-size: 14px; line-height: 1.6; }
+/* BSA TRAVEL — dedicated travel services section */
+.bsa-travel-section {
+  position:relative;overflow:hidden;color:#fff;
+  background:radial-gradient(circle at 85% 12%,rgba(212,175,55,.18),transparent 30%),linear-gradient(135deg,#041326 0%,#071D35 58%,#102D4D 100%);
+  border-top:4px solid var(--gold);border-bottom:4px solid var(--red);
+}
+.bsa-travel-hero {display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:38px;margin-bottom:38px}
+.bsa-travel-kicker {display:inline-block;margin-bottom:13px;color:var(--gold);font-size:12px;font-weight:900;letter-spacing:3px;text-transform:uppercase}
+.bsa-travel-title {max-width:720px;margin:0;color:#fff;font-size:clamp(36px,5.5vw,61px);font-weight:900;line-height:1.08;letter-spacing:-1.2px}
+.bsa-travel-copy {max-width:650px;margin:20px 0 0;color:#D5DFEB;font-size:15px;line-height:1.95}
+.bsa-travel-visual {
+  min-height:280px;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;
+  padding:30px;border:1px solid rgba(212,175,55,.55);border-radius:14px;
+  background:linear-gradient(0deg,rgba(4,19,38,.96),rgba(4,19,38,.08)),url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=85') center/cover;
+  box-shadow:0 18px 45px rgba(0,0,0,.22)
+}
+.bsa-travel-visual strong {color:var(--gold);font-size:clamp(21px,3vw,30px);line-height:1.2}
+.bsa-travel-visual span {margin-top:8px;color:#fff;font-size:13px;font-weight:700;letter-spacing:1.5px}
+.bsa-travel-services {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:28px}
+.bsa-travel-service {
+  display:flex;flex-direction:column;align-items:flex-start;min-height:250px;padding:27px;
+  border:1px solid rgba(212,175,55,.38);border-top:4px solid var(--gold);border-radius:11px;
+  background:rgba(255,255,255,.97);color:var(--navy);text-align:left;cursor:pointer;
+  box-shadow:0 9px 28px rgba(0,0,0,.14)
+}
+.bsa-travel-service:hover {transform:translateY(-5px);box-shadow:0 17px 38px rgba(0,0,0,.24);border-color:var(--gold)}
+.bsa-travel-icon {display:flex;align-items:center;justify-content:center;width:58px;height:58px;margin-bottom:18px;border-radius:12px;background:var(--navy);color:var(--gold);font-size:28px}
+.bsa-travel-service h3 {margin:0 0 9px;color:var(--navy);font-size:19px;line-height:1.35}
+.bsa-travel-service p {flex:1;margin:0;color:var(--text);font-size:13px;line-height:1.8}
+.bsa-travel-open {display:inline-block;margin-top:18px;color:#9B7610;font-size:12px;font-weight:900;letter-spacing:.4px}
+.bsa-travel-footnote {margin:24px 0 0;padding:16px 19px;border-left:4px solid var(--gold);background:rgba(255,255,255,.08);color:#E3EAF2;font-size:12px;line-height:1.8}
+.bsa-travel-form {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin-top:18px}
+.bsa-travel-field {min-width:0}
+.bsa-travel-field.full {grid-column:1/-1}
+.bsa-travel-field label {display:block;margin-bottom:6px;color:var(--navy);font-size:13px;font-weight:800}
+.bsa-travel-field input,.bsa-travel-field select,.bsa-travel-field textarea {width:100%;min-height:45px;padding:11px 13px;border:1px solid #CCD5E0;border-radius:6px;background:#fff;color:var(--navy);font:inherit;font-size:14px}
+.bsa-travel-field textarea {min-height:90px;resize:vertical}
+.bsa-travel-form-note {grid-column:1/-1;margin:0;color:var(--text);font-size:12px;line-height:1.8}
+.bsa-travel-form button {grid-column:1/-1;justify-self:start}
+@media(max-width:900px) {
+  .bsa-travel-hero {grid-template-columns:1fr;gap:25px}
+  .bsa-travel-visual {min-height:230px}
+  .bsa-travel-services {grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:600px) {
+  .bsa-travel-services {grid-template-columns:1fr;gap:16px}
+  .bsa-travel-service {min-height:210px;padding:23px}
+  .bsa-travel-visual {min-height:200px;padding:22px}
+  .bsa-travel-form {grid-template-columns:1fr}
+  .bsa-travel-field.full,.bsa-travel-form-note,.bsa-travel-form button {grid-column:1}
+}
 
-    label {
-      display: block;
-      font-weight: 700;
-      margin: 15px 0 7px;
-      font-size: 14px;
-    }
 
-    input, select, textarea {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      background: white;
-      color: var(--text);
-      font: inherit;
-    }
+/* BSA TRAVEL service imagery, samples and preferred-choice controls */
+.bsa-detail-header.bsa-travel-modal-header {
+  min-height:190px;background-color:#071D35;background-position:center;background-size:cover;
+  background-image:linear-gradient(90deg,rgba(4,19,38,.94),rgba(4,19,38,.48));
+}
+.bsa-travel-gallery {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0 24px}
+.bsa-travel-sample {min-width:0;overflow:hidden;border:1px solid var(--border);border-radius:8px;background:#F4F6F9}
+.bsa-travel-sample img {width:100%;height:125px;object-fit:cover}
+.bsa-travel-sample span {display:block;padding:8px 10px;color:var(--navy);font-size:11px;font-weight:800}
+.bsa-travel-sample-note {margin:0 0 14px;color:var(--text);font-size:12px;line-height:1.7}
+.bsa-travel-field .bsa-other-input {margin-top:8px}
+.bsa-travel-field .bsa-choice-hint {display:block;margin-top:5px;color:#64748B;font-size:11px;font-weight:400}
+@media(max-width:600px) {
+  .bsa-travel-gallery {grid-template-columns:1fr 1fr;gap:9px}
+  .bsa-travel-sample img {height:105px}
+  .bsa-detail-header.bsa-travel-modal-header {min-height:160px}
+}
 
-    textarea { min-height: 125px; resize: vertical; }
-    input:focus, select:focus, textarea:focus {
-      outline: 2px solid #d4af3770;
-      border-color: var(--gold);
-    }
-
-    button, .link-button {
-      display: inline-block;
-      border: 0;
-      border-radius: 8px;
-      padding: 12px 17px;
-      font-weight: 700;
-      cursor: pointer;
-      text-decoration: none;
-      font-size: 14px;
-    }
-
-    .primary { background: var(--navy); color: white; }
-    .gold { background: var(--gold); color: var(--navy); }
-    .danger { background: #fde8e8; color: #a4161a; }
-    .secondary { background: #e8edf4; color: var(--navy); }
-    button:disabled { opacity: .55; cursor: wait; }
-
-    .actions {
-      display: flex;
-      gap: 9px;
-      flex-wrap: wrap;
-      margin-top: 18px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0 18px;
-    }
-
-    .notice {
-      padding: 13px 15px;
-      border-radius: 8px;
-      background: #edf3f9;
-      margin: 15px 0;
-      overflow-wrap: anywhere;
-      line-height: 1.5;
-      font-size: 14px;
-    }
-
-    .notice.error { background: #fde8e8; color: #941b1b; }
-    .notice.success { background: #e5f7eb; color: #166534; }
-
-    .hidden { display: none !important; }
-
-    .content-item {
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 16px;
-      margin-top: 12px;
-      min-width: 0;
-    }
-
-    .content-item h3 { margin: 0 0 8px; color: var(--navy); }
-    .content-item p { overflow-wrap: anywhere; }
-    .tag {
-      display: inline-block;
-      background: #eef2f7;
-      border-radius: 30px;
-      padding: 5px 9px;
-      font-size: 12px;
-      margin: 0 5px 5px 0;
-    }
-
-    .thumbs {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 12px;
-    }
-
-    .thumbs img {
-      width: 90px;
-      height: 70px;
-      object-fit: cover;
-      border-radius: 7px;
-      border: 1px solid var(--border);
-    }
-
-    .image-tile { position: relative; display: inline-flex; flex-direction: column; gap: 5px; }
-    .image-tile img { display: block; }
-    .image-tile button { padding: 5px 8px; font-size: 11px; }
-    .field-note { margin: 6px 0 0; color: var(--muted); font-size: 12px; }
-    .video-help { padding: 12px; background: #fff8e5; border: 1px solid #ead28a; border-radius: 8px; }
-
-    .top-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-
-    @media (max-width: 650px) {
-      .grid { grid-template-columns: 1fr; }
-      .card { padding: 18px; }
-      header { padding: 18px; }
-    }
-  </style>
+</style>
 </head>
 
 <body>
 <header>
-  <div>
-    <h1>BLACK SMART AVIATION</h1>
-    <p>Content Management · Admin Dashboard</p>
+  <div class="container header-inner">
+    <a class="brand" href="#home">BLACK SMART AVIATION</a>
+    <p class="tagline">Connecting Black Aviation Talent, Inspiring the Next Generation.</p>
+    <div class="brand-accent" aria-hidden="true"></div>
   </div>
-  <div class="top-actions">
-    <a class="link-button gold"
-       href="https://black-smart-aviation.vercel.app/"
-       target="_blank" rel="noopener">View Website ↗</a>
-    <button id="logoutBtn" class="secondary hidden">Sign out</button>
+  <div class="nav-wrap">
+    <nav class="container" id="mainNav" aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="#learn">Learn Aviation</a>
+      <a href="#bsa-travel">BSA TRAVEL</a>
+      <a href="#aviation-galley">Aviation Galley</a>
+      <a href="#opportunities">Opportunities</a>
+      <a href="#scholarships">Scholarships</a>
+      <a href="#stories">Our Stories</a>
+      <a href="#bsa-live-content">News &amp; Events</a>
+      <a href="#community">Community</a>
+      <a href="#join-us">Join Us</a>
+      <a href="#donate">Donate</a>
+      <a href="#chat-with-us">Chat With Us</a>
+    </nav>
   </div>
 </header>
 
 <main>
-  <div id="notice" class="notice" role="status" aria-live="polite">
-    Checking connection…
-  </div>
-
-  <section id="loginPanel" class="card hidden">
-    <h2>Admin Login</h2>
-    <p class="muted">Sign in using the administrator account created in Supabase Authentication.</p>
-
-    <form id="loginForm">
-      <label for="email">Admin email</label>
-      <input id="email" type="email" autocomplete="username"
-             required placeholder="Enter your admin email">
-
-      <label for="password">Password</label>
-      <input id="password" type="password"
-             autocomplete="current-password" required>
-
-      <div class="actions">
-        <button class="primary" type="submit">Sign in</button>
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-content">
+      <span class="eyebrow">Educate · Connect · Inspire</span>
+      <h1>Your Future in Aviation Starts Here.</h1>
+      <div class="hero-line" aria-hidden="true"></div>
+      <p>Discover aviation careers, learning resources, scholarships and opportunities. Connect with Black aviation talent around the world and help inspire the next generation.</p>
+      <div class="buttons">
+        <a class="button primary" href="#opportunities">Explore Opportunities</a>
+        <a class="button secondary" href="#learn">Discover Aviation</a>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- BSA TRAVEL: INDEPENDENT SERVICE HUB WITHIN THE BSA WEBSITE -->
+<section class="bsa-travel-section" id="bsa-travel">
+  <div class="container">
+    <div class="bsa-travel-hero">
+      <div>
+        <span class="bsa-travel-kicker">BLACK SMART AVIATION · BSA TRAVEL</span>
+        <h2 class="bsa-travel-title">Your Journey. Your World.</h2>
+        <p class="bsa-travel-copy">Travel beyond limits with BSA TRAVEL. Explore flight tickets, train and bus journeys, hotel stays, airport transfers and travel assistance — all through one convenient travel service desk.</p>
+        <div class="buttons">
+          <a class="button gold-button" href="#bsa-travel-services">Explore Travel Services</a>
+          <a class="button secondary" href="#contact">Contact BSA</a>
+        </div>
+      </div>
+      <div class="bsa-travel-visual" role="img" aria-label="Passenger aircraft flying above the clouds">
+        <strong>TRAVEL BEYOND LIMITS</strong>
+        <span>PLAN · BOOK · EXPERIENCE</span>
+      </div>
+    </div>
+
+    <span class="section-label" style="color:var(--gold)">Explore Our Services</span>
+    <h2 class="section-heading" style="color:#fff;border-left-color:var(--red)">One Place. Six Ways to Travel.</h2>
+    <p class="intro" style="color:#D5DFEB">Choose a service below and send your travel request to the BSA TRAVEL team.</p>
+
+    <div class="bsa-travel-services" id="bsa-travel-services">
+      <button class="bsa-travel-service" type="button" data-travel-service="air">
+        <span class="bsa-travel-icon" aria-hidden="true">✈</span>
+        <h3>AIR TICKETING</h3>
+        <p>Request domestic and international flight options, preferred airlines, travel dates and passenger arrangements.</p>
+        <span class="bsa-travel-open">SEARCH FLIGHTS →</span>
+      </button>
+      <button class="bsa-travel-service" type="button" data-travel-service="train">
+        <span class="bsa-travel-icon" aria-hidden="true">🚆</span>
+        <h3>TRAIN TICKETS</h3>
+        <p>Enquire about train routes, departure dates, passenger numbers and preferred travel class.</p>
+        <span class="bsa-travel-open">FIND TRAIN TICKETS →</span>
+      </button>
+      <button class="bsa-travel-service" type="button" data-travel-service="bus">
+        <span class="bsa-travel-icon" aria-hidden="true">🚌</span>
+        <h3>BUS TICKETS</h3>
+        <p>Send a bus ticket request with your route, journey date, number of passengers and trip type.</p>
+        <span class="bsa-travel-open">FIND BUS TICKETS →</span>
+      </button>
+      <button class="bsa-travel-service" type="button" data-travel-service="hotel">
+        <span class="bsa-travel-icon" aria-hidden="true">🏨</span>
+        <h3>HOTEL BOOKING</h3>
+        <p>Request accommodation options by destination, check-in and check-out dates, rooms and guests.</p>
+        <span class="bsa-travel-open">FIND A HOTEL →</span>
+      </button>
+      <button class="bsa-travel-service" type="button" data-travel-service="transfer">
+        <span class="bsa-travel-icon" aria-hidden="true">🚘</span>
+        <h3>AIRPORT TRANSFER</h3>
+        <p>Arrange an airport pick-up or drop-off request, including your flight arrival or departure details.</p>
+        <span class="bsa-travel-open">REQUEST TRANSFER →</span>
+      </button>
+      <button class="bsa-travel-service" type="button" data-travel-service="assistance">
+        <span class="bsa-travel-icon" aria-hidden="true">🧭</span>
+        <h3>TRAVEL ASSISTANCE</h3>
+        <p>Ask for help with travel planning, itinerary guidance, special travel needs and general trip support.</p>
+        <span class="bsa-travel-open">GET TRAVEL HELP →</span>
+      </button>
+    </div>
+
+    <p class="bsa-travel-footnote"><strong>Important:</strong> This first version sends a travel enquiry to BSA. A request is not a confirmed reservation or ticket. Availability, supplier confirmation, prices, payment instructions and ticket issuance will be communicated by the BSA TRAVEL team. Live booking and payment will be enabled when the relevant provider systems are connected.</p>
+  </div>
+</section>
+
+
+<section id="learn">
+  <div class="container">
+    <span class="section-label">Learn and Grow</span>
+    <h2 class="section-heading">Explore the World of Aviation</h2>
+    <p class="intro">Discover the people, professions and services that keep the aviation industry moving, from the airport to the skies.</p>
+    <div class="cards">
+      <article class="card"><div class="card-number">01</div><h3>Aviation Careers</h3><p>Explore careers in flight operations, aircraft engineering, cabin crew, air traffic control, airport services and more.</p></article>
+      <article class="card" id="opportunities"><div class="card-number">02</div><h3>Jobs &amp; Opportunities</h3><p>Learn about aviation jobs, internships and professional development opportunities.</p></article>
+      <article class="card" id="scholarships"><div class="card-number">03</div><h3>Scholarships &amp; Training</h3><p>Discover aviation courses, training programmes and potential educational funding opportunities.</p></article>
+      <article class="card" id="stories"><div class="card-number">04</div><h3>Our Stories</h3><p>Celebrate aviation professionals, their journeys, achievements and contributions to the industry.</p></article>
+    </div>
+    <div class="bsa-category-block" id="bsa-aviation-block" hidden>
+      <h3 class="bsa-category-heading">Aviation Learning Updates</h3>
+      <div class="bsa-category-grid" id="bsa-aviation-grid"></div>
+    </div>
+    <div class="bsa-category-block" id="bsa-jobs-block" hidden>
+      <h3 class="bsa-category-heading">Jobs &amp; Opportunities Updates</h3>
+      <div class="bsa-category-grid" id="bsa-jobs-grid"></div>
+    </div>
+    <div class="bsa-category-block" id="bsa-scholarships-block" hidden>
+      <h3 class="bsa-category-heading">Scholarships &amp; Training Updates</h3>
+      <div class="bsa-category-grid" id="bsa-scholarships-grid"></div>
+    </div>
+    <div class="bsa-category-block" id="bsa-stories-block" hidden>
+      <h3 class="bsa-category-heading">Our Stories Updates</h3>
+      <div class="bsa-category-grid" id="bsa-stories-grid"></div>
+    </div>
+  </div>
+</section>
+
+<section class="galley-section" id="aviation-galley">
+  <div class="container">
+    <span class="section-label">Behind the Cabin Service</span>
+    <h2 class="section-heading">Aviation Galley</h2>
+    <p class="intro">Discover aircraft galleys, airline catering, inflight meal preparation and the equipment that supports cabin services.</p>
+    <div class="cards">
+      <article class="card"><div class="card-number">01</div><h3>Aircraft Galley Equipment</h3><p>Learn about aircraft ovens, beverage makers, meal carts, storage compartments and equipment used onboard aircraft.</p></article>
+      <article class="card"><div class="card-number">02</div><h3>Airline Catering</h3><p>Explore how meals and beverages are prepared, packed, transported and delivered to aircraft before a flight.</p></article>
+      <article class="card"><div class="card-number">03</div><h3>Galley Operations</h3><p>Understand galley preparation, equipment checks, trolley handling, stock control and coordination with cabin crew.</p></article>
+      <article class="card"><div class="card-number">04</div><h3>Careers in Galley Services</h3><p>Discover careers in airline catering, inflight services, catering logistics and aircraft galley operations.</p></article>
+    </div>
+    <div class="bsa-category-block" id="bsa-galley-block" hidden>
+      <h3 class="bsa-category-heading">Aviation Galley Updates</h3>
+      <div class="bsa-category-grid" id="bsa-galley-grid"></div>
+    </div>
+  </div>
+</section>
+
+<section class="mission" id="community">
+  <div class="container">
+    <span class="section-label">Our Purpose</span>
+    <h2 class="section-heading">Our Mission. Our Future.</h2>
+    <p>BLACK SMART AVIATION aims to connect Black aviation talent across Africa and the world, promote aviation knowledge and opportunities, and inspire young people to pursue careers in the aviation industry. We believe that talent, ambition and opportunity can open the skies to the next generation.</p>
+    <a class="button gold-button" href="#join-us">Become Part of Our Community</a>
+    <div class="bsa-category-block" id="bsa-community-block" hidden>
+      <h3 class="bsa-category-heading">Community Updates</h3>
+      <div class="bsa-category-grid" id="bsa-community-grid"></div>
+    </div>
+  </div>
+</section>
+
+<section class="action-section">
+  <div class="container">
+    <span class="section-label">Get Involved</span>
+    <h2 class="section-heading">Be Part of Our Journey</h2>
+    <p class="intro">Help us connect aviation talent, encourage learning and inspire the next generation of aviation professionals.</p>
+    <div class="action-grid">
+      <article class="action-card" id="join-us">
+        <div class="action-icon">&#9997;</div>
+        <h3>Join Us</h3>
+        <p>Join our community as an aviation student, professional, mentor, aviation enthusiast or supporter. Complete the membership form below to send your application.</p>
+        <a class="button primary" href="#join-form">Become a Member</a>
+      </article>
+      <article class="action-card" id="donate">
+        <div class="action-icon">&#9829;</div>
+        <h3>Donate</h3>
+        <p>Support aviation education, youth development and initiatives that help open doors to aviation careers. You can contribute using the payment details below.</p>
+        <div class="payment-list">
+          <p><strong>Airtel Money — Lipa Namba</strong><span class="payment-number">8595000</span></p>
+          <p><strong>NMB Bank — Account Number</strong><span class="payment-number">23510077031</span></p>
+        </div>
+      </article>
+      <article class="action-card" id="chat-with-us">
+        <div class="action-icon">&#9993;</div>
+        <h3>Contact Our Team</h3>
+        <p>Choose your preferred way to contact BLACK SMART AVIATION. Each option opens the relevant application or service.</p>
+        <div class="contact-actions">
+          <a href="https://wa.me/255753998601" target="_blank" rel="noopener noreferrer">WhatsApp — +255 753 998 601</a>
+          <a href="mailto:blacksmartaviation@gmail.com">Email — blacksmartaviation@gmail.com</a>
+          <a href="tel:+255753998601">Normal Call — +255 753 998 601</a>
+          <a href="https://wa.me/255613769094" target="_blank" rel="noopener noreferrer">WhatsApp — +255 613 769 094</a>
+          <a href="tel:+255613769094">Normal Call — +255 613 769 094</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="join-section" id="join-form">
+  <div class="container">
+    <span class="section-label">Membership Application</span>
+    <h2 class="section-heading">Join BLACK SMART AVIATION</h2>
+    <p class="intro">Complete the form below. Your application will be prepared for submission to the BSA team by email.</p>
+    <form class="join-form" id="joinForm">
+      <div><label for="joinFullName">Full Name *</label><input id="joinFullName" name="fullName" type="text" autocomplete="name" placeholder="Enter your full name" required></div>
+      <div><label for="joinPhone">Phone Number *</label><input id="joinPhone" name="phone" type="tel" autocomplete="tel" placeholder="e.g. +255..." required></div>
+      <div><label for="joinEmail">Email Address *</label><input id="joinEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" required></div>
+      <div><label for="joinCountry">Country *</label><input id="joinCountry" name="country" type="text" autocomplete="country-name" placeholder="Your country" required></div>
+      <div class="full-width"><label for="joinType">Membership Type *</label><select id="joinType" name="membershipType" required><option value="">Select membership type</option><option>Aviation Student</option><option>Aviation Professional</option><option>Mentor / Volunteer</option><option>Aviation Enthusiast</option><option>Supporter</option><option>Organisation / Institution</option></select></div>
+      <div class="full-width"><label for="joinReason">Why would you like to join BLACK SMART AVIATION? *</label><textarea id="joinReason" name="reason" placeholder="Tell us briefly about your interest..." required></textarea></div>
+      <button class="button primary" type="submit">Submit Membership Application</button>
+      <p class="form-note full-width">When you submit, your email application will open with the information filled in. Review and send it to BSA. This form does not create an automatic membership confirmation.</p>
+      <p class="join-status" id="joinStatus" role="status" aria-live="polite"></p>
     </form>
-  </section>
-
-  <section id="dashboard" class="hidden">
-    <div class="card">
-      <h2 id="formHeading">Add New Content</h2>
-      <p class="muted">
-        Manage content for the BSA website categories. Select a category, add text, images or a YouTube video, then choose Draft or Published.
-      </p>
-
-      <form id="contentForm">
-        <input type="hidden" id="contentId">
-
-        <div class="grid">
-          <div>
-            <label for="title">Title *</label>
-            <input id="title" maxlength="180" required
-                   placeholder="e.g. Aviation Training Opportunities">
-          </div>
-
-          <div>
-            <label for="slug">Page slug *</label>
-            <input id="slug" maxlength="180" required
-                   pattern="[a-z0-9-]+"
-                   placeholder="aviation-training-opportunities">
-          </div>
-
-          <div>
-            <label for="category">Category *</label>
-            <select id="category" required>
-              <option value="aviation">Learn Aviation</option>
-              <option value="galley">Aviation Galley</option>
-              <option value="jobs">Jobs & Opportunities</option>
-              <option value="scholarships">Scholarships & Training</option>
-              <option value="stories">Our Stories</option>
-              <option value="community">Community</option>
-              <option value="general">General News (existing)</option>
-              <option value="news">News & Events</option>
-              <option value="youtube">YouTube</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="status">Publication status *</label>
-            <select id="status" required>
-              <option value="draft">Draft — not public</option>
-              <option value="published">Published — public</option>
-            </select>
-          </div>
+  </div>
+</section>
+<section class="contact-section" id="contact">
+  <div class="container">
+    <span class="section-label">We Would Love to Hear From You</span>
+    <h2 class="section-heading">Contact BLACK SMART AVIATION</h2>
+    <p class="intro">We welcome enquiries from aviation students, professionals, educators, organisations, potential partners and supporters.</p>
+    <div class="contact-layout">
+      <div class="contact-info">
+        <h3>Let's Connect</h3>
+        <p>Contact us about membership, aviation opportunities, partnerships, donations and general enquiries.</p>
+        <div class="contact-item">
+          <strong>Phone:</strong><br>
+          <a href="tel:+255753998601">+255 753 998 601</a><br>
+          <a href="tel:+255613769094">+255 613 769 094</a>
         </div>
-
-        <label for="summary">Short description</label>
-        <textarea id="summary" maxlength="1000"
-          placeholder="A short introduction for visitors"></textarea>
-
-        <div id="bodyField">
-          <label for="body">Full content</label>
-          <textarea id="body" style="min-height:200px"
-            placeholder="Write the full article or announcement here"></textarea>
+        <div class="contact-item">
+          <strong>WhatsApp:</strong><br>
+          <a href="https://wa.me/255753998601" target="_blank" rel="noopener noreferrer">Chat on WhatsApp — +255 753 998 601</a><br>
+          <a href="https://wa.me/255613769094" target="_blank" rel="noopener noreferrer">Chat on WhatsApp — +255 613 769 094</a>
         </div>
-
-        <div id="youtubeField" class="hidden">
-          <label for="youtubeUrl">YouTube video URL *</label>
-          <input id="youtubeUrl" type="url" placeholder="https://www.youtube.com/watch?v=...">
-          <p class="field-note">Paste the normal YouTube video link. The first uploaded image will be used as the video thumbnail when the public website is connected.</p>
-          <div class="video-help muted">For YouTube, use Short description for the video description, YouTube URL for the video link, and upload at least one thumbnail image.</div>
+        <div class="contact-item">
+          <strong>Email:</strong><br>
+          <a href="mailto:blacksmartaviation@gmail.com">blacksmartaviation@gmail.com</a>
         </div>
+        <p>We look forward to connecting with you and building a stronger aviation community together.</p>
+      </div>
 
-        <label for="images">Upload images / gallery / thumbnail</label>
-        <input id="images" type="file" accept="image/jpeg,image/png,image/webp" multiple>
-        <p class="muted">JPG, PNG or WebP. Maximum 5 MB per image. Select several images together. When editing, new images are added to the existing gallery.</p>
-        <div><strong>Saved images</strong><div id="existingImages" class="thumbs"></div></div>
-        <div><strong>New image preview</strong><div id="selectedImages" class="thumbs"></div></div>
-
-        <div class="actions">
-          <button id="saveBtn" class="primary" type="submit">Save content</button>
-          <button id="resetBtn" class="secondary" type="button">Clear form</button>
+      <form class="contact-form" id="contactForm">
+        <div><label for="fullName">Full Name</label><input id="fullName" name="fullName" type="text" placeholder="Enter your full name" autocomplete="name" required></div>
+        <div><label for="email">Email Address</label><input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required></div>
+        <div>
+          <label for="interest">How would you like to connect?</label>
+          <select id="interest" name="interest" required>
+            <option value="">Choose an option</option>
+            <option value="Joining the community">Join Us</option>
+            <option value="Donation and support">Donate / Support</option>
+            <option value="Aviation partnership">Partnership</option>
+            <option value="Jobs and opportunities">Jobs &amp; Opportunities</option>
+            <option value="Scholarships and training">Scholarships &amp; Training</option>
+            <option value="Aviation galley enquiry">Aviation Galley</option>
+            <option value="General enquiry">General Enquiry</option>
+          </select>
         </div>
+        <div><label for="message">Your Message</label><textarea id="message" name="message" placeholder="Write your message here..." required></textarea></div>
+        <button class="button primary" type="submit">Prepare Email</button>
+        <p class="form-note">This form prepares your message in your email application. It does not store submissions in a website database.</p>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
       </form>
     </div>
+  </div>
+</section>
 
-    <div class="card">
-      <h2>Manage Content</h2>
-      <p class="muted">Edit, publish, unpublish or delete your content. New categories added here are stored in the existing category field; the public website will be connected to these values in the next integration step.</p>
+<!-- NEWS & EVENTS: AIRPORT STUDY TOUR IS PART OF THIS SECTION -->
+<section class="bsa-live-section" id="bsa-live-content">
+  <div class="container">
+    <span class="section-label">Announcements, Activities and Updates</span>
+    <h2 class="section-heading">News &amp; Events</h2>
+    <p class="intro">Explore announcements, upcoming events and general updates shared by BLACK SMART AVIATION.</p>
+    <p class="bsa-live-status" id="bsa-live-status" role="status" aria-live="polite">Loading News &amp; Events...</p>
+    <div class="bsa-live-grid" id="bsa-live-grid">
 
-      <div class="grid">
-        <div>
-          <label for="filterCategory">Filter by category</label>
-          <select id="filterCategory">
-            <option value="">All categories</option>
-            <option value="aviation">Learn Aviation</option>
-            <option value="galley">Aviation Galley</option>
-            <option value="jobs">Jobs & Opportunities</option>
-            <option value="scholarships">Scholarships & Training</option>
-            <option value="stories">Our Stories</option>
-            <option value="community">Community</option>
-            <option value="general">General News (existing)</option>
-            <option value="news">News & Events</option>
-            <option value="youtube">YouTube</option>
-          </select>
+      <!-- AIRPORT STUDY TOUR EVENT CARD -->
+      <article class="bsa-live-card" id="airportStudyTourCard" tabindex="0" role="button" aria-haspopup="dialog">
+        <div class="bsa-live-card-content">
+          <span class="bsa-live-category">Upcoming Event · HTDA</span>
+          <h3>Airport Study Tour – HTDA</h3>
+          <p>Discover how an international airport works. Early registration is now open for students and adults.</p>
+          <span class="bsa-live-read-more">Read More →</span>
         </div>
-        <div>
-          <label for="filterStatus">Filter by status</label>
-          <select id="filterStatus">
-            <option value="">All statuses</option>
-            <option value="draft">Draft</option>
-            <option value="published">Published</option>
-          </select>
-        </div>
-      </div>
+      </article>
 
-      <div class="actions">
-        <button id="refreshBtn" type="button" class="secondary">Refresh list</button>
-      </div>
-      <div id="contentList"></div>
     </div>
-  </section>
+  </div>
+</section>
 </main>
 
-<script type="module">
-  import { supabase } from "./js/bsa-supabase.js";
+<footer>
+  <div class="container">
+    <div class="footer-brand">BLACK SMART AVIATION</div>
+    <p>Educate · Connect · Inspire</p>
+    <div class="footer-links">
+      <a href="#home">Home</a>
+      <a href="#learn">Learn Aviation</a>
+      <a href="#bsa-travel">BSA TRAVEL</a>
+      <a href="#aviation-galley">Aviation Galley</a>
+      <a href="#opportunities">Opportunities</a>
+      <a href="#scholarships">Scholarships</a>
+      <a href="#stories">Our Stories</a>
+      <a href="#bsa-live-content">News &amp; Events</a>
+      <a href="#community">Community</a>
+      <a href="#contact">Contact Us</a>
+    </div>
+    <div class="footer-bottom">&copy; <span id="year"></span> BLACK SMART AVIATION. All rights reserved.</div>
+  </div>
+</footer>
 
-  // UI check only. Database RLS remains the actual security boundary.
-  const ADMIN_ID = "3fbb6256-57ee-4945-b568-998798a5f657";
-  const BUCKET = "bsa-images";
+<!-- SHARED DETAILS WINDOW -->
+<div id="bsaDetailOverlay" class="bsa-detail-overlay" aria-hidden="true">
+  <div class="bsa-detail-panel" role="dialog" aria-modal="true" aria-labelledby="bsaDetailTitle">
+    <div class="bsa-detail-header">
+      <button type="button" class="bsa-detail-close" id="bsaDetailClose" aria-label="Close details">✕ Close</button>
+      <p>BLACK SMART AVIATION</p>
+      <h2 id="bsaDetailTitle">Explore Aviation</h2>
+      <p id="bsaDetailSubtitle">Educate · Connect · Inspire</p>
+    </div>
+    <div class="bsa-detail-content" id="bsaDetailContent"></div>
+  </div>
+</div>
 
-  const $ = id => document.getElementById(id);
-  let currentImages = [];
-  let selectedFiles = [];
-  let previewUrls = [];
-  let busy = false;
+<!-- STUDY TOUR REGISTRATION FORM TEMPLATE: INSERTED INTO THE MODAL WHEN OPENED -->
+<template id="studyTourFormTemplate">
+  <form class="study-form" id="studyTourForm">
+    <div>
+      <label for="tourFullName">Full Name *</label>
+      <input id="tourFullName" name="full_name" type="text" autocomplete="name" required maxlength="120" placeholder="Enter your full name">
+    </div>
+    <div>
+      <label for="tourAge">Age *</label>
+      <input id="tourAge" name="age" type="number" min="1" max="110" required placeholder="Enter your age">
+    </div>
+    <div>
+      <label for="tourGender">Gender</label>
+      <select id="tourGender" name="gender">
+        <option value="">Select gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Prefer not to say">Prefer not to say</option>
+      </select>
+    </div>
+    <div>
+      <label for="participantType">Participant Type *</label>
+      <select id="participantType" name="participant_type" required>
+        <option value="">Select participant type</option>
+        <option value="Student">Student</option>
+        <option value="Adult">Adult</option>
+      </select>
+    </div>
+    <div class="full-width">
+      <label for="tourSchool">School / Institution (Students)</label>
+      <input id="tourSchool" name="school_institution" type="text" maxlength="180" placeholder="Enter school or institution name, if applicable">
+    </div>
+    <div>
+      <label for="tourPhone">Phone Number *</label>
+      <input id="tourPhone" name="phone_number" type="tel" autocomplete="tel" required maxlength="30" placeholder="e.g. +255 7XX XXX XXX">
+    </div>
+    <div>
+      <label for="tourEmail">Email Address</label>
+      <input id="tourEmail" name="email" type="email" autocomplete="email" maxlength="180" placeholder="you@example.com">
+    </div>
+    <div class="full-width">
+      <label for="tourEmergency">Emergency Contact *</label>
+      <input id="tourEmergency" name="emergency_contact" type="text" required maxlength="120" placeholder="Name and phone number of emergency contact">
+    </div>
+    <div class="full-width">
+      <label>Registration Fee</label>
+      <div class="fee-display" id="tourFeeDisplay">Select participant type to view the registration fee.</div>
+    </div>
+    <div class="full-width">
+      <p class="form-note">By submitting this form, you confirm that the information provided is accurate and agree that BSA may contact you about this study tour. Registration is subject to official airport management approval and airport security requirements. For participants under 18, a parent or legal guardian must provide consent before participation is confirmed.</p>
+    </div>
+    <button class="button primary" id="tourSubmitButton" type="submit">Submit Registration</button>
+    <p class="study-status" id="tourFormStatus" role="status" aria-live="polite"></p>
+  </form>
+  <p class="study-note">Submitting this form records your registration request. It does not confirm payment, airport access or final participation. The tour date will be announced by BLACK SMART AVIATION.</p>
+</template>
 
-  function message(text, type = "") {
-    const el = $("notice");
-    el.textContent = text;
-    el.className = "notice" + (type ? " " + type : "");
-  }
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
 
-  function escapeHTML(value = "") {
-    return String(value).replace(/[&<>"']/g, char => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#39;"
-    })[char]);
-  }
+const navLinks = document.querySelectorAll("#mainNav a");
 
-  function makeSlug(value) {
-    return value.toLowerCase()
-      .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "");
-  }
+function updateActiveLink() {
+  const currentHash = window.location.hash || "#home";
+  navLinks.forEach(function(link) {
+    const active = link.getAttribute("href") === currentHash;
+    link.classList.toggle("active", active);
+    if (active) link.setAttribute("aria-current","location");
+    else link.removeAttribute("aria-current");
+  });
+}
 
-  function isYouTubeCategory() {
-    return $("category").value === "youtube";
-  }
-
-  function updateCategoryFields() {
-    const isVideo = isYouTubeCategory();
-    $("youtubeField").classList.toggle("hidden", !isVideo);
-    $("bodyField").classList.toggle("hidden", isVideo);
-    $("youtubeUrl").required = isVideo;
-  }
-
-  function isValidYouTubeUrl(value) {
-    try {
-      const url = new URL(value);
-      return ["youtube.com", "www.youtube.com", "m.youtube.com", "youtu.be", "www.youtu.be"].includes(url.hostname);
-    } catch (_) { return false; }
-  }
-
-  function setBusy(value) {
-    busy = value;
-    $("saveBtn").disabled = value;
-    $("saveBtn").textContent = value ? "Saving…" : "Save content";
-  }
-
-  async function checkAdmin() {
-    const { data: { session }, error } = await supabase.auth.getSession();
-
-    if (error) throw error;
-
-    if (!session) {
-      $("loginPanel").classList.remove("hidden");
-      $("dashboard").classList.add("hidden");
-      $("logoutBtn").classList.add("hidden");
-      message("Please sign in with your BSA administrator account.");
-      return false;
-    }
-
-    if (session.user.id !== ADMIN_ID) {
-      await supabase.auth.signOut();
-      $("loginPanel").classList.remove("hidden");
-      $("dashboard").classList.add("hidden");
-      message("Access denied: this account is not the designated BSA administrator.", "error");
-      return false;
-    }
-
-    $("loginPanel").classList.add("hidden");
-    $("dashboard").classList.remove("hidden");
-    $("logoutBtn").classList.remove("hidden");
-    message("Signed in. Your administrator account is verified.", "success");
-    await loadContent();
-    return true;
-  }
-
-  $("loginForm").addEventListener("submit", async event => {
-    event.preventDefault();
-    message("Signing in…");
-
-    const { error } = await supabase.auth.signInWithPassword({
-      email: $("email").value.trim(),
-      password: $("password").value
+navLinks.forEach(function(link) {
+  link.addEventListener("click",function() {
+    navLinks.forEach(function(item) {
+      item.classList.remove("active");
+      item.removeAttribute("aria-current");
     });
+    link.classList.add("active");
+    link.setAttribute("aria-current","location");
+  });
+});
 
-    if (error) {
-      message("Login failed: " + error.message, "error");
-      return;
-    }
+window.addEventListener("hashchange",updateActiveLink);
+updateActiveLink();
 
+document.querySelectorAll("[data-interest]").forEach(function(link) {
+  link.addEventListener("click",function() {
+    const select = document.getElementById("interest");
+    if (select) select.value = link.getAttribute("data-interest");
+  });
+});
+
+/* GENERAL AVIATION DETAILS */
+const bsaDetails = [
+  {
+    match:["aviation careers"],title:"Explore Aviation Careers",
+    subtitle:"Discover your place in aviation",
+    body:`<p>Aviation offers many professional pathways beyond becoming a pilot. Each role helps keep air travel safe, efficient and connected.</p><h3>Career areas</h3><ul><li>Pilot and flight operations</li><li>Aircraft engineering and maintenance</li><li>Air traffic control</li><li>Cabin crew and passenger services</li><li>Airport and ground operations</li><li>Aviation safety, security, cargo and logistics</li></ul><h3>How to get started</h3><p>Research the qualifications for your chosen career, look for recognised training providers and build communication, teamwork, English and technical skills.</p>`
+  },
+  {
+    match:["jobs","opportunities"],title:"Jobs & Opportunities",
+    subtitle:"Prepare for your next career step",
+    body:`<p>Learn how to prepare for work in the aviation industry. Vacancies and eligibility requirements differ by employer and country.</p><h3>Explore roles in</h3><ul><li>Airlines and airport operations</li><li>Ground handling and passenger services</li><li>Cargo, baggage and logistics</li><li>Aircraft maintenance and engineering</li><li>Aviation catering and hospitality</li></ul><p>Prepare a clear CV, gather relevant certificates, research the employer and apply through its official recruitment channel.</p>`
+  },
+  {
+    match:["scholarships","training"],title:"Scholarships & Training",
+    subtitle:"Explore education and funding options",
+    body:`<p>Financial support may be offered by educational institutions, governments, aviation organisations and scholarship programmes.</p><h3>Before applying</h3><ul><li>Confirm eligibility and required qualifications.</li><li>Check deadlines through the official provider.</li><li>Prepare academic records and identification documents.</li><li>Write a clear personal statement.</li><li>Verify that the training provider is recognised.</li></ul><p>Always verify funding offers through official sources before sharing personal information or paying fees.</p>`
+  },
+  {
+    match:["our stories","stories"],title:"Our Aviation Stories",
+    subtitle:"Learn, connect and inspire",
+    body:`<p>Stories from aviation professionals can help young people understand the different routes into aviation.</p><h3>What we aim to share</h3><ul><li>Career journeys and lessons learned</li><li>Experiences from aviation training</li><li>Challenges, achievements and milestones</li><li>Advice for aspiring aviation professionals</li></ul>`
+  },
+  {
+    match:["aircraft galley equipment"],title:"Aircraft Galley Equipment",
+    subtitle:"Explore the onboard service workspace",
+    body:`<p>The aircraft galley is the onboard workspace used to store and organise food, beverages and service equipment.</p><h3>Common equipment</h3><ul><li>Meal and beverage carts</li><li>Food and drink storage compartments</li><li>Aircraft ovens and approved heating equipment</li><li>Coffee and beverage makers on equipped aircraft</li><li>Service trays, containers and waste units</li></ul>`
+  },
+  {
+    match:["airline catering"],title:"Airline Catering",
+    subtitle:"Food service behind every flight",
+    body:`<p>Aviation catering includes preparing, packing, checking and delivering meals and beverages for airline operations.</p><h3>Key activities</h3><ul><li>Food hygiene and safe handling</li><li>Meal preparation, packing and labelling</li><li>Special meal requirements</li><li>Trolley preparation and stock control</li><li>Coordination with airline and airport teams</li></ul>`
+  },
+  {
+    match:["galley operations"],title:"Galley Operations",
+    subtitle:"Preparation, coordination and safety",
+    body:`<p>Galley operations involve preparing and organising service items so cabin crew can perform onboard service efficiently.</p><h3>Important areas</h3><ul><li>Checking service equipment and supplies</li><li>Organising carts and storage</li><li>Following hygiene and safety procedures</li><li>Controlling stock and reporting discrepancies</li><li>Coordinating with the relevant teams</li></ul>`
+  },
+  {
+    match:["careers in galley services"],title:"Careers in Galley Services",
+    subtitle:"Explore service and catering pathways",
+    body:`<p>People interested in aviation galley services may explore roles in airline catering, food production, logistics and onboard service support.</p><h3>Useful skills</h3><ul><li>Food hygiene and safe handling</li><li>Attention to detail</li><li>Teamwork and communication</li><li>Time management</li><li>Workplace safety awareness</li></ul>`
+  }
+];
+
+const detailOverlay = document.getElementById("bsaDetailOverlay");
+const detailTitle = document.getElementById("bsaDetailTitle");
+const detailSubtitle = document.getElementById("bsaDetailSubtitle");
+const detailContent = document.getElementById("bsaDetailContent");
+const detailClose = document.getElementById("bsaDetailClose");
+
+function showDetailsModal() {
+  detailOverlay.classList.add("open");
+  detailOverlay.setAttribute("aria-hidden","false");
+  document.body.style.overflow = "hidden";
+  detailClose.focus();
+}
+
+function closeCardDetails() {
+  detailOverlay.classList.remove("open");
+  detailOverlay.setAttribute("aria-hidden","true");
+  document.body.style.overflow = "";
+}
+
+async function openCardDetails(card) {
+  const heading = card.querySelector("h3");
+  const cardTitle = heading ? heading.textContent.trim() : "Black Smart Aviation";
+  const normalTitle = cardTitle.toLowerCase();
+
+  let detail = bsaDetails.find(function(item) {
+    return item.match.some(function(term) { return normalTitle.includes(term); });
+  });
+
+  // Admin-published Galley content overrides the built-in details for these four cards.
+  const galleySlugMap = {
+    "aircraft galley equipment":"aircraft-galley-equipment",
+    "airline catering":"airline-catering",
+    "galley operations":"galley-operations",
+    "careers in galley services":"careers-in-galley-services"
+  };
+  const galleyKey = Object.keys(galleySlugMap).find(key => normalTitle.includes(key));
+  if (galleyKey && window.bsaSupabase) {
     try {
-      await checkAdmin();
+      const { data, error } = await window.bsaSupabase
+        .from("bsa_content")
+        .select("title,slug,category,summary,body,image_urls,status")
+        .eq("category", "galley")
+        .eq("status", "published")
+        .eq("slug", galleySlugMap[galleyKey])
+        .maybeSingle();
+      if (!error && data) {
+        detail = {
+          title:data.title || cardTitle,
+          subtitle:"Aviation Galley · Admin Published Content",
+          body:data.body || "",
+          adminContent:data
+        };
+      }
     } catch (err) {
-      message("Could not verify account: " + err.message, "error");
+      console.warn("Could not load admin Galley content; using built-in details.", err);
     }
-  });
-
-  $("logoutBtn").addEventListener("click", async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      message("Sign out failed: " + error.message, "error");
-      return;
-    }
-    $("dashboard").classList.add("hidden");
-    $("logoutBtn").classList.add("hidden");
-    $("loginPanel").classList.remove("hidden");
-    message("You have signed out.");
-  });
-
-  $("title").addEventListener("input", () => {
-    if (!$("contentId").value || !$("slug").dataset.edited) {
-      $("slug").value = makeSlug($("title").value);
-    }
-  });
-
-  $("slug").addEventListener("input", () => {
-    $("slug").value = makeSlug($("slug").value);
-    $("slug").dataset.edited = "true";
-  });
-
-  function clearForm() {
-    $("contentForm").reset();
-    $("contentId").value = "";
-    $("slug").dataset.edited = "";
-    $("formHeading").textContent = "Add New Content";
-    $("saveBtn").textContent = "Save content";
-    currentImages = [];
-    selectedFiles = [];
-    previewUrls.forEach(url => URL.revokeObjectURL(url));
-    previewUrls = [];
-    $("existingImages").replaceChildren();
-    $("selectedImages").replaceChildren();
-    $("youtubeUrl").value = "";
-    updateCategoryFields();
   }
 
-  $("resetBtn").addEventListener("click", clearForm);
 
-  async function uploadImages(files) {
-    const urls = [];
+  if (!detail) {
+    detail = {
+      title:cardTitle,
+      subtitle:"Educate · Connect · Inspire",
+      body:`<p>${cardTitle} is part of the Black Smart Aviation mission to promote aviation education, knowledge sharing and career awareness.</p><h3>Explore this area</h3><ul><li>Learn about the subject and its role in aviation.</li><li>Research recognised training and development opportunities.</li><li>Check official organisations for current information.</li><li>Contact Black Smart Aviation to share questions or ideas.</li></ul>`
+    };
+  }
 
-    for (const file of files) {
-      if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
-        throw new Error("Unsupported image type: " + file.name);
+  detailTitle.textContent = detail.title;
+  detailSubtitle.textContent = detail.subtitle;
+  const travelModalHeader = detailTitle.closest(".bsa-detail-header");
+  if (travelModalHeader) {
+    travelModalHeader.classList.remove("bsa-travel-modal-header");
+    travelModalHeader.style.backgroundImage = "";
+  }
+
+  if (detail.adminContent) {
+    detailContent.replaceChildren();
+    let rawUrls = detail.adminContent.image_urls;
+    if (typeof rawUrls === "string") { try { rawUrls = JSON.parse(rawUrls); } catch { rawUrls = [rawUrls]; } }
+    const urls = Array.isArray(rawUrls) ? rawUrls.filter(function(url) {
+      if (typeof url !== "string") return false;
+      try { const parsed = new URL(url); return parsed.protocol === "https:" || parsed.protocol === "http:"; }
+      catch { return false; }
+    }) : [];
+    urls.forEach(function(url) {
+      const image = document.createElement("img");
+      image.className = "bsa-live-detail-image";
+      image.src = url;
+      image.alt = detail.title;
+      image.loading = "lazy";
+      detailContent.appendChild(image);
+    });
+    if (detail.adminContent.summary) {
+      const summary = document.createElement("p");
+      summary.textContent = detail.adminContent.summary;
+      detailContent.appendChild(summary);
+    }
+    const body = document.createElement("div");
+    body.className = "bsa-live-detail-body";
+    body.textContent = detail.adminContent.body || "";
+    detailContent.appendChild(body);
+  } else {
+    detailContent.innerHTML = detail.body;
+  }
+  showDetailsModal();
+}
+
+document.querySelectorAll(".card").forEach(function(card) {
+  card.setAttribute("tabindex","0");
+  card.setAttribute("role","button");
+  card.setAttribute("aria-haspopup","dialog");
+
+  card.addEventListener("click",function() {
+    openCardDetails(card);
+  });
+
+  card.addEventListener("keydown",function(event) {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openCardDetails(card);
+    }
+  });
+});
+
+detailClose.addEventListener("click",closeCardDetails);
+
+detailOverlay.addEventListener("click",function(event) {
+  if (event.target === detailOverlay) closeCardDetails();
+});
+
+document.addEventListener("keydown",function(event) {
+  if (event.key === "Escape" && detailOverlay.classList.contains("open")) {
+    closeCardDetails();
+  }
+});
+
+
+
+/* BSA TRAVEL SERVICE REQUESTS — enquiry stage until live providers are connected */
+const bsaTravelServices = {
+  air: {
+    title:"AIR TICKETING", subtitle:"Flight Search & Ticket Enquiry", image:"https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1400&q=85", samples:[["https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=700&q=80","Aircraft in flight"],["https://images.unsplash.com/photo-1542296332-2e4473faf563?auto=format&fit=crop&w=700&q=80","Airport terminal"],["https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?auto=format&fit=crop&w=700&q=80","Air travel experience"]],
+    fields:[
+      {name:"trip_type",label:"Trip Type",type:"select",required:true,options:["One Way","Round Trip","Multi-City"]},
+      {name:"origin",label:"From / Departure City",type:"text",required:true,placeholder:"e.g. Dar es Salaam"},
+      {name:"destination",label:"To / Destination City",type:"text",required:true,placeholder:"e.g. Nairobi"},
+      {name:"departure_date",label:"Departure Date",type:"date",required:true},
+      {name:"return_date",label:"Return Date",type:"date"},
+      {name:"passengers",label:"Passengers",type:"number",required:true,min:"1",value:"1"},
+      {name:"airline",label:"Preferred Airline",type:"select",options:["No preference","Air Tanzania","Precision Air","Flightlink","Auric Air","Coastal Aviation"]},
+      {name:"travel_class",label:"Travel Class",type:"select",options:["Economy","Premium Economy","Business","First Class"]}
+    ]
+  },
+  train: {
+    title:"TRAIN TICKETS", subtitle:"Tanzania SGR Train Journey Enquiry", image:"https://www.thecitizen.co.tz/resource/image/4654274/landscape_ratio16x9/1600/900/9c1e5569907441457efa822e42e7a069/SJ/sgr-pic.jpg", samples:[["https://www.thecitizen.co.tz/resource/image/4654274/landscape_ratio16x9/1600/900/9c1e5569907441457efa822e42e7a069/SJ/sgr-pic.jpg","Tanzania SGR electric train"],["https://tanzania.eu.com/storage/2024/04/Religious-Leaders-5.jpg","Tanzania SGR at the station"],["https://www.ippmedia.co.tz/storage/post-feature-images/01J2TE2NSAXPR9K9E8CP73GMNA.webp","Inside the Tanzania SGR passenger train"]],
+    fields:[
+      {name:"origin",label:"Departure Station / City",type:"text",required:true},
+      {name:"destination",label:"Arrival Station / City",type:"text",required:true},
+      {name:"departure_date",label:"Travel Date",type:"date",required:true},
+      {name:"return_date",label:"Return Date (if applicable)",type:"date"},
+      {name:"passengers",label:"Number of Passengers",type:"number",required:true,min:"1",value:"1"},
+      {name:"travel_class",label:"Preferred Class",type:"select",options:["Standard","Economy","Business","First Class"]}
+    ]
+  },
+  bus: {
+    title:"BUS TICKETS", subtitle:"Bus Ticket Enquiry", image:"https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=1400&q=85", samples:[["https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=700&q=80","Modern coach bus"],["https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=700&q=80","Intercity bus travel"],["https://images.unsplash.com/photo-1557223562-6c77ef16210f?auto=format&fit=crop&w=700&q=80","Coach passenger seats"]],
+    fields:[
+      {name:"trip_type",label:"Trip Type",type:"select",required:true,options:["One Way","Return"]},
+      {name:"origin",label:"Departure City / Station",type:"text",required:true},
+      {name:"destination",label:"Destination City / Station",type:"text",required:true},
+      {name:"departure_date",label:"Departure Date",type:"date",required:true},
+      {name:"return_date",label:"Return Date (if applicable)",type:"date"},
+      {name:"passengers",label:"Number of Passengers",type:"number",required:true,min:"1",value:"1"},
+      {name:"bus_company",label:"Preferred Bus Company (Top 10 Tanzania options)",type:"select",required:true,other:true,otherLabel:"Write another bus company",options:["Select a bus company","Abood Bus Service","Ally's Star Bus","Kilimanjaro Express","Esther Luxury Coach","New Force","Dar Express","Shabiby Line","BM Coach","ABC Presidential / Executive","Extra Luxury","Other"]}
+    ]
+  },
+  hotel: {
+    title:"HOTEL BOOKING", subtitle:"Dar es Salaam Hotel Selection & Accommodation Request", image:"https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1400&q=85", samples:[["https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=700&q=80","Luxury hotel exterior"],["https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=700&q=80","Hotel guest room"],["https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=700&q=80","Hotel pool and resort"]],
+    fields:[
+      {name:"destination",label:"Destination / City",type:"text",required:true,value:"Dar es Salaam"},
+      {name:"check_in",label:"Check-in Date",type:"date",required:true},
+      {name:"check_out",label:"Check-out Date",type:"date",required:true},
+      {name:"guests",label:"Number of Guests",type:"number",required:true,min:"1",value:"1"},
+      {name:"rooms",label:"Number of Rooms",type:"number",required:true,min:"1",value:"1"},
+      {name:"hotel_preference",label:"Preferred Hotel (Dar es Salaam selection — 5-star choices first)",type:"select",required:true,other:true,otherLabel:"Write another hotel name",options:["Select a hotel","Hyatt Regency Dar es Salaam, The Kilimanjaro — 5 Star","Johari Rotana — 5 Star","Sea Cliff Hotel — 5 Star","Dar es Salaam Serena Hotel — 5 Star","Ledger Plaza Bahari Beach Hotel — 5 Star (confirm current status)","Four Points by Sheraton New Africa — 4 Star","Crowne Plaza Dar es Salaam — 4 Star","Holiday Inn Dar es Salaam City Centre — 4 Star","Golden Tulip Dar City Center — 4 Star","Southern Sun Dar es Salaam — 4 Star","Delta Hotels Dar es Salaam — premium hotel","Protea Hotel Dar es Salaam Courtyard — premium hotel","ONOMO Hotel Dar es Salaam — 4 Star","DoubleTree by Hilton Dar es Salaam — 4 Star","Best Western Coral Beach — 4 Star","White Sands Resort & Conference Centre — 4 Star","Kunduchi Beach Hotel & Resort — 4 Star","Colosseum Hotel & Fitness Club — 4 Star","Tiffany Diamond Hotel — premium hotel","Harbour View Suites — premium suites","Other"]}
+    ]
+  },
+  transfer: {
+    title:"AIRPORT TRANSFER", subtitle:"Airport Pick-up & Drop-off Request", image:"https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1400&q=85", samples:[["https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=700&q=80","Private transfer vehicle"],["https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=700&q=80","Comfortable car interior"],["https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=700&q=80","Airport road transfer"]],
+    fields:[
+      {name:"pickup",label:"Pick-up Location",type:"text",required:true},
+      {name:"dropoff",label:"Drop-off Location",type:"text",required:true},
+      {name:"transfer_date",label:"Transfer Date",type:"date",required:true},
+      {name:"transfer_time",label:"Pick-up Time",type:"time"},
+      {name:"passengers",label:"Number of Passengers",type:"number",required:true,min:"1",value:"1"},
+      {name:"flight_number",label:"Flight Number (if applicable)",type:"text",placeholder:"e.g. TC 101"},
+      {name:"luggage",label:"Luggage Details",type:"text",placeholder:"e.g. 2 suitcases and 1 cabin bag"}
+    ]
+  },
+  assistance: {
+    title:"TRAVEL ASSISTANCE", subtitle:"Travel Planning & Support Request", image:"https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1400&q=85", samples:[["https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=700&q=80","Travel planning"],["https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=700&q=80","Destination inspiration"],["https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=80","Explore the world"]],
+    fields:[
+      {name:"destination",label:"Travel Destination",type:"text",required:true},
+      {name:"travel_date",label:"Expected Travel Date",type:"date"},
+      {name:"assistance_type",label:"Type of Assistance",type:"select",required:true,options:["Travel planning / itinerary","Visa information guidance","Special assistance request","Travel documentation guidance","Other travel support"]},
+      {name:"details",label:"Tell Us What You Need",type:"textarea",required:true,placeholder:"Describe your travel plans or the assistance you need."}
+    ]
+  }
+};
+
+function buildBsaTravelField(field) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "bsa-travel-field" + (field.type === "textarea" ? " full" : "");
+  const id = "bsaTravel_" + field.name;
+  const label = document.createElement("label");
+  label.htmlFor = id;
+  label.textContent = field.label + (field.required ? " *" : "");
+  wrapper.appendChild(label);
+
+  let control;
+  if (field.type === "select") {
+    control = document.createElement("select");
+    (field.options || []).forEach(function(optionText, index) {
+      const option = document.createElement("option");
+      option.value = (index === 0 && (optionText === "No preference" || optionText.startsWith("Select a "))) ? "" : optionText;
+      option.textContent = optionText;
+      control.appendChild(option);
+    });
+    if (!field.required) {
+      const first = document.createElement("option");
+      first.value = ""; first.textContent = "Select an option";
+      control.insertBefore(first,control.firstChild);
+      control.value = "";
+    }
+  } else if (field.type === "textarea") {
+    control = document.createElement("textarea");
+  } else {
+    control = document.createElement("input");
+    control.type = field.type || "text";
+  }
+  control.id = id;
+  control.name = field.name;
+  if (field.required) control.required = true;
+  if (field.placeholder) control.placeholder = field.placeholder;
+  if (field.min) control.min = field.min;
+  if (field.value) control.value = field.value;
+  if (field.type === "number") control.step = "1";
+  wrapper.appendChild(control);
+  if (field.other && field.type === "select") {
+    const otherInput = document.createElement("input");
+    otherInput.type = "text";
+    otherInput.name = field.name + "_other";
+    otherInput.className = "bsa-other-input";
+    otherInput.placeholder = field.otherLabel || "Write your preferred option";
+    otherInput.setAttribute("aria-label",field.otherLabel || "Other option");
+    otherInput.hidden = true;
+    otherInput.maxLength = 160;
+    wrapper.appendChild(otherInput);
+    control.addEventListener("change",function() {
+      const isOther = control.value === "Other";
+      otherInput.hidden = !isOther;
+      otherInput.required = isOther;
+      if (!isOther) otherInput.value = "";
+      if (isOther) otherInput.focus();
+    });
+  }
+  return wrapper;
+}
+
+function openBsaTravelService(serviceKey) {
+  const service = bsaTravelServices[serviceKey];
+  if (!service) return;
+
+  detailTitle.textContent = service.title;
+  detailSubtitle.textContent = "BSA TRAVEL · " + service.subtitle;
+  detailContent.replaceChildren();
+  const travelModalHeader = detailTitle.closest(".bsa-detail-header");
+  if (travelModalHeader) {
+    travelModalHeader.classList.add("bsa-travel-modal-header");
+    travelModalHeader.style.backgroundImage = "linear-gradient(90deg,rgba(4,19,38,.94),rgba(4,19,38,.50)),url('" + service.image + "')";
+  }
+
+  const intro = document.createElement("p");
+  intro.textContent = serviceKey === "hotel"
+    ? "Choose from the recommended Dar es Salaam hotel list below. The first options are listed as five-star by accommodation listings. Other properties have different or unconfirmed classifications; BSA will verify the requested hotel and room availability before confirming."
+    : "Complete the details below. The BSA TRAVEL team will review your request and contact you with available options, applicable prices and next steps.";
+  detailContent.appendChild(intro);
+
+  const gallery = document.createElement("div");
+  gallery.className = "bsa-travel-gallery";
+  (service.samples || []).forEach(function(sample) {
+    const item = document.createElement("div");
+    item.className = "bsa-travel-sample";
+    const image = document.createElement("img");
+    image.src = sample[0];
+    image.alt = sample[1];
+    image.loading = "lazy";
+    const caption = document.createElement("span");
+    caption.textContent = sample[1];
+    item.appendChild(image);
+    item.appendChild(caption);
+    gallery.appendChild(item);
+  });
+  detailContent.appendChild(gallery);
+  const sampleNote = document.createElement("p");
+  sampleNote.className = "bsa-travel-sample-note";
+  sampleNote.textContent = "Sample images are for illustration only. Actual vehicles, aircraft, train classes, hotel rooms and availability depend on the supplier and travel date.";
+  detailContent.appendChild(sampleNote);
+
+  const form = document.createElement("form");
+  form.className = "bsa-travel-form";
+  form.id = "bsaTravelRequestForm";
+
+  service.fields.forEach(function(field) {
+    form.appendChild(buildBsaTravelField(field));
+  });
+
+  const divider = document.createElement("div");
+  divider.className = "bsa-travel-field full";
+  const dividerHeading = document.createElement("h3");
+  dividerHeading.textContent = "Your Contact Details";
+  divider.appendChild(dividerHeading);
+  form.appendChild(divider);
+
+  [
+    {name:"customer_name",label:"Full Name",type:"text",required:true,placeholder:"Your full name"},
+    {name:"customer_phone",label:"Phone / WhatsApp Number",type:"tel",required:true,placeholder:"+255 ..."},
+    {name:"customer_email",label:"Email Address",type:"email",required:false,placeholder:"you@example.com"}
+  ].forEach(function(field) { form.appendChild(buildBsaTravelField(field)); });
+
+  const note = document.createElement("p");
+  note.className = "bsa-travel-form-note";
+  note.textContent = "This form sends an enquiry to BLACK SMART AVIATION. It does not make a booking, charge a payment or issue a ticket. Please review the details in your email application and send the message to BSA.";
+  form.appendChild(note);
+
+  const submit = document.createElement("button");
+  submit.className = "button primary";
+  submit.type = "submit";
+  submit.textContent = "Send Travel Enquiry";
+  form.appendChild(submit);
+
+  form.addEventListener("submit",function(event) {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+    const values = new FormData(form);
+    const lines = ["BSA TRAVEL REQUEST", "Service: " + service.title, ""];
+    service.fields.forEach(function(field) {
+      let value = String(values.get(field.name) || "").trim();
+      if (field.other && value === "Other") {
+        value = String(values.get(field.name + "_other") || "").trim();
       }
-      if (file.size > 5 * 1024 * 1024) {
-        throw new Error(file.name + " exceeds the 5 MB limit.");
-      }
+      if (value) lines.push(field.label + ": " + value);
+    });
+    lines.push("", "Full Name: " + String(values.get("customer_name") || "").trim());
+    lines.push("Phone / WhatsApp: " + String(values.get("customer_phone") || "").trim());
+    lines.push("Email: " + String(values.get("customer_email") || "").trim());
+    lines.push("", "Please contact me with availability, prices and next steps.");
+    const subject = "BSA TRAVEL - " + service.title + " Enquiry";
+    const mailto = "mailto:blacksmartaviation@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(lines.join("\n"));
+    window.location.href = mailto;
+  });
 
-      const safeName = file.name.toLowerCase()
-        .replace(/[^a-z0-9._-]/g, "-");
-      const path = `${crypto.randomUUID()}-${safeName}`;
+  detailContent.appendChild(form);
+  showDetailsModal();
+}
 
-      const { error } = await supabase.storage
-        .from(BUCKET)
-        .upload(path, file, {
-          cacheControl: "3600",
-          upsert: false,
-          contentType: file.type
-        });
+document.querySelectorAll("[data-travel-service]").forEach(function(button) {
+  button.addEventListener("click",function() {
+    openBsaTravelService(button.getAttribute("data-travel-service"));
+  });
+});
+
+
+/* JOIN US MEMBERSHIP FORM */
+const joinForm = document.getElementById("joinForm");
+const joinStatus = document.getElementById("joinStatus");
+joinForm.addEventListener("submit",function(event) {
+  event.preventDefault();
+  if (!joinForm.reportValidity()) return;
+  const fullName = document.getElementById("joinFullName").value.trim();
+  const phone = document.getElementById("joinPhone").value.trim();
+  const email = document.getElementById("joinEmail").value.trim();
+  const country = document.getElementById("joinCountry").value.trim();
+  const membershipType = document.getElementById("joinType").value;
+  const reason = document.getElementById("joinReason").value.trim();
+  const subject = "BLACK SMART AVIATION - Membership Application";
+  const body = "Membership Application\n\nFull Name: " + fullName +
+    "\nPhone: " + phone + "\nEmail: " + email + "\nCountry: " + country +
+    "\nMembership Type: " + membershipType + "\n\nReason for joining:\n" + reason;
+  const mailto = "mailto:blacksmartaviation@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+  joinStatus.textContent = "Opening your email application. Please review and send your membership application.";
+  window.location.href = mailto;
+});
+
+/* CONTACT FORM */
+const contactForm = document.getElementById("contactForm");
+const formStatus = document.getElementById("formStatus");
+
+contactForm.addEventListener("submit",function(event) {
+  event.preventDefault();
+  if (!contactForm.reportValidity()) return;
+
+  const fullName = document.getElementById("fullName").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const interest = document.getElementById("interest").value;
+  const message = document.getElementById("message").value.trim();
+
+  const subject = "BLACK SMART AVIATION - " + interest;
+  const body = "Name: " + fullName + "\nEmail: " + email +
+    "\nInterest: " + interest + "\n\nMessage:\n" + message;
+
+  const mailto = "mailto:blacksmartaviation@gmail.com?subject=" +
+    encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+
+  formStatus.textContent = "Opening your email application. Please review and send your message.";
+  window.location.href = mailto;
+});
+</script>
+
+<!-- SUPABASE CONNECTION -->
+<script type="module">
+import { supabase } from "./js/bsa-supabase.js";
+window.bsaSupabase = supabase;
+
+/* AIRPORT STUDY TOUR EVENT DETAILS AND REGISTRATION */
+const studyTourCard = document.getElementById("airportStudyTourCard");
+const studyTourTemplate = document.getElementById("studyTourFormTemplate");
+
+function openStudyTourItem() {
+  const travelModalHeader = detailTitle.closest(".bsa-detail-header");
+  if (travelModalHeader) { travelModalHeader.classList.remove("bsa-travel-modal-header"); travelModalHeader.style.backgroundImage = ""; }
+  detailTitle.textContent = "Airport Study Tour – HTDA";
+  detailSubtitle.textContent = "Upcoming Event · BLACK SMART AVIATION";
+
+  detailContent.replaceChildren();
+
+  const intro = document.createElement("p");
+  intro.textContent =
+    "BLACK SMART AVIATION invites students and aviation enthusiasts to register for our upcoming Airport Study Tour at Julius Nyerere International Airport, Dar es Salaam.";
+  detailContent.appendChild(intro);
+
+  const banner = document.createElement("div");
+  banner.className = "study-tour-banner";
+  banner.innerHTML = `
+    <h3>Discover How an Airport Works!</h3>
+    <p><strong>Location:</strong> Julius Nyerere International Airport (HTDA), Dar es Salaam, Tanzania.</p>
+    <p><strong>Tour date:</strong> To be announced.</p>
+    <p><strong>Registration:</strong> Early registration is now open while participants wait for the official tour date.</p>
+    <p><strong>Organiser:</strong> BLACK SMART AVIATION (BSA).</p>
+  `;
+  detailContent.appendChild(banner);
+
+  const feeHeading = document.createElement("h3");
+  feeHeading.textContent = "Registration Fees";
+  detailContent.appendChild(feeHeading);
+
+  const fees = document.createElement("div");
+  fees.className = "study-fees";
+  fees.innerHTML = `
+    <div class="study-fee">
+      <strong>STUDENT REGISTRATION</strong>
+      <span>TZS 45,000</span>
+      <small>Transport and meals included.</small>
+    </div>
+    <div class="study-fee">
+      <strong>ADULT REGISTRATION</strong>
+      <span>TZS 50,000</span>
+      <small>Transport and meals included.</small>
+    </div>
+  `;
+  detailContent.appendChild(fees);
+
+  const formHeading = document.createElement("h3");
+  formHeading.textContent = "Register Your Interest";
+  detailContent.appendChild(formHeading);
+
+  const formIntro = document.createElement("p");
+  formIntro.textContent =
+    "Complete the form below to submit your registration details. The BSA team will communicate further information, including the confirmed date and next steps.";
+  detailContent.appendChild(formIntro);
+
+  const formFragment = studyTourTemplate.content.cloneNode(true);
+  detailContent.appendChild(formFragment);
+
+  attachStudyTourForm();
+  showDetailsModal();
+}
+
+studyTourCard.addEventListener("click",openStudyTourItem);
+
+studyTourCard.addEventListener("keydown",function(event) {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    openStudyTourItem();
+  }
+});
+
+function getTourFee(type) {
+  if (type === "Student") return 45000;
+  if (type === "Adult") return 50000;
+  return null;
+}
+
+function attachStudyTourForm() {
+  const tourForm = document.getElementById("studyTourForm");
+  const participantType = document.getElementById("participantType");
+  const feeDisplay = document.getElementById("tourFeeDisplay");
+  const tourStatus = document.getElementById("tourFormStatus");
+  const tourSubmitButton = document.getElementById("tourSubmitButton");
+
+  if (!tourForm || !participantType || !feeDisplay) return;
+
+  participantType.addEventListener("change",function() {
+    const fee = getTourFee(participantType.value);
+    feeDisplay.textContent = fee
+      ? "Registration fee: TZS " + fee.toLocaleString("en-US") + " (transport and meals included)"
+      : "Select participant type to view the registration fee.";
+  });
+
+  tourForm.addEventListener("submit",async function(event) {
+    event.preventDefault();
+    tourStatus.textContent = "";
+    tourStatus.style.color = "";
+
+    if (!tourForm.reportValidity()) return;
+
+    const type = participantType.value;
+    const fee = getTourFee(type);
+
+    if (!fee) {
+      tourStatus.textContent = "Please select Student or Adult.";
+      return;
+    }
+
+    const age = Number(document.getElementById("tourAge").value);
+
+    if (!Number.isInteger(age) || age < 1 || age > 110) {
+      tourStatus.textContent = "Please enter a valid age.";
+      return;
+    }
+
+    const registration = {
+      full_name:document.getElementById("tourFullName").value.trim(),
+      age:age,
+      gender:document.getElementById("tourGender").value || null,
+      participant_type:type,
+      school_institution:document.getElementById("tourSchool").value.trim() || null,
+      phone_number:document.getElementById("tourPhone").value.trim(),
+      email:document.getElementById("tourEmail").value.trim() || null,
+      emergency_contact:document.getElementById("tourEmergency").value.trim(),
+      registration_fee:fee,
+      registration_status:"pending"
+    };
+
+    if (!registration.full_name || !registration.phone_number || !registration.emergency_contact) {
+      tourStatus.textContent = "Please complete all required fields.";
+      return;
+    }
+
+    tourSubmitButton.disabled = true;
+    tourSubmitButton.textContent = "Submitting...";
+    tourStatus.textContent = "Please wait while your registration is submitted.";
+
+    try {
+      const { error } = await supabase
+        .from("bsa_study_tour_registrations")
+        .insert([registration]);
 
       if (error) throw error;
 
-      const { data } = supabase.storage.from(BUCKET).getPublicUrl(path);
-      urls.push(data.publicUrl);
+      tourStatus.textContent =
+        "Thank you! Your Airport Study Tour registration request has been received successfully. Your registration status is pending. BSA will contact you with further information.";
+      tourStatus.style.color = "#16713B";
+
+      tourForm.reset();
+      feeDisplay.textContent = "Select participant type to view the registration fee.";
+
+    } catch (error) {
+      console.error("Study Tour registration error:",error);
+      tourStatus.textContent =
+        "Sorry, we could not submit your registration right now. Please check your internet connection and try again. If the problem continues, contact BLACK SMART AVIATION.";
+      tourStatus.style.color = "#B21D25";
+
+    } finally {
+      tourSubmitButton.disabled = false;
+      tourSubmitButton.textContent = "Submit Registration";
     }
+  });
+}
 
-    return urls;
+/* PUBLIC WEBSITE CONTENT: ONLY PUBLISHED ITEMS ARE DISPLAYED IN THEIR ADMIN CATEGORY */
+const liveStatus = document.getElementById("bsa-live-status");
+const liveGrid = document.getElementById("bsa-live-grid");
+
+const categoryDestinations = {
+  aviation: { grid: "bsa-aviation-grid", block: "bsa-aviation-block" },
+  galley: { grid: "bsa-galley-grid", block: "bsa-galley-block" },
+  jobs: { grid: "bsa-jobs-grid", block: "bsa-jobs-block" },
+  scholarships: { grid: "bsa-scholarships-grid", block: "bsa-scholarships-block" },
+  stories: { grid: "bsa-stories-grid", block: "bsa-stories-block" },
+  community: { grid: "bsa-community-grid", block: "bsa-community-block" },
+  general: { grid: "bsa-live-grid", block: null }
+};
+
+function getSafeImageUrls(value) {
+  let urls = value;
+
+  if (typeof urls === "string") {
+    try {
+      urls = JSON.parse(urls);
+    } catch {
+      urls = [urls];
+    }
   }
 
-  function renderEditableImages() {
-    $("existingImages").innerHTML = currentImages.map((url, index) => `
-      <div class="image-tile">
-        <img src="${escapeHTML(url)}" alt="Saved content image" loading="lazy">
-        <button type="button" class="danger" data-remove-saved="${index}">Remove</button>
-      </div>
-    `).join("");
+  if (!Array.isArray(urls)) return [];
 
-    previewUrls.forEach(url => URL.revokeObjectURL(url));
-    previewUrls = selectedFiles.map(file => URL.createObjectURL(file));
-    $("selectedImages").innerHTML = selectedFiles.map((file, index) => `
-      <div class="image-tile">
-        <img src="${previewUrls[index]}" alt="${escapeHTML(file.name)}">
-        <span class="field-note">${escapeHTML(file.name)}</span>
-        <button type="button" class="danger" data-remove-new="${index}">Remove</button>
-      </div>
-    `).join("");
-  }
-
-  $("images").addEventListener("change", () => {
-    selectedFiles = [...selectedFiles, ...Array.from($("images").files || [])];
-    $("images").value = "";
-    renderEditableImages();
-  });
-
-  $("existingImages").addEventListener("click", event => {
-    const button = event.target.closest("button[data-remove-saved]");
-    if (!button) return;
-    currentImages.splice(Number(button.dataset.removeSaved), 1);
-    renderEditableImages();
-  });
-
-  $("selectedImages").addEventListener("click", event => {
-    const button = event.target.closest("button[data-remove-new]");
-    if (!button) return;
-    selectedFiles.splice(Number(button.dataset.removeNew), 1);
-    renderEditableImages();
-  });
-
-  $("category").addEventListener("change", updateCategoryFields);
-
-  $("contentForm").addEventListener("submit", async event => {
-    event.preventDefault();
-    if (busy) return;
-    setBusy(true);
+  return urls.filter(function(value) {
+    if (typeof value !== "string") return false;
 
     try {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session || session.user.id !== ADMIN_ID) {
-        throw new Error("Your admin session is not valid. Sign in again.");
-      }
+      const parsed = new URL(value);
+      return parsed.protocol === "https:" || parsed.protocol === "http:";
+    } catch {
+      return false;
+    }
+  });
+}
 
-      const title = $("title").value.trim();
-      const slug = makeSlug($("slug").value);
-      if (!title || !slug) throw new Error("Title and slug are required.");
+function openPublishedItem(item) {
+  const travelModalHeader = detailTitle.closest(".bsa-detail-header");
+  if (travelModalHeader) { travelModalHeader.classList.remove("bsa-travel-modal-header"); travelModalHeader.style.backgroundImage = ""; }
+  detailTitle.textContent = item.title || "BLACK SMART AVIATION Update";
 
-      const category = $("category").value;
-      if (category === "youtube") {
-        const videoUrl = $("youtubeUrl").value.trim();
-        if (!isValidYouTubeUrl(videoUrl)) {
-          throw new Error("Please enter a valid YouTube video URL.");
-        }
-        if (currentImages.length + selectedFiles.length < 1) {
-          throw new Error("Please upload a thumbnail image for this YouTube video.");
-        }
-      }
+  detailSubtitle.textContent = item.category
+    ? String(item.category).replace(/[_-]/g," ")
+    : "Educate · Connect · Inspire";
 
-      const uploaded = await uploadImages(selectedFiles);
-      const status = $("status").value;
+  detailContent.replaceChildren();
 
-      const record = {
-        title,
-        slug,
-        category,
-        summary: $("summary").value.trim(),
-        body: category === "youtube" ? $("youtubeUrl").value.trim() : $("body").value.trim(),
-        image_urls: [...currentImages, ...uploaded],
-        status,
-        published_at: status === "published"
-          ? new Date().toISOString()
-          : null,
-        updated_at: new Date().toISOString()
-      };
+  const imageUrls = getSafeImageUrls(item.image_urls);
 
-      const id = $("contentId").value;
-      let result;
+  if (imageUrls.length > 0) {
+    const image = document.createElement("img");
+    image.className = "bsa-live-detail-image";
+    image.src = imageUrls[0];
+    image.alt = item.title ? String(item.title) : "BLACK SMART AVIATION update";
+    image.loading = "lazy";
+    detailContent.appendChild(image);
+  }
 
-      if (id) {
-        result = await supabase.from("bsa_content")
-          .update(record).eq("id", id).select().single();
-      } else {
-        result = await supabase.from("bsa_content")
-          .insert(record).select().single();
-      }
+  const summary = document.createElement("p");
+  summary.textContent = item.summary || "";
+  if (summary.textContent) detailContent.appendChild(summary);
 
-      if (result.error) throw result.error;
+  const body = document.createElement("div");
+  body.className = "bsa-live-detail-body";
+  body.textContent = item.body || "";
+  if (body.textContent) detailContent.appendChild(body);
 
-      clearForm();
-      message("Content saved successfully.", "success");
-      await loadContent();
-    } catch (err) {
-      message("Could not save content: " + err.message, "error");
-    } finally {
-      setBusy(false);
+  showDetailsModal();
+}
+
+function createPublishedCard(item) {
+  const card = document.createElement("article");
+  card.className = "bsa-live-card";
+  card.tabIndex = 0;
+  card.setAttribute("role","button");
+  card.setAttribute("aria-haspopup","dialog");
+
+  const imageUrls = getSafeImageUrls(item.image_urls);
+
+  if (imageUrls.length > 0) {
+    const image = document.createElement("img");
+    image.src = imageUrls[0];
+    image.alt = item.title ? String(item.title) : "BLACK SMART AVIATION update";
+    image.loading = "lazy";
+    image.onerror = function() { image.remove(); };
+    card.appendChild(image);
+  }
+
+  const cardContent = document.createElement("div");
+  cardContent.className = "bsa-live-card-content";
+
+  const category = document.createElement("span");
+  category.className = "bsa-live-category";
+  category.textContent = item.category
+    ? String(item.category).replace(/[_-]/g," ")
+    : "BSA Update";
+
+  const heading = document.createElement("h3");
+  heading.textContent = item.title || "Untitled update";
+
+  const summary = document.createElement("p");
+  summary.textContent = item.summary || "";
+
+  const readMore = document.createElement("span");
+  readMore.className = "bsa-live-read-more";
+  readMore.textContent = "Read More →";
+
+  cardContent.append(category,heading);
+  if (summary.textContent) cardContent.appendChild(summary);
+  cardContent.appendChild(readMore);
+  card.appendChild(cardContent);
+
+  card.addEventListener("click",function() { openPublishedItem(item); });
+  card.addEventListener("keydown",function(event) {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openPublishedItem(item);
     }
   });
 
-  function renderImages(urls) {
-    return (urls || []).map(url =>
-      `<img src="${escapeHTML(url)}" alt="Content image" loading="lazy">`
-    ).join("");
-  }
+  return card;
+}
 
-  async function loadContent() {
-    const list = $("contentList");
-    list.textContent = "Loading content…";
+function normalizeCategory(category) {
+  const value = String(category || "general").trim().toLowerCase();
+  return Object.prototype.hasOwnProperty.call(categoryDestinations,value)
+    ? value
+    : "general";
+}
 
-    let query = supabase.from("bsa_content")
-      .select("*").order("created_at", { ascending: false });
-
-    if ($("filterCategory").value) {
-      query = query.eq("category", $("filterCategory").value);
-    }
-    if ($("filterStatus").value) {
-      query = query.eq("status", $("filterStatus").value);
-    }
-
-    const { data, error } = await query;
-
-    if (error) {
-      list.textContent = "Could not load content: " + error.message;
-      return;
-    }
-
-    if (!data.length) {
-      list.textContent = "No content found. Add your first article above.";
-      return;
-    }
-
-    list.innerHTML = data.map(item => `
-      <article class="content-item">
-        <h3>${escapeHTML(item.title)}</h3>
-        <span class="tag">${escapeHTML(item.category)}</span>
-        <span class="tag">${escapeHTML(item.status)}</span>
-        <p class="muted">${escapeHTML(item.summary || "")}</p>
-        <div class="thumbs">${renderImages(item.image_urls)}</div>
-        <div class="actions">
-          <button type="button" class="primary"
-            data-action="edit" data-id="${escapeHTML(item.id)}">Edit</button>
-          <button type="button" class="secondary"
-            data-action="toggle" data-id="${escapeHTML(item.id)}"
-            data-status="${escapeHTML(item.status)}">
-            ${item.status === "published" ? "Unpublish" : "Publish"}
-          </button>
-          <button type="button" class="danger"
-            data-action="delete" data-id="${escapeHTML(item.id)}">Delete</button>
-        </div>
-      </article>
-    `).join("");
-
-    list.querySelectorAll("button[data-action]").forEach(button => {
-      button.addEventListener("click", () => handleAction(button, data));
-    });
-  }
-
-  async function handleAction(button, records) {
-    const id = button.dataset.id;
-    const action = button.dataset.action;
-    const item = records.find(record => record.id === id);
-    if (!item) return;
-
-    if (action === "edit") {
-      $("contentId").value = item.id;
-      $("title").value = item.title || "";
-      $("slug").value = item.slug || "";
-      $("slug").dataset.edited = "true";
-      $("category").value = item.category === "youtube_clips" ? "youtube" : (item.category || "general");
-      $("status").value = item.status || "draft";
-      $("summary").value = item.summary || "";
-      if (item.category === "youtube" || item.category === "youtube_clips") {
-        $("youtubeUrl").value = item.body || "";
-        $("body").value = "";
-      } else {
-        $("body").value = item.body || "";
-        $("youtubeUrl").value = "";
-      }
-      updateCategoryFields();
-      currentImages = Array.isArray(item.image_urls) ? [...item.image_urls] : [];
-      selectedFiles = [];
-      renderEditableImages();
-      $("formHeading").textContent = "Edit Content";
-      $("saveBtn").textContent = "Update content";
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      return;
-    }
-
-    if (action === "delete") {
-      if (!confirm(`Delete "${item.title}"? This cannot be undone.`)) return;
-
-      const { error } = await supabase.from("bsa_content")
-        .delete().eq("id", id);
-
-      if (error) {
-        message("Delete failed: " + error.message, "error");
-        return;
-      }
-
-      message("Content deleted. Uploaded images may remain in Storage.", "success");
-      await loadContent();
-      return;
-    }
-
-    if (action === "toggle") {
-      const nextStatus = item.status === "published" ? "draft" : "published";
-      const { error } = await supabase.from("bsa_content")
-        .update({
-          status: nextStatus,
-          published_at: nextStatus === "published"
-            ? new Date().toISOString()
-            : null,
-          updated_at: new Date().toISOString()
-        })
-        .eq("id", id);
-
-      if (error) {
-        message("Could not change publication status: " + error.message, "error");
-        return;
-      }
-
-      message(`Content is now ${nextStatus}.`, "success");
-      await loadContent();
-    }
-  }
-
-  $("refreshBtn").addEventListener("click", loadContent);
-  $("filterCategory").addEventListener("change", loadContent);
-  $("filterStatus").addEventListener("change", loadContent);
-
-  updateCategoryFields();
+async function loadPublishedContent() {
+  liveStatus.textContent = "Loading News & Events...";
 
   try {
-    await checkAdmin();
-  } catch (err) {
-    message("Connection error: " + err.message, "error");
-    $("loginPanel").classList.remove("hidden");
-  }
+    const { data,error } = await supabase
+      .from("bsa_content")
+      .select("id,title,slug,category,summary,body,image_urls,status")
+      .eq("status","published");
 
-  supabase.auth.onAuthStateChange(() => {
-    // Re-check the session after login state changes.
-    setTimeout(() => checkAdmin().catch(err =>
-      message("Session check failed: " + err.message, "error")
-    ), 0);
-  });
+    if (error) throw error;
+
+    const publishedItems = Array.isArray(data) ? data : [];
+    const counts = {};
+
+    publishedItems.forEach(function(item) {
+      const category = normalizeCategory(item.category);
+      const destination = categoryDestinations[category];
+      const targetGrid = document.getElementById(destination.grid);
+      if (!targetGrid) {
+        console.warn("BSA category destination not found:",category);
+        return;
+      }
+
+      targetGrid.appendChild(createPublishedCard(item));
+      counts[category] = (counts[category] || 0) + 1;
+
+      if (destination.block) {
+        const block = document.getElementById(destination.block);
+        if (block) block.hidden = false;
+      }
+    });
+
+    const generalCount = counts.general || 0;
+    const totalCount = publishedItems.length;
+
+    if (totalCount === 0) {
+      liveStatus.textContent =
+        "Airport Study Tour is currently listed. More general news and events will appear here when published by BSA.";
+    } else if (generalCount === 0) {
+      liveStatus.textContent =
+        "Airport Study Tour is listed. " + totalCount +
+        (totalCount === 1 ? " published update has been added to its selected section." :
+        " published updates have been added to their selected sections.");
+    } else {
+      liveStatus.textContent =
+        "Airport Study Tour and " + generalCount +
+        (generalCount === 1 ? " general update available. Other updates appear in their selected sections." :
+        " general updates available. Other updates appear in their selected sections.");
+    }
+
+  } catch (error) {
+    console.error("BSA public content loading error:",error);
+    liveStatus.textContent =
+      "Airport Study Tour is listed below. We could not load other updates right now. Please try again later.";
+  }
+}
+
+loadPublishedContent();
 </script>
 </body>
 </html>
